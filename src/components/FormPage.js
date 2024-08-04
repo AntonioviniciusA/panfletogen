@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FrontForm from "./FrontForm";
 import BackForm from "./BackForm";
+import "../style.css";
 
 const FormPage = () => {
   const [activeTab, setActiveTab] = useState("front");
