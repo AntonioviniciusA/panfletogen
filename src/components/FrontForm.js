@@ -8,7 +8,7 @@ const FrontForm = () => {
     duration: "",
     image: "",
     bgColor: "#ffffff",
-    textColor: "",
+    textColor: "#000000",
   });
   const [cards, setCards] = useState([]);
   const [footerData, setFooterData] = useState({
@@ -16,10 +16,10 @@ const FrontForm = () => {
     address: "",
     hours: "",
     bgColor: "#ffffff",
-    textColor: "",
+    textColor: "#000000",
   });
   const [cardcolorData, setCardColorData] = useState({
-    precocor: "",
+    precocor: "#000000",
   });
   const handleCardColorChange = (e) => {
     const { name, value } = e.target;
@@ -65,16 +65,20 @@ const FrontForm = () => {
       <h2>Configuração da Frente do Panfleto</h2>
       <div>
         <h3>Header</h3>
-        <input
-          type="file"
-          name="logo"
-          onChange={(e) =>
-            setHeaderData({
-              ...headerData,
-              logo: URL.createObjectURL(e.target.files[0]),
-            })
-          }
-        />
+
+        <label>
+          Logo(png):
+          <input
+            type="file"
+            name="logo"
+            onChange={(e) =>
+              setHeaderData({
+                ...headerData,
+                logo: URL.createObjectURL(e.target.files[0]),
+              })
+            }
+          />
+        </label>
         <input
           type="text"
           name="description"
@@ -145,13 +149,16 @@ const FrontForm = () => {
               onChange={(e) => handleCardChange(index, e)}
               placeholder="Descrição do Produto"
             />
-            <input
-              type="text"
-              name="price"
-              value={card.price}
-              onChange={(e) => handleCardChange(index, e)}
-              placeholder="Preço"
-            />
+            <label>
+              Preço
+              <input
+                type="number"
+                name="price"
+                value={card.price}
+                onChange={(e) => handleCardChange(index, e)}
+                placeholder="9,99"
+              />
+            </label>
 
             <button onClick={() => handleRemoveCard(index)}>Remover</button>
           </div>
@@ -172,27 +179,39 @@ const FrontForm = () => {
 
       <div>
         <h3>Footer</h3>
-        <input
-          type="text"
-          name="text"
-          value={footerData.text}
-          onChange={handleFooterChange}
-          placeholder="Texto Atrativo"
-        />
-        <input
-          type="text"
-          name="address"
-          value={footerData.address}
-          onChange={handleFooterChange}
-          placeholder="Endereço"
-        />
-        <input
-          type="text"
-          name="hours"
-          value={footerData.hours}
-          onChange={handleFooterChange}
-          placeholder="Horário de Funcionamento"
-        />
+        <label>
+          Coloque um texto atrativo:
+          <input
+            type="text"
+            name="text"
+            value={footerData.text}
+            onChange={handleFooterChange}
+            placeholder="LOJA XYZ - Qualidade e Economia Sempre Perto de Você!"
+          />
+        </label>
+
+        <label>
+          Endereço:
+          <input
+            type="text"
+            name="address"
+            value={footerData.address}
+            onChange={handleFooterChange}
+            placeholder="Rua das Compras, 123 - Centro"
+          />
+        </label>
+
+        <label>
+          Horario de Funcionamento:
+          <input
+            type="text"
+            name="hours"
+            value={footerData.hours}
+            onChange={handleFooterChange}
+            placeholder="Horário de Funcionamento: Segunda a Sábado, das 8h às 22h | Domingo, das 9h às 18h"
+          />
+        </label>
+
         <label>
           Cor do fundo:
           <input

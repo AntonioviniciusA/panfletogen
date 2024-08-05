@@ -94,9 +94,9 @@ const CardsPage = () => {
                 <div className="card" key={index}>
                   <img src={card.image} alt={`Product ${index}`} />
                   <p>{card.description}</p>
-                  <h4 style={{ color: frontContent.cardcolorData.textColor }}>
-                    {card.price}
-                  </h4>
+                  <h1 style={{ color: frontContent.cardcolorData.precocor }}>
+                    R${card.price}
+                  </h1>
                 </div>
               ))}
           </div>
@@ -117,7 +117,12 @@ const CardsPage = () => {
       {!showFront && (
         <div id="back-page" className="page">
           {backContent.headerData && (
-            <header style={{ backgroundColor: backContent.headerData.bgColor }}>
+            <header
+              style={{
+                backgroundColor: backContent.headerData.bgColor,
+                color: backContent.headerData.textColor,
+              }}
+            >
               {backContent.headerData.image ? (
                 <img
                   src={backContent.headerData.image}
@@ -145,7 +150,9 @@ const CardsPage = () => {
                 <div className="card" key={index}>
                   <img src={card.image} alt={`Product ${index}`} />
                   <p>{card.description}</p>
-                  <h4>{card.price}</h4>
+                  <h1 style={{ color: backContent.cardcolorData.precocor }}>
+                    R${card.price}
+                  </h1>
                 </div>
               ))}
           </div>
