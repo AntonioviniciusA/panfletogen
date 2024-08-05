@@ -20,8 +20,7 @@ const CardsPage = () => {
   }, []);
 
   const handleDownload = (elementId, filename) => {
-    const input = document.getElementById(elementId);
-    html2canvas(input).then((canvas) => {
+    html2canvas(document.querySelector(".container")).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
       const imgWidth = 210; // A4 size width in mm
@@ -29,7 +28,7 @@ const CardsPage = () => {
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       let heightLeft = imgHeight;
 
-      pdf.addImage(imgData, "PNG", 0, 0);
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
       heightLeft -= pageHeight;
 
       while (heightLeft >= 0) {
