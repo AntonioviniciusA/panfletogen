@@ -112,6 +112,9 @@ body.darkmode {
 }
 label {
   color: #ad8524;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 input {
   color: #ad8524;

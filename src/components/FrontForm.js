@@ -79,30 +79,42 @@ const FrontForm = () => {
             }
           />
         </label>
-        <input
-          type="text"
-          name="description"
-          value={headerData.description}
-          onChange={handleHeaderChange}
-          placeholder="Descrição da Promoção"
-        />
-        <input
-          type="text"
-          name="duration"
-          value={headerData.duration}
-          onChange={handleHeaderChange}
-          placeholder="Data de Duração"
-        />
-        <input
-          type="file"
-          name="image"
-          onChange={(e) =>
-            setHeaderData({
-              ...headerData,
-              image: URL.createObjectURL(e.target.files[0]),
-            })
-          }
-        />
+        <label>
+          Frase Promocional
+          <input
+            type="text"
+            name="description"
+            value={headerData.description}
+            onChange={handleHeaderChange}
+            placeholder="Economia Garantida Toda Semana! Descubra as Ofertas Imperdíveis do Supermercado XYZ!"
+          />
+        </label>
+
+        <label>
+          validade da Promoção
+          <input
+            type="text"
+            name="duration"
+            value={headerData.duration}
+            onChange={handleHeaderChange}
+            placeholder="Valido do dia 99 ao dia 99 de ago"
+          />
+        </label>
+
+        <label>
+          imagem para subtiuir o header(png):
+          <input
+            type="file"
+            name="image"
+            onChange={(e) =>
+              setHeaderData({
+                ...headerData,
+                image: URL.createObjectURL(e.target.files[0]),
+              })
+            }
+          />
+        </label>
+
         <label>
           Cor do fundo:
           <input
