@@ -96,7 +96,7 @@ body.darkmode {
   font-style: normal;
   margin: 0;
   padding: 0;
-  background: #fff;
+  background: #000;
   overflow-x: hidden;
   overflow-y: scroll;
 }
