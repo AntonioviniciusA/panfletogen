@@ -3,7 +3,7 @@ import "../tailwind.css";
 
 const Header = () => {
   return (
-    <div className="">
+    <div className="bg-gray-100">
       <img className="" src="" alt="Logo" />
       <h1>PanfletoGen</h1>
       <h3>Um Gerador de Panfleto</h3>

@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 *,
 ::before,
 ::after {
@@ -10,7 +8,7 @@
 /**
 Use a more readable tab size (opinionated).
 */
-
+  
 html {
   tab-size: 4;
 }
