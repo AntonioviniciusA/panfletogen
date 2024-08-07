@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CardsPage from "./components/CardsPage";
 import FormPage from "./components/FormPage";
 import "./style.css";
-
 function App() {
   return (
     <Router>
