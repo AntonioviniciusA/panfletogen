@@ -1,17 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import CardsPage from "./components/CardsPage";
-import FormPage from "./components/FormPage";
+import "./output.css";
 import "./style.css";
-import "./tailwind.css";
+import "./tailwind.config";
 import Menu from "./Pages/Menu";
+import Templetemercado from "./Pages/Templetemercado";
+import Panfletomercado from "./Pages/Panfletomercado";
+
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<FormPage />} />
-        <Route path="/cards" element={<CardsPage />} />
-        <Route path="/teste" element={<Menu />} />
+        <Route path="/" element={<Menu />} />
+        <Route path="/mercado-templete" element={<Templetemercado />} />
+        <Route path="/panfleto-mercado" element={<Panfletomercado />} />
       </Routes>
     </Router>
   );
