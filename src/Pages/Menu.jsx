@@ -94,7 +94,7 @@ const Menu = () => {
       </div>
       <div
         id="carousel"
-        className="bg-color2 h-fit w-screen flex flex-col items-center justify-center gap-4"
+        className="bg-color2 h-fit w-full flex flex-col items-center justify-center gap-4"
       >
         <div>
           <h2 className="bg-color1 text-white text-xl px-4 py-1 m-2 rounded-full">

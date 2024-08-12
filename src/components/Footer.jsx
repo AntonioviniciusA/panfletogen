@@ -7,7 +7,7 @@ import logodark from "../img/logo dark.png";
 const Footer = () => {
   return (
     <div className="bg-color2 gap-2 flex justify-between">
-      <div className="flex items-center justify-start">
+      <div className="flex items-center justify-start text-white">
         <img src={emaillogo} className="logo" alt="icone telefone" />
         <a href="mailto:antoniovinicius_@outlook.com">
           antoniovinicius_@outlook.com
