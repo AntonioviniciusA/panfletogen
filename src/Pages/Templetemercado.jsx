@@ -14,8 +14,8 @@ const Templetemercado = () => {
     bgColor: "",
     titulo: "",
     duracao: "",
-    titulocolor: "",
-    duracaocolor: "",
+    tituloColor: "",
+    duracaoColor: "",
   });
   const [bgImage, setBgImage] = useState("");
 
@@ -99,8 +99,11 @@ const Templetemercado = () => {
   }
   return (
     <>
-      <form onSubmit={Templetemercado}>
-        <div>
+      <form
+        onSubmit={Templetemercado}
+        className="bg-gray-500 flex flex-col content-center"
+      >
+        <div className="">
           <select
             value={bgtypeheader}
             name="bgtypeheader"
@@ -168,9 +171,9 @@ const Templetemercado = () => {
               Cor do Titulo:
               <input
                 type="color"
-                name="titulocolor"
+                name="tituloColor"
                 className="colorswitch"
-                value={headerData.titulocolor}
+                value={headerData.tituloColor}
                 onChange={handleHeaderChange}
               />
             </label>
@@ -191,11 +194,14 @@ const Templetemercado = () => {
               Cor da validade:
               <input
                 type="color"
-                name="duracaocolor"
+                name="duracaoColor"
                 className="colorswitch"
-                value={headerData.duracaocolor}
+                value={headerData.duracaoColor}
                 onChange={handleHeaderChange}
               />
+            </label>
+            <label>
+              Tamanho da letra: <input type="range" name="sizeduracao" id="" />
             </label>
           </div>
         </div>
@@ -216,8 +222,12 @@ const Templetemercado = () => {
             >
               <div>
                 <img src={headerData.logo} width={200} alt="logo" />
-                <h1>{headerData.titulo}</h1>
-                <p>{headerData.duracao}</p>
+                <h1 style={{ color: headerData.tituloColor }}>
+                  {headerData.titulo}
+                </h1>
+                <p style={{ color: headerData.duracaoColor }}>
+                  {headerData.duracao}
+                </p>
               </div>
             </header>
           )}

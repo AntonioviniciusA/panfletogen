@@ -16,10 +16,29 @@ const Menu = () => {
       .then(setData);
   });
 
-  const itemsPerPage = 3;
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-  const [currentPage, setCurrentPage] = useState(0);
   const carousel = useRef(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const updateItemsPerPage = () => {
+    if (window.innerWidth < 640) {
+      setItemsPerPage(1); // 1 item por página em telas pequenas
+    } else if (window.innerWidth < 1024) {
+      setItemsPerPage(1);
+    } else {
+      setItemsPerPage(3); // 3 itens por página em telas grandes
+    }
+  };
+
+  useEffect(() => {
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+
+    return () => {
+      window.removeEventListener("resize", updateItemsPerPage);
+    };
+  }, []);
 
   const handleLeftClick = () => {
     const newIndex = currentPage === 0 ? totalPages - 1 : currentPage - 1;
@@ -37,6 +56,7 @@ const Menu = () => {
     setCurrentPage(index);
     carousel.current.scrollLeft = carousel.current.clientWidth * index;
   };
+
   useEffect(() => {
     const handleScroll = () => {
       const index = Math.round(
@@ -57,25 +77,28 @@ const Menu = () => {
   return (
     <>
       <Header />
-      <div className="bg-white w-full flex justify-center content-center items-center gap-4 my-8">
+      <div className="bg-white w-full xl:flex xl:justify-center xl:content-center xl:items-center xl:gap-4 my-8">
         <div className="xl:w-2/4">
-          <h3 className="xl:text-right xl:text-4xl flex sm:flex-col sm:text-center sm:m-1 sm:my-4  ">
+          <h3
+            className="xl:text-right xl:text-4xl md:flex md:flex-col md:text-center md:m-1 md:my-4
+          text-center"
+          >
             ECONOMIZE TEMPO E SIMPLIFIQUE <br />
             SEU TRABALHO USANDO NOSSA <br />
             FERRAMENTA E GERE AGORA MESMO FLYER/PANFLETOS
           </h3>
         </div>
-        <div className=" h-auto">
+        <div className=" h-auto xl:w-1/4 flex my-3 items-center justify-center  ">
           <img src={modelo} alt="" className=" rounded-2xl w-72 h-52" />
         </div>
       </div>
-      <div className="bg-gray-400 h-screen flex flex-col items-center justify-center gap-4">
+      <div className="bg-gray-400 h-screen w-screen flex flex-col items-center justify-center gap-4">
         <div>
           <h2 className="bg-gray-500 text-white text-xl px-4 py-1 m-2 rounded-full">
             Escolha um modelo
           </h2>
         </div>
-        <div className="container-carousel bg-gray-500 flex w-full justify-center items-center">
+        <div className="container-carousel bg-gray-500 xl:flex xl:w-full xl:justify-center w-full flex flex-col items-center">
           <button
             className="left-28 w-8 h-8 absolute "
             onClick={handleLeftClick}
@@ -94,12 +117,12 @@ const Menu = () => {
               };
               return (
                 <div
-                  className="item bg-gray-600 p-6 w-1/4 h-3/4 rounded-lg gap-7
+                  className="item bg-gray-600 p-6 sm:w-10/12  flex flex-col sm:justify-center w-3/4  lg:w-1/4 h-auto rounded-lg gap-7
                    m-10 flex-none
                 "
                   key={id}
                 >
-                  <div className="image m-3 w-4/4">
+                  <div className="image m-3">
                     <img src={image} alt={name} />
                   </div>
 
@@ -140,13 +163,14 @@ const Menu = () => {
           ></span>
         ))}
       </div>
-      <div className="w-full h-auto flex items-center justify-around gap-2 my-8">
+      <div className="w-full h-auto xl:flex-row flex items-center xl:justify-around flex-col gap-2 my-8">
         <img src={modelo} alt="" className=" rounded-2xl w-72 h-52" />
         <h1>
           <strong>OUTROS PROJETOS</strong>
         </h1>
         <img src={modelo} alt="modelo" className=" rounded-2xl w-72 h-52" />
       </div>
+
       <Footer />
     </>
   );
