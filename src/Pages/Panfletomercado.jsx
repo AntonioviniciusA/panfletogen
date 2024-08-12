@@ -40,13 +40,26 @@ const Panfletomercado = () => {
           >
             <div>
               <img src={frontContent.headerData.logo} width={200} alt="logo" />
-              <h1 style={{ color: frontContent.headerData.tituloColor }}>
+              <h1
+                style={{
+                  color: frontContent.headerData.tituloColor,
+                  fontSize: frontContent.headerData.titulofontSize,
+                  position: "relative",
+                  left: frontContent.headerData.positionTitulo + "%",
+                  top: frontContent.headerData.positionTituloV + "px",
+                  transition: "left 0.3s ease",
+                }}
+              >
                 {frontContent.headerData.titulo}
               </h1>
               <p
                 style={{
                   color: frontContent.headerData.duracaoColor,
-                  fontSize: headerData.duracaofontSize,
+                  fontSize: frontContent.headerData.duracaofontSize,
+                  position: "relative",
+                  left: frontContent.headerData.positionduracao + "%",
+                  top: frontContent.headerData.positionduracaoV + "px",
+                  transition: "left 0.3s ease",
                 }}
               >
                 {frontContent.headerData.duracao}

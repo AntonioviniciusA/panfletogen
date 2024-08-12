@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Templetemercado = () => {
-  /*-------------------- HEADER-------------------------*/
+const HeadertempMercado = () => {
   {
     /* header*/
   }
@@ -23,27 +22,7 @@ const Templetemercado = () => {
     positionduracaoV: "",
     positionTitulo: "",
     positionTituloV: "",
-    positionlogo: "",
-    positionlogoV: "",
   });
-  const [positionlogoV, setPositionlogoV] = useState(0);
-
-  const handlelogoPositionVChange = (e) => {
-    setPositionlogoV(e.target.value);
-    setHeaderData((prevData) => ({
-      ...prevData,
-      positionlogoV: e.target.value,
-    }));
-  };
-  const [positionlogo, setPositionlogo] = useState(0);
-
-  const handlelogoPositionChange = (e) => {
-    setPositionlogo(e.target.value);
-    setHeaderData((prevData) => ({
-      ...prevData,
-      positionlogo: e.target.value,
-    }));
-  };
 
   const [positionTituloV, setPositionTituloV] = useState(0);
 
@@ -54,7 +33,7 @@ const Templetemercado = () => {
       positionTituloV: e.target.value,
     }));
   };
-  const [positionTitulo, setPositionTitulo] = useState(45);
+  const [positionTitulo, setPositionTitulo] = useState(0);
 
   const handleTituloPositionChange = (e) => {
     setPositionTitulo(e.target.value);
@@ -64,7 +43,7 @@ const Templetemercado = () => {
     }));
   };
 
-  const [positionduracaoV, setPositionduracaoV] = useState(24);
+  const [positionduracaoV, setPositionduracaoV] = useState(0);
 
   const handleDuracaoPositionVChange = (e) => {
     setPositionduracaoV(e.target.value);
@@ -74,7 +53,7 @@ const Templetemercado = () => {
     }));
   };
 
-  const [positionduracao, setPositionduracao] = useState(78);
+  const [positionduracao, setPositionduracao] = useState(0);
 
   const handleDuracaoPositionChange = (e) => {
     setPositionduracao(e.target.value);
@@ -131,9 +110,9 @@ const Templetemercado = () => {
       [name]: value,
     }));
   };
-  /*-------------------- PRODUTOS -------------------------*/
-
-  /*-------------------- CONFIG DE SAVE -------------------------*/
+  {
+    /* header*/
+  }
   {
     /* SALVA O DOCUMENTO*/
   }
@@ -240,30 +219,6 @@ const Templetemercado = () => {
                 })
               }
             />
-            <label>
-              localização horizontal da validade:
-              <input
-                type="range"
-                id="positionlogo"
-                min="0"
-                max="100"
-                value={positionlogo}
-                onChange={handlelogoPositionChange}
-                style={{ width: "100%" }}
-              />
-            </label>
-            <label>
-              localização vertical da validade:
-              <input
-                type="range"
-                id="positionlogoV"
-                min="0"
-                max="100"
-                value={positionlogoV}
-                onChange={handlelogoPositionVChange}
-                style={{ width: "100%" }}
-              />
-            </label>
             <br />
             <br />
             <label>
@@ -302,7 +257,6 @@ const Templetemercado = () => {
                 <option value="36px">36px</option>
               </select>
             </label>
-            <br />
             <label>
               localização horizontal da validade:
               <input
@@ -368,7 +322,6 @@ const Templetemercado = () => {
                 <option value="36px">36px</option>
               </select>
             </label>
-            <br />
             <label>
               localização horizontal da validade:
               <input
@@ -411,16 +364,7 @@ const Templetemercado = () => {
               }}
             >
               <div>
-                <img
-                  src={headerData.logo}
-                  style={{
-                    position: "relative",
-                    left: headerData.positionlogo + "%",
-                    top: headerData.positionlogoV + "px",
-                  }}
-                  width={200}
-                  alt="logo"
-                />
+                <img src={headerData.logo} width={200} alt="logo" />
                 <h1
                   style={{
                     color: headerData.tituloColor,
@@ -453,10 +397,8 @@ const Templetemercado = () => {
       <br />
       <br />
       <br />
-
-      <form></form>
-      <button onClick={handleSavePanfleto}>Salvar e ir </button>
     </>
   );
 };
-export default Templetemercado;
+
+export default HeadertempMercado;

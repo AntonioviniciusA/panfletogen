@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../output.css";
-import modelo from "../img/image.png";
+import modelo from "../img/modelo.png";
 import setaesquerda from "../img/Seta para a esquerda.png";
 import setadireita from "../img/Seta para a direita.png";
 
@@ -77,7 +77,7 @@ const Menu = () => {
   return (
     <>
       <Header />
-      <div className="bg-white w-full xl:flex xl:justify-center xl:content-center xl:items-center xl:gap-4 my-8">
+      <div className="bg-color3 w-full xl:flex xl:justify-center xl:content-center xl:items-center xl:gap-4 my-8">
         <div className="xl:w-2/4">
           <h3
             className="xl:text-right xl:text-4xl md:flex md:flex-col md:text-center md:m-1 md:my-4
@@ -88,17 +88,20 @@ const Menu = () => {
             FERRAMENTA E GERE AGORA MESMO FLYER/PANFLETOS
           </h3>
         </div>
-        <div className=" h-auto xl:w-1/4 flex my-3 items-center justify-center  ">
-          <img src={modelo} alt="" className=" rounded-2xl w-72 h-52" />
+        <div className=" h-auto xl:w-2/4 flex my-3 items-center justify-center  ">
+          <img src={modelo} alt="" className=" rounded-2xl w-5/5 h-52" />
         </div>
       </div>
-      <div className="bg-gray-400 h-screen w-screen flex flex-col items-center justify-center gap-4">
+      <div
+        id="carousel"
+        className="bg-color2 h-fit w-screen flex flex-col items-center justify-center gap-4"
+      >
         <div>
-          <h2 className="bg-gray-500 text-white text-xl px-4 py-1 m-2 rounded-full">
+          <h2 className="bg-color1 text-white text-xl px-4 py-1 m-2 rounded-full">
             Escolha um modelo
           </h2>
         </div>
-        <div className="container-carousel bg-gray-500 xl:flex xl:w-full xl:justify-center w-full flex flex-col items-center">
+        <div className="container-carousel bg-color1opct40 xl:flex xl:w-full xl:justify-center w-full h-fit flex flex-col items-center">
           <button
             className="left-28 w-8 h-8 absolute "
             onClick={handleLeftClick}
@@ -106,18 +109,18 @@ const Menu = () => {
             <img src={setaesquerda} alt="" />
           </button>
           <div
-            className="carousel overflow-x-auto scroll-smooth flex w-3/4 
+            className="carousel overflow-x-auto scroll-smooth flex w-3/4 h-fit
              "
             ref={carousel}
           >
             {data.map((item) => {
               const { id, name, image, link } = item;
-              const templeteMercado = () => {
+              const pageForm = () => {
                 navigate(link);
               };
               return (
                 <div
-                  className="item bg-gray-600 p-6 sm:w-10/12  flex flex-col sm:justify-center w-3/4  lg:w-1/4 h-auto rounded-lg gap-7
+                  className="item bg-color1 p-2 pb-0 sm:w-10/12  flex flex-col sm:justify-center w-3/4  lg:w-1/4 h-fit rounded-lg gap-3
                    m-10 flex-none
                 "
                   key={id}
@@ -126,11 +129,14 @@ const Menu = () => {
                     <img src={image} alt={name} />
                   </div>
 
-                  <div className="info gap-2">
+                  <div className="info gap-2 w-full flex flex-col items-center">
                     <p className="name">{name}</p>
-                    <p className="bg-gray-500 p-3" onClick={templeteMercado}>
+                    <button
+                      className="bg-color1 rounded-full button p-3"
+                      onClick={pageForm}
+                    >
                       Abrir modelo
-                    </p>
+                    </button>
                   </div>
                 </div>
               );
@@ -163,7 +169,7 @@ const Menu = () => {
           ></span>
         ))}
       </div>
-      <div className="w-full h-auto xl:flex-row flex items-center xl:justify-around flex-col gap-2 my-8">
+      <div className="w-full xl:flex-row flex items-center xl:h-fit h-fit xl:justify-around flex-col gap-2 my-8">
         <img src={modelo} alt="" className=" rounded-2xl w-72 h-52" />
         <h1>
           <strong>OUTROS PROJETOS</strong>
