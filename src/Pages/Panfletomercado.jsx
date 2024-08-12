@@ -43,7 +43,12 @@ const Panfletomercado = () => {
               <h1 style={{ color: frontContent.headerData.tituloColor }}>
                 {frontContent.headerData.titulo}
               </h1>
-              <p style={{ color: frontContent.headerData.duracaoColor }}>
+              <p
+                style={{
+                  color: frontContent.headerData.duracaoColor,
+                  fontSize: headerData.duracaofontSize,
+                }}
+              >
                 {frontContent.headerData.duracao}
               </p>
             </div>

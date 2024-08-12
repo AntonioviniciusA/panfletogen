@@ -13,10 +13,40 @@ const Templetemercado = () => {
     logo: "",
     bgColor: "",
     titulo: "",
-    duracao: "",
     tituloColor: "",
+    titulofontSize: "",
+    duracao: "",
     duracaoColor: "",
+    duracaofontSize: "",
+    positionduracao: "",
   });
+
+  const [positionduracao, setPositionduracao] = useState(0);
+
+  const handleDuracaoPositionChange = (e) => {
+    setPositionduracao(e.target.value);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      positionduracao: e.target.value,
+    }));
+  };
+  const [titulofontSize, settituloFontSize] = useState("16px");
+  const handleTituloFontSizeChange = (e) => {
+    settituloFontSize(e.target.value);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      titulofontSize: e.target.value,
+    }));
+  };
+
+  const [duracaofontSize, setduracaoFontSize] = useState("16px");
+  const handleDuracaoFontSizeChange = (e) => {
+    setduracaoFontSize(e.target.value);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      duracaofontSize: e.target.value,
+    }));
+  };
   const [bgImage, setBgImage] = useState("");
 
   const handleUrlChange = (e) => {
@@ -177,6 +207,22 @@ const Templetemercado = () => {
                 onChange={handleHeaderChange}
               />
             </label>
+            <label>
+              Escolha do o tamanho da letra do titulo:
+              <select
+                id="titulofontSize"
+                value={titulofontSize}
+                onChange={handleTituloFontSizeChange}
+              >
+                <option value="12px">12px</option>
+                <option value="16px">16px</option>
+                <option value="20px">20px</option>
+                <option value="24px">24px</option>
+                <option value="28px">28px</option>
+                <option value="32px">32px</option>
+                <option value="36px">36px</option>
+              </select>
+            </label>
           </div>
           <div>
             <label>
@@ -201,7 +247,32 @@ const Templetemercado = () => {
               />
             </label>
             <label>
-              Tamanho da letra: <input type="range" name="sizeduracao" id="" />
+              Escolha do o tamanho da letra da validade
+              <select
+                id="duracaofontSize"
+                value={duracaofontSize}
+                onChange={handleDuracaoFontSizeChange}
+              >
+                <option value="12px">12px</option>
+                <option value="16px">16px</option>
+                <option value="20px">20px</option>
+                <option value="24px">24px</option>
+                <option value="28px">28px</option>
+                <option value="32px">32px</option>
+                <option value="36px">36px</option>
+              </select>
+            </label>
+            <label>
+              localização horizontal da validade:
+              <input
+                type="range"
+                id="positionduracao"
+                min="0"
+                max="100"
+                value={positionduracao}
+                onChange={handleDuracaoPositionChange}
+                style={{ width: "100%" }}
+              />
             </label>
           </div>
         </div>
@@ -210,6 +281,7 @@ const Templetemercado = () => {
       </form>
       {/* Preview*/}
       <div className="preview container">
+        <h1>Preview</h1>
         <div id="front-page" className="page">
           {headerData && (
             <header
@@ -222,10 +294,23 @@ const Templetemercado = () => {
             >
               <div>
                 <img src={headerData.logo} width={200} alt="logo" />
-                <h1 style={{ color: headerData.tituloColor }}>
+                <h1
+                  style={{
+                    color: headerData.tituloColor,
+                    fontSize: headerData.titulofontSize,
+                  }}
+                >
                   {headerData.titulo}
                 </h1>
-                <p style={{ color: headerData.duracaoColor }}>
+                <p
+                  style={{
+                    color: headerData.duracaoColor,
+                    fontSize: headerData.duracaofontSize,
+                    position: "relative",
+                    left: headerData.positionduracao,
+                    transition: "left 0.3s ease",
+                  }}
+                >
                   {headerData.duracao}
                 </p>
               </div>
