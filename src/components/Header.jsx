@@ -14,8 +14,8 @@ const Header = () => {
 
   return (
     <div className="bg-color3 flex gap-5 flex-col">
-      <div className="bg-color2 absolute flex flex-row xl:justify-between w-full">
-        <div className="flex flex-row h-10">
+      <div className="bg-color2 absolute flex flex-row xl:justify-between items-center w-full">
+        <div className="flex flex-row h-16 ">
           <img className=" w-auto h-fit m-2" src={logodarkctitulo} alt="Logo" />
         </div>
         <div>
