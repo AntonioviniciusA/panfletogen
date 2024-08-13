@@ -68,6 +68,18 @@ const Panfletomercado = () => {
           </header>
         )}
       </div>
+      <div className="cards">
+        {frontContent.cards &&
+          frontContent.cards.map((card, index) => (
+            <div className="card" key={index}>
+              <img src={card.image} alt={`Product ${index}`} />
+              <p>{card.description}</p>
+              <h1 style={{ color: frontContent.cardcolorData.precocor }}>
+                R${card.price}
+              </h1>
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

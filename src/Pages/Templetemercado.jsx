@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Templetemercado = () => {
@@ -132,7 +132,30 @@ const Templetemercado = () => {
     }));
   };
   /*-------------------- PRODUTOS -------------------------*/
+  const [cards, setCards] = useState([]);
+  const [cardcolorData, setCardColorData] = useState({
+    precocor: "#000000",
+  });
+  const handleCardColorChange = (e) => {
+    const { name, value } = e.target;
+    setCardColorData({ ...cardcolorData, [name]: value });
+  };
+  const handleCardChange = (index, e) => {
+    const { name, value } = e.target;
+    const newCards = [...cards];
+    newCards[index] = { ...newCards[index], [name]: value };
+    setCards(newCards);
+  };
 
+  const handleAddCard = () => {
+    setCards([...cards, { image: "", description: "", price: "" }]);
+  };
+
+  const handleRemoveCard = (index) => {
+    const newCards = [...cards];
+    newCards.splice(index, 1);
+    setCards(newCards);
+  };
   /*-------------------- CONFIG DE SAVE -------------------------*/
   {
     /* SALVA O DOCUMENTO*/
@@ -140,7 +163,10 @@ const Templetemercado = () => {
   const handleSavePanfleto = (e) => {
     e.preventDefault();
     saveFormData();
-    localStorage.setItem("frontContent", JSON.stringify({ headerData }));
+    localStorage.setItem(
+      "frontContent",
+      JSON.stringify({ headerData, cardcolorData, cards })
+    );
     alert("Panfleto salvo! Apertem em (ok) para continuar");
     navigate("/panfleto-mercado");
     if (headerData) {
@@ -165,7 +191,7 @@ const Templetemercado = () => {
   const saveFormData = () => {
     localStorage.setItem(
       "formData",
-      JSON.stringify({ bgtypeheader, headerData })
+      JSON.stringify({ bgtypeheader, headerData, cards })
     );
   };
 
@@ -175,6 +201,7 @@ const Templetemercado = () => {
     if (savedData) {
       setBgTypeHeader(savedData.bgtypeheader);
       setHeaderData(savedData.headerData);
+      setCards(savedData.cards || []);
     }
   }, []);
   {
@@ -182,223 +209,225 @@ const Templetemercado = () => {
   }
   return (
     <>
-      <form
-        onSubmit={Templetemercado}
-        className="bg-gray-500 flex flex-col content-center"
-      >
-        <div className="">
-          <select
-            value={bgtypeheader}
-            name="bgtypeheader"
-            id="bgtypeheader"
-            onChange={(e) => {
-              setBgTypeHeader(e.target.value);
-            }}
-          >
-            <option value="" placeholder="Selecione um tipo de fundo">
-              Selecione um tipo de fundo
-            </option>
-            <option value="url" placeholder="https://exemplo.webp">
-              Link de uma imagem
-            </option>
-            <option value="file">Imagem</option>
-            <option value="color">Cor de Fundo</option>
-          </select>
+      <div className="flex flex-col items-center justify-center">
+        <form
+          onSubmit={Templetemercado}
+          className="bg-gray-500 flex flex-col content-center"
+        >
+          <div className="">
+            <select
+              value={bgtypeheader}
+              name="bgtypeheader"
+              id="bgtypeheader"
+              onChange={(e) => {
+                setBgTypeHeader(e.target.value);
+              }}
+            >
+              <option value="" placeholder="Selecione um tipo de fundo">
+                Selecione um tipo de fundo
+              </option>
+              <option value="url" placeholder="https://exemplo.webp">
+                Link de uma imagem
+              </option>
+              <option value="file">Imagem</option>
+              <option value="color">Cor de Fundo</option>
+            </select>
 
-          {bgtypeheader === "url" && (
-            <input
-              type="text"
-              placeholder="Insira o URL da imagem"
-              onChange={handleUrlChange}
-            />
-          )}
-
-          {bgtypeheader === "file" && (
-            <input type="file" onChange={handleFileChange} />
-          )}
-
-          {bgtypeheader === "color" && (
-            <input
-              type={bgtypeheader}
-              name="bgColor"
-              className="colorswitch"
-              value={headerData.bgColor}
-              onChange={handleHeaderChange}
-            />
-          )}
-        </div>
-        <br />
-        <div>
-          <div>
-            <input
-              type="file"
-              name="logo"
-              onChange={(e) =>
-                setHeaderData({
-                  ...headerData,
-                  logo: URL.createObjectURL(e.target.files[0]),
-                })
-              }
-            />
-            <label>
-              localização horizontal da validade:
-              <input
-                type="range"
-                id="positionlogo"
-                min="0"
-                max="100"
-                value={positionlogo}
-                onChange={handlelogoPositionChange}
-                style={{ width: "100%" }}
-              />
-            </label>
-            <label>
-              localização vertical da validade:
-              <input
-                type="range"
-                id="positionlogoV"
-                min="0"
-                max="100"
-                value={positionlogoV}
-                onChange={handlelogoPositionVChange}
-                style={{ width: "100%" }}
-              />
-            </label>
-            <br />
-            <br />
-            <label>
-              Frase Promocional:
+            {bgtypeheader === "url" && (
               <input
                 type="text"
-                name="titulo"
-                value={headerData.titulo}
-                onChange={handleHeaderChange}
-                placeholder="Economia Garantida Toda Semana! Descubra as Ofertas Imperdíveis do Supermercado XYZ!"
+                placeholder="Insira o URL da imagem"
+                onChange={handleUrlChange}
               />
-            </label>
-            <label>
-              Cor do Titulo:
+            )}
+
+            {bgtypeheader === "file" && (
+              <input type="file" onChange={handleFileChange} />
+            )}
+
+            {bgtypeheader === "color" && (
               <input
-                type="color"
-                name="tituloColor"
+                type={bgtypeheader}
+                name="bgColor"
                 className="colorswitch"
-                value={headerData.tituloColor}
+                value={headerData.bgColor}
                 onChange={handleHeaderChange}
               />
-            </label>
-            <label>
-              Escolha do o tamanho da letra do titulo:
-              <select
-                id="titulofontSize"
-                value={titulofontSize}
-                onChange={handleTituloFontSizeChange}
-              >
-                <option value="12px">12px</option>
-                <option value="16px">16px</option>
-                <option value="20px">20px</option>
-                <option value="24px">24px</option>
-                <option value="28px">28px</option>
-                <option value="32px">32px</option>
-                <option value="36px">36px</option>
-              </select>
-            </label>
-            <br />
-            <label>
-              localização horizontal da validade:
-              <input
-                type="range"
-                id="positionTitulo"
-                min="0"
-                max="100"
-                value={positionTitulo}
-                onChange={handleTituloPositionChange}
-                style={{ width: "100%" }}
-              />
-            </label>
-            <label>
-              localização vertical da validade:
-              <input
-                type="range"
-                id="positionTituloV"
-                min="0"
-                max="100"
-                value={positionTituloV}
-                onChange={handleTituloPositionVChange}
-                style={{ width: "100%" }}
-              />
-            </label>
+            )}
           </div>
-          <br />
           <br />
           <div>
-            <label>
-              Validade da Promoção:
+            <div>
               <input
-                type="text"
-                name="duracao"
-                value={headerData.duracao}
-                onChange={handleHeaderChange}
-                placeholder="Valido do dia 99 ao dia 99 de ago"
+                type="file"
+                name="logo"
+                onChange={(e) =>
+                  setHeaderData({
+                    ...headerData,
+                    logo: URL.createObjectURL(e.target.files[0]),
+                  })
+                }
               />
-            </label>
-
-            <label>
-              Cor da validade:
-              <input
-                type="color"
-                name="duracaoColor"
-                className="colorswitch"
-                value={headerData.duracaoColor}
-                onChange={handleHeaderChange}
-              />
-            </label>
-            <label>
-              Escolha do o tamanho da letra da validade
-              <select
-                id="duracaofontSize"
-                value={duracaofontSize}
-                onChange={handleDuracaoFontSizeChange}
-              >
-                <option value="12px">12px</option>
-                <option value="16px">16px</option>
-                <option value="20px">20px</option>
-                <option value="24px">24px</option>
-                <option value="28px">28px</option>
-                <option value="32px">32px</option>
-                <option value="36px">36px</option>
-              </select>
-            </label>
+              <label>
+                localização horizontal da validade:
+                <input
+                  type="range"
+                  id="positionlogo"
+                  min="0"
+                  max="100"
+                  value={positionlogo}
+                  onChange={handlelogoPositionChange}
+                  style={{ width: "100%" }}
+                />
+              </label>
+              <label>
+                localização vertical da validade:
+                <input
+                  type="range"
+                  id="positionlogoV"
+                  min="0"
+                  max="100"
+                  value={positionlogoV}
+                  onChange={handlelogoPositionVChange}
+                  style={{ width: "100%" }}
+                />
+              </label>
+              <br />
+              <br />
+              <label>
+                Frase Promocional:
+                <input
+                  type="text"
+                  name="titulo"
+                  value={headerData.titulo}
+                  onChange={handleHeaderChange}
+                  placeholder="Economia Garantida Toda Semana! Descubra as Ofertas Imperdíveis do Supermercado XYZ!"
+                />
+              </label>
+              <label>
+                Cor do Titulo:
+                <input
+                  type="color"
+                  name="tituloColor"
+                  className="colorswitch"
+                  value={headerData.tituloColor}
+                  onChange={handleHeaderChange}
+                />
+              </label>
+              <label>
+                Escolha do o tamanho da letra do titulo:
+                <select
+                  id="titulofontSize"
+                  value={titulofontSize}
+                  onChange={handleTituloFontSizeChange}
+                >
+                  <option value="12px">12px</option>
+                  <option value="16px">16px</option>
+                  <option value="20px">20px</option>
+                  <option value="24px">24px</option>
+                  <option value="28px">28px</option>
+                  <option value="32px">32px</option>
+                  <option value="36px">36px</option>
+                </select>
+              </label>
+              <br />
+              <label>
+                localização horizontal da validade:
+                <input
+                  type="range"
+                  id="positionTitulo"
+                  min="0"
+                  max="100"
+                  value={positionTitulo}
+                  onChange={handleTituloPositionChange}
+                  style={{ width: "100%" }}
+                />
+              </label>
+              <label>
+                localização vertical da validade:
+                <input
+                  type="range"
+                  id="positionTituloV"
+                  min="0"
+                  max="100"
+                  value={positionTituloV}
+                  onChange={handleTituloPositionVChange}
+                  style={{ width: "100%" }}
+                />
+              </label>
+            </div>
             <br />
-            <label>
-              localização horizontal da validade:
-              <input
-                type="range"
-                id="positionduracao"
-                min="0"
-                max="100"
-                value={positionduracao}
-                onChange={handleDuracaoPositionChange}
-                style={{ width: "100%" }}
-              />
-            </label>
-            <label>
-              localização vertical da validade:
-              <input
-                type="range"
-                id="positionduracaoV"
-                min="0"
-                max="100"
-                value={positionduracaoV}
-                onChange={handleDuracaoPositionVChange}
-                style={{ width: "100%" }}
-              />
-            </label>
+            <br />
+            <div>
+              <label>
+                Validade da Promoção:
+                <input
+                  type="text"
+                  name="duracao"
+                  value={headerData.duracao}
+                  onChange={handleHeaderChange}
+                  placeholder="Valido do dia 99 ao dia 99 de ago"
+                />
+              </label>
+
+              <label>
+                Cor da validade:
+                <input
+                  type="color"
+                  name="duracaoColor"
+                  className="colorswitch"
+                  value={headerData.duracaoColor}
+                  onChange={handleHeaderChange}
+                />
+              </label>
+              <label>
+                Escolha do o tamanho da letra da validade
+                <select
+                  id="duracaofontSize"
+                  value={duracaofontSize}
+                  onChange={handleDuracaoFontSizeChange}
+                >
+                  <option value="12px">12px</option>
+                  <option value="16px">16px</option>
+                  <option value="20px">20px</option>
+                  <option value="24px">24px</option>
+                  <option value="28px">28px</option>
+                  <option value="32px">32px</option>
+                  <option value="36px">36px</option>
+                </select>
+              </label>
+              <br />
+              <label>
+                localização horizontal da validade:
+                <input
+                  type="range"
+                  id="positionduracao"
+                  min="0"
+                  max="100"
+                  value={positionduracao}
+                  onChange={handleDuracaoPositionChange}
+                  style={{ width: "100%" }}
+                />
+              </label>
+              <label>
+                localização vertical da validade:
+                <input
+                  type="range"
+                  id="positionduracaoV"
+                  min="0"
+                  max="100"
+                  value={positionduracaoV}
+                  onChange={handleDuracaoPositionVChange}
+                  style={{ width: "100%" }}
+                />
+              </label>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
 
       {/* Preview*/}
-      <div className="preview container">
+      <div className=" flex flex-col items-center justify-center">
         <h1>Preview</h1>
         <div id="front-page" className="page">
           {headerData && (
@@ -453,10 +482,79 @@ const Templetemercado = () => {
       <br />
       <br />
       <br />
+      <div className="flex flex-col items-center justify-center">
+        <h3>Cards</h3>
+        <div className="bg-gray-500 flex flex-col content-center">
+          {cards.map((card, index) => (
+            <form key={index}>
+              <input
+                type="file"
+                name="image"
+                onChange={(e) =>
+                  handleCardChange(index, {
+                    target: {
+                      name: "image",
+                      value: URL.createObjectURL(e.target.files[0]),
+                    },
+                  })
+                }
+              />
+              <input
+                type="text"
+                name="description"
+                value={card.description}
+                onChange={(e) => handleCardChange(index, e)}
+                placeholder="Descrição do Produto"
+              />
+              <label>
+                Preço
+                <input
+                  type="text"
+                  name="price"
+                  value={card.price}
+                  onChange={(e) => handleCardChange(index, e)}
+                  placeholder="9,99"
+                />
+              </label>
 
-      <form></form>
+              <button onClick={() => handleRemoveCard(index)}>Remover</button>
+            </form>
+          ))}
+
+          <button onClick={handleAddCard}>Adicionar Card</button>
+        </div>
+        <form>
+          <label>
+            Cor do preço:
+            <input
+              type="color"
+              name="precocor"
+              className="colorswitch"
+              value={cardcolorData.precocor}
+              onChange={handleCardColorChange}
+            />
+          </label>
+        </form>
+      </div>
+      <div className=" flex flex-col items-center justify-center">
+        <div className="page">
+          <div className="cards">
+            {cards &&
+              cards.map((card, index) => (
+                <div className="card" key={index}>
+                  <img src={card.image} alt={`Product ${index}`} />
+                  <p>{card.description}</p>
+                  <h1 style={{ color: cardcolorData.precocor }}>
+                    R${card.price}
+                  </h1>
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
       <button onClick={handleSavePanfleto}>Salvar e ir </button>
     </>
   );
 };
+
 export default Templetemercado;

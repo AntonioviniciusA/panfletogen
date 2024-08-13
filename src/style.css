@@ -19,6 +19,34 @@ div {
 input {
   width: 100%;
 }
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  width: 30%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 5px;
+}
+
+.card p {
+  margin: 10px 0;
+}
 .button {
   border: 1px solid #eaf6fe;
   width: 115%;
@@ -27,6 +55,9 @@ input {
   width: 800px;
   border-radius: 2%;
   border: 3px black solid;
+}
+form {
+  width: 800px;
 }
 .container {
   width: 100%;
