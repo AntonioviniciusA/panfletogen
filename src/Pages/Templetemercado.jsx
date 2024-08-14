@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import "@fontsource/roboto";
 import "@fontsource/open-sans";
 import "@fontsource/lobster";
@@ -232,7 +233,6 @@ const Templetemercado = () => {
   return (
     <>
       <Header />
-      <br />
       <div className="flex flex-col items-center justify-center">
         <form
           onSubmit={Templetemercado}
@@ -606,6 +606,7 @@ const Templetemercado = () => {
         </div>
       </div>
       <button onClick={handleSavePanfleto}>Salvar e ir </button>
+      <Footer />
     </>
   );
 };

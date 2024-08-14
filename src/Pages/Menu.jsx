@@ -77,7 +77,7 @@ const Menu = () => {
   return (
     <>
       <Header />
-      <div className="bgimage rounded-md flex flex-col items-center justify-end p-3 h-56 w-full   my-4">
+      <div className="bgimage rounded-md flex flex-col items-center justify-end p-3 h-56 w-full -mt-1  mb-2">
         <div className=" flex  text-white text-4xl text-center gugi-regular">
           <h1>
             CONHEÇA JÁ NOSSO <br /> GERADOR DE PANFLETOS
@@ -93,7 +93,7 @@ const Menu = () => {
       <div className="bg-color3 w-full xl:flex xl:justify-center xl:content-center xl:items-center xl:gap-4 my-8">
         <div className="xl:w-2/4">
           <h3
-            className="xl:text-right xl:text-4xl md:flex md:flex-col md:text-center md:m-1 md:my-4
+            className="kadwa-bold color2 xl:text-right xl:text-4xl md:flex md:flex-col md:text-center md:m-1 md:my-4
           text-center"
           >
             ECONOMIZE TEMPO E SIMPLIFIQUE <br />
@@ -107,7 +107,7 @@ const Menu = () => {
       </div>
       <div
         id="carousel"
-        className="bg-color2 h-fit w-full flex flex-col items-center justify-center gap-4"
+        className="bg-color2 h-fit w-full flex flex-col items-center rounded-2xl justify-center gap-4"
       >
         <div>
           <h2 className="bg-color1 text-white text-xl px-4 py-1 m-2 rounded-full">

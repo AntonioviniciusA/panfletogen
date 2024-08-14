@@ -14,9 +14,9 @@ const Header = () => {
 
   return (
     <div className="bg-color3 flex gap-5 flex-col">
-      <div className="bg-color2 absolute flex flex-row xl:justify-between items-center w-full">
+      <div className="bg-color2 flex flex-row xl:justify-between items-center w-full">
         <div className="logoheader">
-          <a href="">
+          <a href="https://flyergen.netlify.app/">
             <img className="logoimg" src={logodarkctitulo} alt="Logo" />
           </a>
         </div>
