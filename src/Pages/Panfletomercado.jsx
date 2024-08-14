@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "@fontsource/roboto";
 
 const Panfletomercado = () => {
   const [frontContent, setFrontContent] = useState({});

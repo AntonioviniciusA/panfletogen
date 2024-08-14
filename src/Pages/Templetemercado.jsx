@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Header from "../components/Header";
+import "@fontsource/roboto";
+import "@fontsource/open-sans";
+import "@fontsource/lobster";
 const Templetemercado = () => {
   /*-------------------- HEADER-------------------------*/
   {
@@ -25,6 +28,7 @@ const Templetemercado = () => {
     positionTituloV: "",
     positionlogo: "",
     positionlogoV: "",
+    titulofont: "",
   });
   const [positionlogoV, setPositionlogoV] = useState(0);
 
@@ -91,6 +95,15 @@ const Templetemercado = () => {
       titulofontSize: e.target.value,
     }));
   };
+  const [titulofont, setTituloFont] = useState("Arial");
+
+  const handleTituloFontChange = (e) => {
+    setTituloFont(e.target.value);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      titulofont: e.target.value,
+    }));
+  };
 
   const [duracaofontSize, setduracaoFontSize] = useState("16px");
   const handleDuracaoFontSizeChange = (e) => {
@@ -98,6 +111,15 @@ const Templetemercado = () => {
     setHeaderData((prevData) => ({
       ...prevData,
       duracaofontSize: e.target.value,
+    }));
+  };
+  const [duracaofont, setDuracaoFont] = useState("Arial");
+
+  const handleDuracaoFontChange = (e) => {
+    setDuracaoFont(e.target.value);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      duracaofont: e.target.value,
     }));
   };
   const [bgImage, setBgImage] = useState("");
@@ -209,6 +231,8 @@ const Templetemercado = () => {
   }
   return (
     <>
+      <Header />
+      <br />
       <div className="flex flex-col items-center justify-center">
         <form
           onSubmit={Templetemercado}
@@ -269,7 +293,7 @@ const Templetemercado = () => {
                 }
               />
               <label>
-                localização horizontal da validade:
+                localização horizontal da Logo:
                 <input
                   type="range"
                   id="positionlogo"
@@ -281,7 +305,7 @@ const Templetemercado = () => {
                 />
               </label>
               <label>
-                localização vertical da validade:
+                localização vertical da Logo:
                 <input
                   type="range"
                   id="positionlogoV"
@@ -294,67 +318,82 @@ const Templetemercado = () => {
               </label>
               <br />
               <br />
-              <label>
-                Frase Promocional:
-                <input
-                  type="text"
-                  name="titulo"
-                  value={headerData.titulo}
-                  onChange={handleHeaderChange}
-                  placeholder="Economia Garantida Toda Semana! Descubra as Ofertas Imperdíveis do Supermercado XYZ!"
-                />
-              </label>
-              <label>
-                Cor do Titulo:
-                <input
-                  type="color"
-                  name="tituloColor"
-                  className="colorswitch"
-                  value={headerData.tituloColor}
-                  onChange={handleHeaderChange}
-                />
-              </label>
-              <label>
-                Escolha do o tamanho da letra do titulo:
-                <select
-                  id="titulofontSize"
-                  value={titulofontSize}
-                  onChange={handleTituloFontSizeChange}
-                >
-                  <option value="12px">12px</option>
-                  <option value="16px">16px</option>
-                  <option value="20px">20px</option>
-                  <option value="24px">24px</option>
-                  <option value="28px">28px</option>
-                  <option value="32px">32px</option>
-                  <option value="36px">36px</option>
-                </select>
-              </label>
-              <br />
-              <label>
-                localização horizontal da validade:
-                <input
-                  type="range"
-                  id="positionTitulo"
-                  min="0"
-                  max="100"
-                  value={positionTitulo}
-                  onChange={handleTituloPositionChange}
-                  style={{ width: "100%" }}
-                />
-              </label>
-              <label>
-                localização vertical da validade:
-                <input
-                  type="range"
-                  id="positionTituloV"
-                  min="0"
-                  max="100"
-                  value={positionTituloV}
-                  onChange={handleTituloPositionVChange}
-                  style={{ width: "100%" }}
-                />
-              </label>
+              <div id="div-titulo">
+                <label>
+                  Frase Promocional:
+                  <input
+                    type="text"
+                    name="titulo"
+                    value={headerData.titulo}
+                    onChange={handleHeaderChange}
+                    placeholder="Economia Garantida Toda Semana! Descubra as Ofertas Imperdíveis do Supermercado XYZ!"
+                  />
+                </label>
+                <div className="estiloletra">
+                  <select
+                    id="titulofont"
+                    value={titulofont}
+                    onChange={handleTituloFontChange}
+                  >
+                    <option value="Arial">Arial</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Lobster">Lobster</option>
+                    <option value="New Amsterdam">New Amsterdam</option>
+                  </select>
+
+                  <select
+                    id="titulofontSize"
+                    value={titulofontSize}
+                    onChange={handleTituloFontSizeChange}
+                  >
+                    <option value="12px">12px</option>
+                    <option value="16px">16px</option>
+                    <option value="20px">20px</option>
+                    <option value="24px">24px</option>
+                    <option value="28px">28px</option>
+                    <option value="32px">32px</option>
+                    <option value="36px">36px</option>
+                  </select>
+
+                  <input
+                    type="color"
+                    name="tituloColor"
+                    className="colorswitch"
+                    value={headerData.tituloColor}
+                    onChange={handleHeaderChange}
+                  />
+                </div>
+                <br />
+                <label>
+                  localização horizontal da validade:
+                  <input
+                    type="range"
+                    id="positionTitulo"
+                    min="0"
+                    max="100"
+                    value={positionTitulo}
+                    onChange={handleTituloPositionChange}
+                    style={{ width: "100%" }}
+                  />
+                </label>
+                <label>
+                  localização vertical da validade:
+                  <input
+                    type="range"
+                    id="positionTituloV"
+                    min="0"
+                    max="100"
+                    value={positionTituloV}
+                    onChange={handleTituloPositionVChange}
+                    style={{ width: "100%" }}
+                  />
+                </label>
+              </div>
             </div>
             <br />
             <br />
@@ -369,19 +408,22 @@ const Templetemercado = () => {
                   placeholder="Valido do dia 99 ao dia 99 de ago"
                 />
               </label>
-
-              <label>
-                Cor da validade:
-                <input
-                  type="color"
-                  name="duracaoColor"
-                  className="colorswitch"
-                  value={headerData.duracaoColor}
-                  onChange={handleHeaderChange}
-                />
-              </label>
-              <label>
-                Escolha do o tamanho da letra da validade
+              <div className="estiloletra">
+                <select
+                  id="duracaofont"
+                  value={duracaofont}
+                  onChange={handleDuracaoFontChange}
+                >
+                  <option value="Arial">Arial</option>
+                  <option value="Courier New">Courier New</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Verdana">Verdana</option>
+                  <option value="Roboto">Roboto</option>
+                  <option value="Open Sans">Open Sans</option>
+                  <option value="Lobster">Lobster</option>
+                  <option value="New Amsterdam">New Amsterdam</option>
+                </select>
                 <select
                   id="duracaofontSize"
                   value={duracaofontSize}
@@ -395,7 +437,16 @@ const Templetemercado = () => {
                   <option value="32px">32px</option>
                   <option value="36px">36px</option>
                 </select>
-              </label>
+
+                <input
+                  type="color"
+                  name="duracaoColor"
+                  className="colorswitch"
+                  value={headerData.duracaoColor}
+                  onChange={handleHeaderChange}
+                />
+              </div>
+
               <br />
               <label>
                 localização horizontal da validade:
@@ -453,6 +504,7 @@ const Templetemercado = () => {
                 <h1
                   style={{
                     color: headerData.tituloColor,
+                    fontFamily: headerData.titulofont,
                     fontSize: headerData.titulofontSize,
                     position: "relative",
                     left: headerData.positionTitulo + "%",
@@ -465,6 +517,7 @@ const Templetemercado = () => {
                 <p
                   style={{
                     color: headerData.duracaoColor,
+                    fontFamily: headerData.duracaofont,
                     fontSize: headerData.duracaofontSize,
                     position: "relative",
                     left: headerData.positionduracao + "%",

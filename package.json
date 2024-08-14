@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@fontsource/lobster": "^5.0.20",
+    "@fontsource/open-sans": "^5.0.28",
+    "@fontsource/roboto": "^5.0.14",
     "html2canvas": "^1.3.2",
     "jspdf": "^2.4.0",
     "react": "^18.0.0",

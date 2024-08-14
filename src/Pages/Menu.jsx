@@ -11,7 +11,7 @@ const Menu = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("https://panfletogen.netlify.app/templetes.json")
+    fetch("http://localhost:3001/templetes.json")
       .then((Response) => Response.json())
       .then(setData);
   });
@@ -77,6 +77,19 @@ const Menu = () => {
   return (
     <>
       <Header />
+      <div className="bgimage rounded-md flex flex-col items-center justify-end p-3 h-56 w-full   my-4">
+        <div className=" flex  text-white text-4xl text-center gugi-regular">
+          <h1>
+            CONHEÇA JÁ NOSSO <br /> GERADOR DE PANFLETOS
+          </h1>
+        </div>
+        <a
+          href="#carousel"
+          className="bg-color2 text-white kanit-regular  px-4 py-1 m-2 rounded-full"
+        >
+          GERADOR
+        </a>
+      </div>
       <div className="bg-color3 w-full xl:flex xl:justify-center xl:content-center xl:items-center xl:gap-4 my-8">
         <div className="xl:w-2/4">
           <h3
