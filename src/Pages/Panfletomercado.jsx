@@ -12,6 +12,32 @@ const Panfletomercado = () => {
       setFrontContent(savedFrontContent);
     }
   }, []);
+
+  const [isDragging, setIsDragging] = useState(null);
+  const [positions, setPositions] = useState({
+    box1: { x: 100, y: 100 },
+  });
+
+  const handleMouseDown = (event, box) => {
+    setIsDragging(box);
+    event.target.style.cursor = "grabbing";
+  };
+
+  const handleMouseMove = (event) => {
+    if (isDragging) {
+      const newX = event.clientX - 50;
+      const newY = event.clientY - 50;
+
+      setPositions((prevPositions) => ({
+        ...prevPositions,
+        [isDragging]: { x: newX, y: newY },
+      }));
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(null);
+  };
   return (
     <div className="container">
       <h1>Vizualização</h1>
@@ -39,8 +65,23 @@ const Panfletomercado = () => {
               backgroundPosition: "center",
             }}
           >
-            <div>
-              <img src={frontContent.headerData.logo} width={200} alt="logo" />
+            <div
+              style={{ position: "relative" }}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+            >
+              <img
+                src={frontContent.headerData.logo}
+                width={200}
+                alt="logo"
+                style={{
+                  position: "absolute",
+                  top: `${positions.box1.y}px`,
+                  left: `${positions.box1.x}px`,
+                  cursor: "grab",
+                }}
+                onMouseDown={(event) => handleMouseDown(event, "box1")}
+              />
               <h1
                 style={{
                   color: frontContent.headerData.tituloColor,

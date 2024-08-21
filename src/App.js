@@ -6,6 +6,9 @@ import "./tailwind.config";
 import Menu from "./Pages/Menu";
 import Templetemercado from "./Pages/Templetemercado";
 import Panfletomercado from "./Pages/Panfletomercado";
+import DragHandler from "./components/testedrag";
+import Dashboard from "./Pages/dashboard";
+import FileUpload from "./components/FileUpload";
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
         <Route path="/" element={<Menu />} />
         <Route path="/mercado-templete" element={<Templetemercado />} />
         <Route path="/panfleto-mercado" element={<Panfletomercado />} />
+        <Route path="/teste" element={<DragHandler />} />
+        <Route path="/gerar-dashboard" element={<FileUpload />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
