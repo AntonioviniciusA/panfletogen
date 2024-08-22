@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../output.css";
 import logodarkctitulo from "../img/logo dark c titulo.png";
 import netlifyIdentity from "netlify-identity-widget";
