@@ -14,20 +14,11 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="https://flyergen.netlify.app/" element={<Menu />} />
-        <Route
-          path="https://flyergen.netlify.app/mercado-templete"
-          element={<Templetemercado />}
-        />
-        <Route
-          path="https://flyergen.netlify.app/panfleto-mercado"
-          element={<Panfletomercado />}
-        />
+        <Route path="/" element={<Menu />} />
+        <Route path="/mercado-templete" element={<Templetemercado />} />
+        <Route path="/panfleto-mercado" element={<Panfletomercado />} />
         <Route path="/teste" element={<DragHandler />} />
-        <Route
-          path="https://flyergen.netlify.app/dashboard"
-          element={<TemplateDashBoard />}
-        />
+        <Route path="/dashboard" element={<TemplateDashBoard />} />
       </Switch>
     </Router>
   );
