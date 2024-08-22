@@ -8,6 +8,7 @@ import Templetemercado from "./Pages/Templetemercado";
 import Panfletomercado from "./Pages/Panfletomercado";
 import DragHandler from "./components/testedrag";
 import TemplateDashBoard from "./Pages/templete-dashboard";
+import Login from "./Pages/Login";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/panfleto-mercado" element={<Panfletomercado />} />
         <Route path="/teste" element={<DragHandler />} />
         <Route path="/TemplateDashBoard" element={<TemplateDashBoard />} />
+        <Route path="/Login" element={<Login />} />
       </Routes>
     </Router>
   );
