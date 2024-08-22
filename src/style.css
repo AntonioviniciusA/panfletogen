@@ -248,3 +248,23 @@ form {
   font-weight: 900;
   font-style: italic;
 }
+/*DASHBOARDCSS*/
+.dashboard {
+  background-color: #1724d8;
+  width: 100%;
+  border: 2px solid #1724d8;
+  border-radius: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.grafico {
+  background-color: #ddd;
+  width: fit-content;
+  margin: 15px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  text-align: center;
+}
+/*DASHBOARDCSS*/

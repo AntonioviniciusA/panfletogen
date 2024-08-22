@@ -7,8 +7,8 @@ import Menu from "./Pages/Menu";
 import Templetemercado from "./Pages/Templetemercado";
 import Panfletomercado from "./Pages/Panfletomercado";
 import DragHandler from "./components/testedrag";
-import Dashboard from "./Pages/dashboard";
 import FileUpload from "./components/FileUpload";
+import TemplateDashBoard from "./Pages/templete-dashboard";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path="/panfleto-mercado" element={<Panfletomercado />} />
         <Route path="/teste" element={<DragHandler />} />
         <Route path="/gerar-dashboard" element={<FileUpload />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<TemplateDashBoard />} />
       </Routes>
     </Router>
   );
