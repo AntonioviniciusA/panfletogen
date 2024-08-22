@@ -27,7 +27,7 @@ const Header = () => {
             LOGIN
           </button>
           <button
-            onClick={navRegistrar}
+            onClick=""
             className="bg-color1 px-3 gugi-regular m-2 text-white rounded-xl"
           >
             RESGISTRAR
