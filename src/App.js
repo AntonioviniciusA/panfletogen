@@ -17,7 +17,7 @@ function App() {
         <Route path="/mercado-templete" element={<Templetemercado />} />
         <Route path="/panfleto-mercado" element={<Panfletomercado />} />
         <Route path="/teste" element={<DragHandler />} />
-        <Route path="/dashboard" element={<TemplateDashBoard />} />
+        <Route path="/TemplateDashBoard" element={<TemplateDashBoard />} />
       </Routes>
     </Router>
   );
