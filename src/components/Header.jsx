@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Certifique-se de importar Link corretamente
 import "../output.css";
 import logodarkctitulo from "../img/logo dark c titulo.png";
 import netlifyIdentity from "netlify-identity-widget";
+// Supondo que você tenha um ícone de perfil
 
 const Header = () => {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     netlifyIdentity.init();
     netlifyIdentity.on("login", (user) => {
@@ -31,21 +34,29 @@ const Header = () => {
             <img className="logoimg" src={logodarkctitulo} alt="Logo" />
           </a>
         </div>
-        <div>
+        <ul className="flex items-center">
           {user ? (
             <>
-              <li>
-                <Link to="/profile">Profile</Link>
+              <li className="mr-4">
+                <Link to="/profile">
+                  <img
+                    src={profileIcon}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full"
+                  />
+                </Link>
               </li>
               <li>
-                <button onClick={handleLogout} className="logout-button">
+                <button
+                  onClick={handleLogout}
+                  className="logout-button bg-color1  m-2  gugi-regular px-3 text-white rounded-xl"
+                >
                   Logout
                 </button>
               </li>
             </>
           ) : (
             <li>
-              {" "}
               <button
                 onClick={handleLogin}
                 className="bg-color1  m-2  gugi-regular px-3 text-white rounded-xl"
@@ -54,7 +65,7 @@ const Header = () => {
               </button>
             </li>
           )}
-        </div>
+        </ul>
       </div>
     </div>
   );
