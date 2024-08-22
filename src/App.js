@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./output.css";
 import "./style.css";
 import "./tailwind.config";
@@ -13,7 +13,7 @@ import TemplateDashBoard from "./Pages/templete-dashboard";
 function App() {
   return (
     <Router>
-      <Routes>
+      <Switch>
         <Route path="https://flyergen.netlify.app/" element={<Menu />} />
         <Route
           path="https://flyergen.netlify.app/mercado-templete"
@@ -28,7 +28,7 @@ function App() {
           path="https://flyergen.netlify.app/dashboard"
           element={<TemplateDashBoard />}
         />
-      </Routes>
+      </Switch>
     </Router>
   );
 }
