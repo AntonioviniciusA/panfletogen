@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Routes,
+} from "react-router-dom";
 import "./output.css";
 import "./style.css";
 import "./tailwind.config";
@@ -13,13 +18,13 @@ import TemplateDashBoard from "./Pages/templete-dashboard";
 function App() {
   return (
     <Router>
-      <Switch>
+      <Routes>
         <Route path="/" element={<Menu />} />
         <Route path="/mercado-templete" element={<Templetemercado />} />
         <Route path="/panfleto-mercado" element={<Panfletomercado />} />
         <Route path="/teste" element={<DragHandler />} />
         <Route path="/dashboard" element={<TemplateDashBoard />} />
-      </Switch>
+      </Routes>
     </Router>
   );
 }
