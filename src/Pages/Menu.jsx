@@ -11,7 +11,7 @@ const Menu = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:3001/templetes.json")
+    fetch("https://flyergen.netlify.app/templetes.json")
       .then((Response) => Response.json())
       .then(setData);
   });
