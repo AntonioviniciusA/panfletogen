@@ -12,7 +12,6 @@ import Menu from "./Pages/Menu";
 import Templetemercado from "./Pages/Templetemercado";
 import Panfletomercado from "./Pages/Panfletomercado";
 import DragHandler from "./components/testedrag";
-import FileUpload from "./components/FileUpload";
 import TemplateDashBoard from "./Pages/templete-dashboard";
 
 function App() {
