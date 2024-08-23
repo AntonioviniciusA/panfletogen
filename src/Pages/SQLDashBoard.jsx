@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import FileUpload from "../components/FileUpload";
+import React, { useState, useEffect } from "react";
 import {
   BarChart,
   Bar,
@@ -14,7 +13,7 @@ import {
   LabelList,
 } from "recharts";
 
-const Dashboard = () => {
+const SQLDashBoard = () => {
   const [data, setData] = useState([]);
   const [identifiedColumns, setIdentifiedColumns] = useState([]);
   const [colorPicker, setColorPicker] = useState(null);
@@ -33,16 +32,29 @@ const Dashboard = () => {
     setSelectedItem(itemKey);
     setColorPicker(itemKey);
   };
-  const handleFileUpload = (uploadedData) => {
-    setData(uploadedData);
-    if (uploadedData.length > 0) {
-      const availableColumns = Object.keys(uploadedData[0]);
-      const identified = requiredColumns.filter((col) =>
-        availableColumns.includes(col)
-      );
-      setIdentifiedColumns(identified);
+
+  // Função para buscar e processar os dados JSON
+  const fetchData = async (url) => {
+    try {
+      const response = await fetch(url);
+      const jsonData = await response.json();
+      setData(jsonData);
+      if (jsonData.length > 0) {
+        const availableColumns = Object.keys(jsonData[0]);
+        const identified = requiredColumns.filter((col) =>
+          availableColumns.includes(col)
+        );
+        setIdentifiedColumns(identified);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar os dados:", error);
     }
   };
+
+  useEffect(() => {
+    // Substitua a URL abaixo pela URL real do seu arquivo JSON
+    fetchData("http://localhost:3001/BaseVendas.json");
+  }, []);
 
   const groupDataByColumn = (column) => {
     const groupedData = {};
@@ -59,17 +71,19 @@ const Dashboard = () => {
     return Object.values(groupedData);
   };
 
-  // Paleta de cores para o gráfico de pizza
   const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#d84a4a", "#a64dff"];
 
   return (
     <>
+      <h1 className="text-center text-6xl">
+        Exemplo de um DashBoard criado direto de um banco de dados
+      </h1>
       <div>
-        <FileUpload onFileUpload={handleFileUpload} />
-
         {identifiedColumns.length > 0 && (
           <div>
-            <p>Colunas identificadas: {identifiedColumns.join(", ")}</p>
+            <h2 className="text-center">
+              Colunas identificadas: {identifiedColumns.join(", ")}
+            </h2>
           </div>
         )}
         <div className="dashboard">
@@ -134,4 +148,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default SQLDashBoard;

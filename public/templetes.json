@@ -10,5 +10,11 @@
     "name": "DashBoard",
     "image": "",
     "link": "/TemplateDashBoard"
+  },
+  {
+    "id": "53214",
+    "name": "DashBoardSQL",
+    "image": "",
+    "link": "/SQLDashBoard"
   }
 ]
