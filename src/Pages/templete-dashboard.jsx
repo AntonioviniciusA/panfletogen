@@ -88,23 +88,9 @@ const Dashboard = () => {
               <Bar dataKey="computedValue" fill="#8884d8" />
             </BarChart>
           </div>
-
-          <div className="grafico">
-            <h2>Lojas e Quantidade Vendida</h2>
-            <BarChart width={800} height={200} data={groupDataByColumn("Loja")}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="Loja" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="computedValue" fill="#82ca9d" />
-              <LabelList dataKey="Loja" position="top" />
-            </BarChart>
-          </div>
-
           <div className="grafico">
             <h2>Por Gênero</h2>
-            <PieChart width={300} height={200}>
+            <PieChart width={200} height={200}>
               <Pie
                 data={groupDataByColumn("Gênero")}
                 dataKey="computedValue"
@@ -117,13 +103,30 @@ const Dashboard = () => {
                 {groupDataByColumn("Gênero").map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
+                    fill={COLORS[index % COLORS.length] || handleBarClick()}
                   />
                 ))}
               </Pie>
               <Tooltip />
               <Legend />
             </PieChart>
+          </div>
+
+          <div className="grafico">
+            <h2>Lojas e Quantidade Vendida</h2>
+            <BarChart
+              width={1450}
+              height={200}
+              data={groupDataByColumn("Loja")}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="Loja" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="computedValue" fill="#82ca9d" />
+              <LabelList dataKey="Loja" position="top" />
+            </BarChart>
           </div>
         </div>
       </div>
