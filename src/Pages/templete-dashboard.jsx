@@ -34,7 +34,12 @@ const Dashboard = () => {
     setColorPicker(itemKey);
   };
   const handleFileUpload = (uploadedData) => {
-    setData(uploadedData);
+    setData(
+      fetch("https://flyergen.netlify.app/public/BaseVendas.json")
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.error("Erro:", error))
+    );
     if (uploadedData.length > 0) {
       const availableColumns = Object.keys(uploadedData[0]);
       const identified = requiredColumns.filter((col) =>
@@ -65,8 +70,6 @@ const Dashboard = () => {
   return (
     <>
       <div>
-        <FileUpload onFileUpload={handleFileUpload} />
-
         {identifiedColumns.length > 0 && (
           <div>
             <p>Colunas identificadas: {identifiedColumns.join(", ")}</p>
