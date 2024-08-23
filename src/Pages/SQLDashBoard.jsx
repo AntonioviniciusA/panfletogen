@@ -53,7 +53,7 @@ const SQLDashBoard = () => {
 
   useEffect(() => {
     // Substitua a URL abaixo pela URL real do seu arquivo JSON
-    fetchData("http://localhost:3001/BaseVendas.json");
+    fetchData("https://flyergen.netlify.app/BaseVendas.json");
   }, []);
 
   const groupDataByColumn = (column) => {
