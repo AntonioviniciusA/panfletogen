@@ -237,14 +237,17 @@ const Templetemercado = () => {
   return (
     <>
       <Header />
-      <div className="flex items-center justify-center bg-blue-500 ">
+      <div
+        className="flex items-center justify-center bg-pink-500 " //fundo, container pai
+        style={{ gap: "5%" }}
+      >
         <div
-          className="flex flex-col items-center justify-center bg-red-500 "
+          className="flex flex-col items-center justify-center bg-blue-500 " //container esquerdo
           style={{ width: "40%" }}
         >
           <form
             onSubmit={Templetemercado}
-            className="bg-gray-500 flex flex-col content-center "
+            className="flex flex-col content-center "
             style={{ borderRadius: "25px", width: "100%" }}
           >
             <div className="">
@@ -290,119 +293,130 @@ const Templetemercado = () => {
             </div>
             <br />
             <div>
-              <div>
-                <input
-                  type="file"
-                  name="logo"
-                  onChange={(e) =>
-                    setHeaderData({
-                      ...headerData,
-                      logo: URL.createObjectURL(e.target.files[0]),
-                    })
-                  }
-                />
-                <label>
-                  localização horizontal da Logo:
+              <div
+                className="flex items-center justify-center " //container logo
+              >
+                <div //div logo
+                  className=" bg-blue-200 "
+                  style={{
+                    width: "90%",
+                    padding: "5%",
+                    borderRadius: "20px",
+                  }}
+                >
                   <input
-                    type="range"
-                    id="positionlogo"
-                    min="0"
-                    max="100"
-                    value={positionlogo}
-                    onChange={handlelogoPositionChange}
-                    style={{ width: "100%" }}
+                    type="file"
+                    name="logo"
+                    onChange={(e) =>
+                      setHeaderData({
+                        ...headerData,
+                        logo: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
                   />
-                </label>
-                <label>
-                  localização vertical da Logo:
-                  <input
-                    type="range"
-                    id="positionlogoV"
-                    min="0"
-                    max="100"
-                    value={positionlogoV}
-                    onChange={handlelogoPositionVChange}
-                    style={{ width: "100%" }}
-                  />
-                </label>
-                <br />
-                <br />
-                <div id="div-titulo">
                   <label>
-                    Frase Promocional:
-                    <input
-                      type="text"
-                      name="titulo"
-                      value={headerData.titulo}
-                      onChange={handleHeaderChange}
-                      placeholder="Economia Garantida Toda Semana! Descubra as Ofertas Imperdíveis do Supermercado XYZ!"
-                    />
-                  </label>
-                  <div className="estiloletra">
-                    <select
-                      id="titulofont"
-                      value={titulofont}
-                      onChange={handleTituloFontChange}
-                    >
-                      <option value="Arial">Arial</option>
-                      <option value="Courier New">Courier New</option>
-                      <option value="Georgia">Georgia</option>
-                      <option value="Times New Roman">Times New Roman</option>
-                      <option value="Verdana">Verdana</option>
-                      <option value="Roboto">Roboto</option>
-                      <option value="Open Sans">Open Sans</option>
-                      <option value="Lobster">Lobster</option>
-                      <option value="New Amsterdam">New Amsterdam</option>
-                    </select>
-
-                    <select
-                      id="titulofontSize"
-                      value={titulofontSize}
-                      onChange={handleTituloFontSizeChange}
-                    >
-                      <option value="12px">12px</option>
-                      <option value="16px">16px</option>
-                      <option value="20px">20px</option>
-                      <option value="24px">24px</option>
-                      <option value="28px">28px</option>
-                      <option value="32px">32px</option>
-                      <option value="36px">36px</option>
-                    </select>
-
-                    <input
-                      type="color"
-                      name="tituloColor"
-                      className="colorswitch"
-                      value={headerData.tituloColor}
-                      onChange={handleHeaderChange}
-                    />
-                  </div>
-                  <br />
-                  <label>
-                    localização horizontal da validade:
+                    localização horizontal da Logo:
                     <input
                       type="range"
-                      id="positionTitulo"
+                      id="positionlogo"
                       min="0"
                       max="100"
-                      value={positionTitulo}
-                      onChange={handleTituloPositionChange}
+                      value={positionlogo}
+                      onChange={handlelogoPositionChange}
                       style={{ width: "100%" }}
                     />
                   </label>
                   <label>
-                    localização vertical da validade:
+                    localização vertical da Logo:
                     <input
                       type="range"
-                      id="positionTituloV"
+                      id="positionlogoV"
                       min="0"
                       max="100"
-                      value={positionTituloV}
-                      onChange={handleTituloPositionVChange}
+                      value={positionlogoV}
+                      onChange={handlelogoPositionVChange}
                       style={{ width: "100%" }}
                     />
                   </label>
                 </div>
+              </div>
+              <br />
+              <br />
+              <div id="div-titulo">
+                <label>
+                  Frase Promocional:
+                  <input
+                    type="text"
+                    name="titulo"
+                    value={headerData.titulo}
+                    onChange={handleHeaderChange}
+                    placeholder="Economia Garantida Toda Semana! Descubra as Ofertas Imperdíveis do Supermercado XYZ!"
+                  />
+                </label>
+                <div className="estiloletra">
+                  <select
+                    id="titulofont"
+                    value={titulofont}
+                    onChange={handleTituloFontChange}
+                  >
+                    <option value="Arial">Arial</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Lobster">Lobster</option>
+                    <option value="New Amsterdam">New Amsterdam</option>
+                  </select>
+
+                  <select
+                    id="titulofontSize"
+                    value={titulofontSize}
+                    onChange={handleTituloFontSizeChange}
+                  >
+                    <option value="12px">12px</option>
+                    <option value="16px">16px</option>
+                    <option value="20px">20px</option>
+                    <option value="24px">24px</option>
+                    <option value="28px">28px</option>
+                    <option value="32px">32px</option>
+                    <option value="36px">36px</option>
+                  </select>
+
+                  <input
+                    type="color"
+                    name="tituloColor"
+                    className="colorswitch"
+                    value={headerData.tituloColor}
+                    onChange={handleHeaderChange}
+                  />
+                </div>
+                <br />
+                <label>
+                  localização horizontal da validade:
+                  <input
+                    type="range"
+                    id="positionTitulo"
+                    min="0"
+                    max="100"
+                    value={positionTitulo}
+                    onChange={handleTituloPositionChange}
+                    style={{ width: "100%" }}
+                  />
+                </label>
+                <label>
+                  localização vertical da validade:
+                  <input
+                    type="range"
+                    id="positionTituloV"
+                    min="0"
+                    max="100"
+                    value={positionTituloV}
+                    onChange={handleTituloPositionVChange}
+                    style={{ width: "100%" }}
+                  />
+                </label>
               </div>
               <br />
               <br />
@@ -487,12 +501,22 @@ const Templetemercado = () => {
         </div>
 
         {/* Preview*/}
-        <div className=" flex flex-col items-center justify-center  bg-green-500  ">
-          <h1>Preview</h1>
+        <div className=" flex flex-col items-center justify-center ">
+          <div
+            className=" flex flex-col items-center justify-center  bg-gray-500"
+            style={{
+              width: "50%",
+              padding: "10px",
+              borderRadius: "20px 20px 0px 0px",
+            }}
+          >
+            <h1>Preview</h1>
+          </div>
+
           <div id="front-page" className="page">
             {headerData && (
               <header
-                className="  bg-red-500"
+                className=" "
                 style={{
                   backgroundColor: headerData.bgColor,
                   backgroundImage: headerData.bgImage,
@@ -500,7 +524,7 @@ const Templetemercado = () => {
                   backgroundPosition: "center",
                 }}
               >
-                <div className="bg-pink-500">
+                <div>
                   <img
                     src={headerData.logo}
                     style={{
@@ -546,7 +570,7 @@ const Templetemercado = () => {
       <br />
       <br />
       <br />
-      <div className="flex flex-col items-center justify-center  ">
+      {/* <div className="flex flex-col items-center justify-center  ">
         <h3>Cards</h3>
         <div className="bg-gray-500 flex flex-col content-center">
           {cards.map((card, index) => (
@@ -615,7 +639,7 @@ const Templetemercado = () => {
               ))}
           </div>
         </div>
-      </div>
+      </div> */}
       <button onClick={handleSavePanfleto}>Salvar e ir </button>
       <Footer />
     </>
