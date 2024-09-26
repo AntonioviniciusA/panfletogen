@@ -694,6 +694,7 @@ const Templetemercado = () => {
             flexDirection: "column", // equivale ao flex-col do tailwind
             alignItems: "center", // equivalente a 'items-center' do tailwind
             justifyContent: "center", // equivalente a 'justify-center' do tailwind
+            alignSelf: "flex-start", //posiciona o preview ao topo
           }}
         >
           <div
