@@ -238,29 +238,45 @@ const Templetemercado = () => {
     <>
       <Header />
       <div
-        className="flex items-center justify-center bg-blue-800 " //fundo, container pai
-        style={{ gap: "5%" }}
+        //fundo, container pai
+        style={{
+          display: "flex",
+          justifyContent: "center", // equivalente a 'justify-center' do tailwind
+          alignItems: "center", // equivalente a 'items-center' do tailwind
+          backgroundColor: "#1e40af", // equivale ao 'bg-blue-800' do tailwind
+          gap: "5%",
+        }}
       >
         <div
-          className="flex flex-col items-center justify-center bg-blue-200 " //container esquerdo
+          //container de configurações
           style={{
+            display: "flex",
+            flexDirection: "column", // equivale ao flex-col do tailwind
+            justifyContent: "center", // equivalente a 'justify-center' do tailwind
+            alignItems: "center", // equivalente a 'items-center' do tailwind
             width: "40%",
             borderRadius: "20px",
+            backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
           }}
         >
           <div
-            className="bg-blue-300 "
             style={{
               width: "90%",
               margin: "3%",
               padding: "3%",
               borderRadius: "20px",
+              backgroundColor: "#93c5fd", //equivale ao 'bg-blue-300'
             }}
           >
             <form
               onSubmit={Templetemercado}
-              className="flex flex-col content-center "
-              style={{ borderRadius: "25px", width: "100%" }}
+              style={{
+                borderRadius: "25px",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column", // equivale ao flex-col do tailwind
+                alignContent: "center", // equivale ao  'content-center' do tailwind
+              }}
             >
               <div className="">
                 <select
@@ -306,14 +322,19 @@ const Templetemercado = () => {
               <br />
               <div>
                 <div
-                  className="flex items-center justify-center " //container logo
+                  //container logo
+                  style={{
+                    display: "flex",
+                    alignItems: "center", // equivalente a 'items-center' do tailwind
+                    justifyContent: "center", // equivale a 'justify-center' do tailwind
+                  }}
                 >
                   <div //div logo
-                    className=" bg-blue-200 "
                     style={{
                       width: "90%",
                       padding: "5%",
                       borderRadius: "20px",
+                      backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
                     }}
                   >
                     <input
@@ -355,15 +376,20 @@ const Templetemercado = () => {
                 <br />
                 <br />
                 <div
-                  className="flex items-center justify-center " //container logo
+                  //container frase
+                  style={{
+                    display: "flex",
+                    alignItems: "center", // equivalente a 'items-center' do tailwind
+                    justifyContent: "center", // equivalente a 'justify-center' do tailwind
+                  }}
                 >
                   <div
                     id="div-titulo"
-                    className=" bg-blue-200 "
                     style={{
                       width: "90%",
                       padding: "5%",
                       borderRadius: "20px",
+                      backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
                     }}
                   >
                     <label>
@@ -445,14 +471,19 @@ const Templetemercado = () => {
                 <br />
                 <br />
                 <div
-                  className="flex items-center justify-center " //container logo
+                  //container validade
+                  style={{
+                    display: "flex",
+                    alignItems: "center", // equivalente a 'items-center' do tailwind
+                    justifyContent: "center", // equivalente a 'justify-center' do tailwind
+                  }}
                 >
                   <div
-                    className=" bg-blue-200 "
                     style={{
                       width: "90%",
                       padding: "5%",
                       borderRadius: "20px",
+                      backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
                     }}
                   >
                     <label>
@@ -533,17 +564,148 @@ const Templetemercado = () => {
                 </div>
               </div>
             </form>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column", // equivale ao flex-col do tailwind
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div>
+                <h3>Cards</h3>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column", // equivale ao flex-col do tailwind
+                  alignContent: "center", // equivale ao  'content-center' do tailwind
+                  width: "90%",
+                  padding: "5%",
+                  borderRadius: "20px",
+                  backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
+                }}
+              >
+                {cards.map((card, index) => (
+                  <form
+                    key={index}
+                    style={{
+                      width: "100%",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <input
+                      type="file"
+                      name="image"
+                      onChange={(e) =>
+                        handleCardChange(index, {
+                          target: {
+                            name: "image",
+                            value: URL.createObjectURL(e.target.files[0]),
+                          },
+                        })
+                      }
+                    />
+                    <input
+                      type="text"
+                      name="description"
+                      value={card.description}
+                      onChange={(e) => handleCardChange(index, e)}
+                      placeholder="Descrição do Produto"
+                    />
+                    <label>
+                      Preço
+                      <input
+                        type="text"
+                        name="price"
+                        value={card.price}
+                        onChange={(e) => handleCardChange(index, e)}
+                        placeholder="9,99"
+                      />
+                    </label>
+
+                    <button onClick={() => handleRemoveCard(index)}>
+                      Remover
+                    </button>
+                  </form>
+                ))}
+
+                <button onClick={handleAddCard}>Adicionar Card</button>
+              </div>
+              <form
+                style={{
+                  width: "90%",
+                  padding: "5%",
+                  borderRadius: "20px",
+                }}
+              >
+                <label>
+                  Cor do preço:
+                  <input
+                    type="color"
+                    name="precocor"
+                    className="colorswitch"
+                    value={cardcolorData.precocor}
+                    onChange={handleCardColorChange}
+                  />
+                </label>
+              </form>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column", // equivale ao flex-col do tailwind
+                alignItems: "center", // equivalente a 'items-center' do tailwind
+                justifyContent: "center", // equivalente a 'justify-center' do tailwind
+              }}
+            >
+              <div
+                className="page "
+                style={{
+                  width: "90%",
+                  padding: "5%",
+                  borderRadius: "20px",
+                  backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
+                }}
+              >
+                <div className="cards">
+                  {cards &&
+                    cards.map((card, index) => (
+                      <div className="card" key={index}>
+                        <img src={card.image} alt={`Product ${index}`} />
+                        <p>{card.description}</p>
+                        <h1 style={{ color: cardcolorData.precocor }}>
+                          R${card.price}
+                        </h1>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Preview*/}
-        <div className=" flex flex-col items-center justify-center ">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column", // equivale ao flex-col do tailwind
+            alignItems: "center", // equivalente a 'items-center' do tailwind
+            justifyContent: "center", // equivalente a 'justify-center' do tailwind
+          }}
+        >
           <div
-            className=" flex flex-col items-center justify-center  bg-gray-500"
             style={{
+              display: "flex",
+              flexDirection: "column", // equivale ao flex-col do tailwind
+              alignItems: "center", // equivalente a 'items-center' do tailwind
+              justifyContent: "center", // equivalente a 'justify-center' do tailwind
               width: "50%",
               padding: "10px",
               borderRadius: "20px 20px 0px 0px",
+              backgroundColor: "#6b7280", //equivale ao bg-gray-500
             }}
           >
             <h1>Preview</h1>
