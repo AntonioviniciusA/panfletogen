@@ -578,7 +578,7 @@ const Templetemercado = () => {
                 </div>
               </div>
             </form>
-
+            <br />
             <div
               style={{
                 display: "flex",
@@ -586,9 +586,6 @@ const Templetemercado = () => {
                 justifyContent: "center",
               }}
             >
-              <div>
-                <h3>Cards</h3>
-              </div>
               <div
                 style={{
                   display: "flex",
@@ -600,17 +597,46 @@ const Templetemercado = () => {
                   backgroundColor: "#bfdbfe",
                 }}
               >
-                {/* cor fundo */}
-                <label>
-                  Cor de fundo:
-                  <input
-                    type="color"
-                    name="page"
-                    className="colorswitch"
-                    value={pageBgColor}
-                    onChange={backgroundcard}
-                  />
-                </label>
+                {" "}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignContent: "center",
+                  }}
+                >
+                  <h3>Cards</h3>
+                </div>
+                <form
+                  style={{
+                    width: "90%",
+                    padding: "5%",
+                    borderRadius: "20px",
+                  }}
+                >
+                  {" "}
+                  {/* cor fundo */}
+                  <label>
+                    Cor de fundo:
+                    <input
+                      type="color"
+                      name="page"
+                      className="colorswitch"
+                      value={pageBgColor}
+                      onChange={backgroundcard}
+                    />
+                  </label>
+                  <label>
+                    Cor do preço:
+                    <input
+                      type="color"
+                      name="precocor"
+                      className="colorswitch"
+                      value={cardcolorData.precocor}
+                      onChange={handleCardColorChange}
+                    />
+                  </label>
+                </form>
                 {cards.map((card, index) => (
                   <form
                     key={index}
@@ -654,27 +680,8 @@ const Templetemercado = () => {
                     </button>
                   </form>
                 ))}
-
                 <button onClick={handleAddCard}>Adicionar Card</button>
               </div>
-              <form
-                style={{
-                  width: "90%",
-                  padding: "5%",
-                  borderRadius: "20px",
-                }}
-              >
-                <label>
-                  Cor do preço:
-                  <input
-                    type="color"
-                    name="precocor"
-                    className="colorswitch"
-                    value={cardcolorData.precocor}
-                    onChange={handleCardColorChange}
-                  />
-                </label>
-              </form>
             </div>
             <button backgroundColor="#ffffff" onClick={handleSavePanfleto}>
               Salvar e ir{" "}
