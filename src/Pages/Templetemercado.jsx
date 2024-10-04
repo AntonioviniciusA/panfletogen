@@ -130,16 +130,16 @@ const Templetemercado = () => {
     setBgImage(`url(${url})`);
     setHeaderData((prevData) => ({
       ...prevData,
-      bgUrl: e.target.value,
+      bgUrl: URL.createObjectURL(e.target.files[0]),
     }));
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const fileUrl = URL.createObjectURL(file);
+      const fileUrl = e.target.value;
       setBgImage(`url(${fileUrl})`);
-      const { file } = e.target;
+
       setHeaderData((prevData) => ({
         ...prevData,
         file: URL.createObjectURL(e.target.files[0]),
@@ -247,9 +247,9 @@ const Templetemercado = () => {
         //fundo, container pai
         style={{
           display: "flex",
-          justifyContent: "center", // equivalente a 'justify-center' do tailwind
-          alignItems: "center", // equivalente a 'items-center' do tailwind
-          backgroundColor: "#1e40af", // equivale ao 'bg-blue-800' do tailwind
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#1e40af",
           gap: "5%",
           padding: "35px",
         }}
@@ -258,12 +258,11 @@ const Templetemercado = () => {
           //container de configurações
           style={{
             display: "flex",
-            flexDirection: "column", // equivale ao flex-col do tailwind
-            justifyContent: "center", // equivalente a 'justify-center' do tailwind
-            alignItems: "center", // equivalente a 'items-center' do tailwind
-            width: "40%",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
             borderRadius: "20px",
-            backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
+            backgroundColor: "#bfdbfe",
           }}
         >
           <div
@@ -272,7 +271,7 @@ const Templetemercado = () => {
               margin: "3%",
               padding: "3%",
               borderRadius: "20px",
-              backgroundColor: "#93c5fd", //equivale ao 'bg-blue-300'
+              backgroundColor: "#93c5fd",
             }}
           >
             <form
@@ -281,64 +280,17 @@ const Templetemercado = () => {
                 borderRadius: "25px",
                 width: "100%",
                 display: "flex",
-                flexDirection: "column", // equivale ao flex-col do tailwind
-                alignContent: "center", // equivale ao  'content-center' do tailwind
+                flexDirection: "column",
+                alignContent: "center",
               }}
             >
-              <div className="">
-                <select
-                  value={bgtypeheader}
-                  name="bgtypeheader"
-                  id="bgtypeheader"
-                  onChange={(e) => {
-                    setBgTypeHeader(e.target.value);
-                  }}
-                >
-                  <option value="" placeholder="Selecione um tipo de fundo">
-                    Selecione um tipo de fundo
-                  </option>
-                  <option value="url" placeholder="https://exemplo.webp">
-                    Link de uma imagem
-                  </option>
-                  <option value="file">Imagem</option>
-                  <option value="color">Cor de Fundo</option>
-                </select>
-
-                {bgtypeheader === "url" && (
-                  <input
-                    type="text"
-                    placeholder="Insira o URL da imagem"
-                    onChange={handleUrlChange}
-                  />
-                )}
-
-                {bgtypeheader === "file" && (
-                  <input
-                    type="file"
-                    name="bgImage"
-                    value={headerData.bgImage}
-                    onChange={handleFileChange}
-                  />
-                )}
-
-                {bgtypeheader === "color" && (
-                  <input
-                    type={bgtypeheader}
-                    name="bgColor"
-                    className="colorswitch"
-                    value={headerData.bgColor}
-                    onChange={handleHeaderChange}
-                  />
-                )}
-              </div>
-              <br />
               <div>
                 <div
                   //container logo
                   style={{
                     display: "flex",
-                    alignItems: "center", // equivalente a 'items-center' do tailwind
-                    justifyContent: "center", // equivale a 'justify-center' do tailwind
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   <div //div logo
@@ -346,9 +298,59 @@ const Templetemercado = () => {
                       width: "90%",
                       padding: "5%",
                       borderRadius: "20px",
-                      backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
+                      backgroundColor: "#bfdbfe",
                     }}
                   >
+                    <div className="">
+                      <select
+                        value={bgtypeheader}
+                        name="bgtypeheader"
+                        id="bgtypeheader"
+                        onChange={(e) => {
+                          setBgTypeHeader(e.target.value);
+                        }}
+                      >
+                        <option
+                          value=""
+                          placeholder="Selecione um tipo de fundo"
+                        >
+                          Selecione um tipo de fundo
+                        </option>
+                        <option value="url" placeholder="https://exemplo.webp">
+                          Link de uma imagem
+                        </option>
+                        <option value="file">Imagem</option>
+                        <option value="color">Cor de Fundo</option>
+                      </select>
+
+                      {bgtypeheader === "url" && (
+                        <input
+                          type="text"
+                          placeholder="Insira o URL da imagem"
+                          onChange={handleUrlChange}
+                        />
+                      )}
+
+                      {bgtypeheader === "file" && (
+                        <input
+                          type="file"
+                          name="bgImage"
+                          onChange={handleFileChange}
+                        />
+                      )}
+
+                      {bgtypeheader === "color" && (
+                        <input
+                          type="color"
+                          name="bgColor"
+                          className="colorswitch"
+                          value={headerData.bgColor}
+                          onChange={handleHeaderChange}
+                        />
+                      )}
+                    </div>
+                    <br />
+
                     <input
                       type="file"
                       name="logo"
@@ -391,8 +393,8 @@ const Templetemercado = () => {
                   //container frase
                   style={{
                     display: "flex",
-                    alignItems: "center", // equivalente a 'items-center' do tailwind
-                    justifyContent: "center", // equivalente a 'justify-center' do tailwind
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   <div
@@ -401,7 +403,7 @@ const Templetemercado = () => {
                       width: "90%",
                       padding: "5%",
                       borderRadius: "20px",
-                      backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
+                      backgroundColor: "#bfdbfe",
                     }}
                   >
                     <label>
@@ -486,8 +488,8 @@ const Templetemercado = () => {
                   //container validade
                   style={{
                     display: "flex",
-                    alignItems: "center", // equivalente a 'items-center' do tailwind
-                    justifyContent: "center", // equivalente a 'justify-center' do tailwind
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   <div
@@ -495,7 +497,7 @@ const Templetemercado = () => {
                       width: "90%",
                       padding: "5%",
                       borderRadius: "20px",
-                      backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
+                      backgroundColor: "#bfdbfe",
                     }}
                   >
                     <label>
@@ -580,8 +582,7 @@ const Templetemercado = () => {
             <div
               style={{
                 display: "flex",
-                flexDirection: "column", // equivale ao flex-col do tailwind
-                alignItems: "center",
+                flexDirection: "column",
                 justifyContent: "center",
               }}
             >
@@ -591,12 +592,12 @@ const Templetemercado = () => {
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "column", // equivale ao flex-col do tailwind
-                  alignContent: "center", // equivale ao  'content-center' do tailwind
+                  flexDirection: "column",
+                  alignContent: "center",
                   width: "90%",
                   padding: "5%",
                   borderRadius: "20px",
-                  backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
+                  backgroundColor: "#bfdbfe",
                 }}
               >
                 {/* cor fundo */}
@@ -675,6 +676,9 @@ const Templetemercado = () => {
                 </label>
               </form>
             </div>
+            <button backgroundColor="#ffffff" onClick={handleSavePanfleto}>
+              Salvar e ir{" "}
+            </button>
           </div>
         </div>
 
@@ -682,22 +686,22 @@ const Templetemercado = () => {
         <div
           style={{
             display: "flex",
-            flexDirection: "column", // equivale ao flex-col do tailwind
-            alignItems: "center", // equivalente a 'items-center' do tailwind
-            justifyContent: "center", // equivalente a 'justify-center' do tailwind
-            alignSelf: "flex-start", //posiciona o preview ao topo
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "flex-start",
           }}
         >
           <div
             style={{
               display: "flex",
-              flexDirection: "column", // equivale ao flex-col do tailwind
-              alignItems: "center", // equivalente a 'items-center' do tailwind
-              justifyContent: "center", // equivalente a 'justify-center' do tailwind
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
               width: "50%",
               padding: "10px",
               borderRadius: "20px 20px 0px 0px",
-              backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
+              backgroundColor: "#bfdbfe",
             }}
           >
             <h1>Preview</h1>
@@ -758,9 +762,9 @@ const Templetemercado = () => {
           <div
             style={{
               display: "flex",
-              flexDirection: "column", // equivale ao flex-col do tailwind
-              alignItems: "center", // equivalente a 'items-center' do tailwind
-              justifyContent: "center", // equivalente a 'justify-center' do tailwind
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <div
@@ -787,7 +791,6 @@ const Templetemercado = () => {
       <br />
       <br />
 
-      <button onClick={handleSavePanfleto}>Salvar e ir </button>
       <Footer />
     </>
   );

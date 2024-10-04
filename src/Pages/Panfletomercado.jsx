@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "@fontsource/roboto";
+import "@fontsource/open-sans";
+import "@fontsource/lobster";
 
 const Panfletomercado = () => {
   const [frontContent, setFrontContent] = useState({});
