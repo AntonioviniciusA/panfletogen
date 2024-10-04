@@ -168,7 +168,7 @@ const Templetemercado = () => {
   //ateraçao de informaçao do card
   const handleCardChange = (index, e) => {
     const { name, value } = e.target;
-    const newCards = [...rcads];
+    const newCards = [...cards];
     newCards[index] = { ...newCards[index], [name]: value };
     setCards(newCards); //define o novo estado do cartao
   };
@@ -176,7 +176,13 @@ const Templetemercado = () => {
   const handleAddCard = () => {
     setCards([...cards, { image: "", description: "", price: "" }]); //Cria um novo array com os card existentes e define um novo card com as propriedades image, description, price vazais
   };
-
+  // alterar cor background 'page'
+  const [pageBgColor, setPageBgColor] = useState(); // cor padrão do fundo da página
+  const backgroundcard = (e) => {
+    const { value } = e.target;
+    setPageBgColor(value); // altera a cor de fundo do "page"
+  };
+  //remove cards
   const handleRemoveCard = (index) => {
     const newCards = [...cards];
     newCards.splice(index, 1); //Utiliza o metodo Splice para remover um card em expecifico
@@ -245,6 +251,7 @@ const Templetemercado = () => {
           alignItems: "center", // equivalente a 'items-center' do tailwind
           backgroundColor: "#1e40af", // equivale ao 'bg-blue-800' do tailwind
           gap: "5%",
+          padding: "35px",
         }}
       >
         <div
@@ -306,7 +313,12 @@ const Templetemercado = () => {
                 )}
 
                 {bgtypeheader === "file" && (
-                  <input type="file" onChange={handleFileChange} />
+                  <input
+                    type="file"
+                    name="bgImage"
+                    value={headerData.bgImage}
+                    onChange={handleFileChange}
+                  />
                 )}
 
                 {bgtypeheader === "color" && (
@@ -587,6 +599,17 @@ const Templetemercado = () => {
                   backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
                 }}
               >
+                {/* cor fundo */}
+                <label>
+                  Cor de fundo:
+                  <input
+                    type="color"
+                    name="page"
+                    className="colorswitch"
+                    value={pageBgColor}
+                    onChange={backgroundcard}
+                  />
+                </label>
                 {cards.map((card, index) => (
                   <form
                     key={index}
@@ -652,38 +675,6 @@ const Templetemercado = () => {
                 </label>
               </form>
             </div>
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column", // equivale ao flex-col do tailwind
-                alignItems: "center", // equivalente a 'items-center' do tailwind
-                justifyContent: "center", // equivalente a 'justify-center' do tailwind
-              }}
-            >
-              <div
-                className="page "
-                style={{
-                  width: "90%",
-                  padding: "5%",
-                  borderRadius: "20px",
-                  backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
-                }}
-              >
-                <div className="cards">
-                  {cards &&
-                    cards.map((card, index) => (
-                      <div className="card" key={index}>
-                        <img src={card.image} alt={`Product ${index}`} />
-                        <p>{card.description}</p>
-                        <h1 style={{ color: cardcolorData.precocor }}>
-                          R${card.price}
-                        </h1>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -706,7 +697,7 @@ const Templetemercado = () => {
               width: "50%",
               padding: "10px",
               borderRadius: "20px 20px 0px 0px",
-              backgroundColor: "#6b7280", //equivale ao bg-gray-500
+              backgroundColor: "#bfdbfe", //equivale ao 'bg-blue-200'
             }}
           >
             <h1>Preview</h1>
@@ -763,6 +754,32 @@ const Templetemercado = () => {
                 </div>
               </header>
             )}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column", // equivale ao flex-col do tailwind
+              alignItems: "center", // equivalente a 'items-center' do tailwind
+              justifyContent: "center", // equivalente a 'justify-center' do tailwind
+            }}
+          >
+            <div
+              className="page "
+              style={{ backgroundColor: pageBgColor }} // Aplica a cor de fundo
+            >
+              <div className="cards">
+                {cards &&
+                  cards.map((card, index) => (
+                    <div className="card" key={index}>
+                      <img src={card.image} alt={`Product ${index}`} />
+                      <p>{card.description}</p>
+                      <h1 style={{ color: cardcolorData.precocor }}>
+                        R${card.price}
+                      </h1>
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
