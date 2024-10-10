@@ -130,22 +130,23 @@ const Templetemercado = () => {
     setBgImage(`url(${url})`);
     setHeaderData((prevData) => ({
       ...prevData,
-      bgUrl: URL.createObjectURL(e.target.files[0]),
+      bgUrl: url,
     }));
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const fileUrl = e.target.value;
-      setBgImage(`url(${fileUrl})`);
-
+      const fileUrl = URL.createObjectURL(file); // Corrigido para usar URL.createObjectURL para arquivos
+      setBgImage(`url(${fileUrl})`); // Atualiza o estado do background com a URL da imagem
       setHeaderData((prevData) => ({
         ...prevData,
-        file: URL.createObjectURL(e.target.files[0]),
+        bgImage: fileUrl, // Atualiza o headerData com a URL do arquivo
+        bgColor,
       }));
     }
   };
+
   const handleHeaderChange = (e) => {
     const { name, value } = e.target;
     setHeaderData({ ...headerData, bgImage, [name]: value });
@@ -765,30 +766,31 @@ const Templetemercado = () => {
                 </div>
               </header>
             )}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+
             <div
-              className="page "
-              style={{ backgroundColor: pageBgColor }} // Aplica a cor de fundo
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              <div className="cards">
-                {cards &&
-                  cards.map((card, index) => (
-                    <div className="card" key={index}>
-                      <img src={card.image} alt={`Product ${index}`} />
-                      <p>{card.description}</p>
-                      <h1 style={{ color: cardcolorData.precocor }}>
-                        R${card.price}
-                      </h1>
-                    </div>
-                  ))}
+              <div
+                className="page "
+                style={{ backgroundColor: pageBgColor }} // Aplica a cor de fundo
+              >
+                <div className="cards">
+                  {cards &&
+                    cards.map((card, index) => (
+                      <div className="card" key={index}>
+                        <img src={card.image} alt={`Product ${index}`} />
+                        <p>{card.description}</p>
+                        <h1 style={{ color: cardcolorData.precocor }}>
+                          R${card.price}
+                        </h1>
+                      </div>
+                    ))}
+                </div>
               </div>
             </div>
           </div>
