@@ -583,7 +583,7 @@ const Templetemercado = () => {
             <div
               style={{
                 display: "flex",
-                flexDirection: "column",
+                alignContent: "center",
                 justifyContent: "center",
               }}
             >
@@ -684,9 +684,29 @@ const Templetemercado = () => {
                 <button onClick={handleAddCard}>Adicionar Card</button>
               </div>
             </div>
-            <button backgroundColor="#ffffff" onClick={handleSavePanfleto}>
-              Salvar e ir{" "}
-            </button>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                padding: "10px",
+
+                bgColor: "blue",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  bgColor: "blue",
+                }}
+              >
+                <button backgroundColor="#ffffff" onClick={handleSavePanfleto}>
+                  Salvar e ir{" "}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
