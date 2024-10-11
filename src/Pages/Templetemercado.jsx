@@ -684,6 +684,30 @@ const Templetemercado = () => {
                 <button onClick={handleAddCard}>Adicionar Card</button>
               </div>
             </div>
+
+            {/* config footer  */}
+            <div
+              style={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+                padding: "5%",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignContent: "center",
+                  width: "90%",
+                  padding: "5%",
+                  borderRadius: "20px",
+                  backgroundColor: "#bfdbfe",
+                }}
+              ></div>
+            </div>
+
+            {/* container botao  */}
             <div
               style={{
                 display: "flex",
