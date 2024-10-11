@@ -923,6 +923,8 @@ const Templetemercado = () => {
                 </div>
               </div>
             </div>
+            {/* Footer */}
+            <footer></footer>
           </div>
         </div>
       </div>
