@@ -10,6 +10,7 @@ const Templetemercado = () => {
   {
     /* header*/
   }
+
   const [bgtypeheader, setBgTypeHeader] = useState({
     value: "",
   });
@@ -30,6 +31,7 @@ const Templetemercado = () => {
     positionlogo: "",
     positionlogoV: "",
     titulofont: "",
+    divHeight: 100,
   });
   const [positionlogoV, setPositionlogoV] = useState(0);
 
@@ -241,6 +243,32 @@ const Templetemercado = () => {
   {
     /* SALVA HISTORICO DO USUARIO*/
   }
+
+  // footer configs
+
+  const [footerData, setFooterData] = useState({
+    logo: "",
+    positionlogofH: 0,
+    positionlogofV: 0,
+    footerHeight: 100,
+  });
+
+  const handlelogoPositionfHChange = (e) => {
+    const value = e.target.value;
+    setFooterData((prevData) => ({
+      ...prevData,
+      positionlogofH: value,
+    }));
+  };
+
+  const handlelogoPositionfVChange = (e) => {
+    const value = e.target.value;
+    setFooterData((prevData) => ({
+      ...prevData,
+      positionlogofV: value,
+    }));
+  };
+
   return (
     <>
       <Header />
@@ -704,7 +732,57 @@ const Templetemercado = () => {
                   borderRadius: "20px",
                   backgroundColor: "#bfdbfe",
                 }}
-              ></div>
+              >
+                <div>
+                  <input
+                    type="file"
+                    name="logo"
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        logo: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
+                  />
+
+                  <label>Escolha a altura do footer (em pixels):</label>
+                  <input
+                    type="number"
+                    value={footerData.footerHeight}
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        footerHeight: Number(e.target.value),
+                      })
+                    }
+                  />
+
+                  <label>
+                    Localização horizontal da Logo:
+                    <input
+                      type="range"
+                      id="positionlogofH"
+                      min="0"
+                      max="100"
+                      value={footerData.positionlogofH}
+                      onChange={handlelogoPositionfHChange}
+                      style={{ width: "100%" }}
+                    />
+                  </label>
+                  <label>
+                    localização vertical da Logo:
+                    <input
+                      type="range"
+                      id="positionlogofV"
+                      min="0"
+                      max="100"
+                      value={positionlogoV}
+                      onChange={handlelogoPositionVChange}
+                      style={{ width: "100%" }}
+                    />
+                  </label>
+                </div>
+              </div>
             </div>
 
             {/* container botao  */}
@@ -861,8 +939,8 @@ const Templetemercado = () => {
                     src={headerData.logo}
                     style={{
                       position: "relative",
-                      left: headerData.positionlogo + "%",
-                      top: headerData.positionlogoV + "px",
+                      left: `${headerData.positionlogo}%`,
+                      top: `${headerData.positionlogoV}px`,
                     }}
                     width={100} //200
                     alt="logo"
@@ -924,7 +1002,26 @@ const Templetemercado = () => {
               </div>
             </div>
             {/* Footer */}
-            <footer></footer>
+            <footer
+              style={{
+                position: "relative",
+                height: `${footerData.footerHeight}px`,
+                border: "1px solid black",
+              }}
+            >
+              {footerData.logo && (
+                <img
+                  src={footerData.logo}
+                  style={{
+                    position: "relative",
+                    left: `${footerData.positionlogofH}%`,
+                    top: `${footerData.positionlogofV}px`,
+                  }}
+                  width={100}
+                  alt="logo"
+                />
+              )}
+            </footer>
           </div>
         </div>
       </div>
