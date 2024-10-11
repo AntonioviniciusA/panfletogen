@@ -1005,7 +1005,7 @@ const Templetemercado = () => {
             <footer
               style={{
                 position: "relative",
-                height: `${footerData.footerHeight}px`,
+                height: `${footerData.footerHeight}px`, //altura definida pelo usuaruio no input
                 border: "1px solid black",
               }}
             >
