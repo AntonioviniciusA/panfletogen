@@ -250,7 +250,7 @@ const Templetemercado = () => {
     logo: "",
     positionlogofH: 0,
     positionlogofV: 0,
-    footerHeight: 100,
+    footerHeight: 100, //define a altura padrao do footer
   });
 
   const handlelogoPositionfHChange = (e) => {
