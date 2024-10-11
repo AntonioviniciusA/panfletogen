@@ -389,7 +389,7 @@ const Templetemercado = () => {
                   </div>
                 </div>
                 <br />
-                <br />
+
                 <div
                   //container frase
                   style={{
@@ -484,7 +484,7 @@ const Templetemercado = () => {
                   </div>
                 </div>
                 <br />
-                <br />
+
                 <div
                   //container validade
                   style={{
@@ -684,6 +684,7 @@ const Templetemercado = () => {
                 <button onClick={handleAddCard}>Adicionar Card</button>
               </div>
             </div>
+            <br />
 
             {/* config footer  */}
             <div
@@ -691,7 +692,6 @@ const Templetemercado = () => {
                 display: "flex",
                 alignContent: "center",
                 justifyContent: "center",
-                padding: "5%",
               }}
             >
               <div
