@@ -702,8 +702,94 @@ const Templetemercado = () => {
                   bgColor: "blue",
                 }}
               >
-                <button backgroundColor="#ffffff" onClick={handleSavePanfleto}>
-                  Salvar e ir{" "}
+                <button
+                  style={{
+                    backgroundColor: "#3b82f6",
+                    color: "white",
+                    fontFamily: "inherit",
+                    fontSize: "20px",
+                    fill: "rgb(255, 255, 255)", // Cor do SVG
+                    padding: "0.7em 1em",
+                    paddingLeft: "0.9em",
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    border: "none",
+                    borderRadius: "15px",
+                    fontWeight: "1000",
+                    transition: "transform 0.3s ease-in-out",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = "#1e3a8a"; // Azul mais escuro no hover
+                    const svg = e.target.querySelector("svg");
+                    const span = e.target.querySelector("span");
+                    const svgWrapper = e.target.querySelector(".svg-wrapper");
+                    if (svg) {
+                      svg.style.transform = "translateX(1.2em) scale(1.1)";
+                      svg.style.fill = "#ffffff"; // Branco no hover
+                    }
+                    if (span) {
+                      span.style.opacity = "0";
+                    }
+                    if (svgWrapper) {
+                      svgWrapper.style.transform = "scale(1.25)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = "#3b82f6"; // Volta ao bg original
+                    const svg = e.target.querySelector("svg");
+                    const span = e.target.querySelector("span");
+                    const svgWrapper = e.target.querySelector(".svg-wrapper");
+                    if (svg) {
+                      svg.style.transform = "none";
+                      svg.style.fill = "#ffffff"; // Mantém branco
+                    }
+                    if (span) {
+                      span.style.opacity = "1";
+                    }
+                    if (svgWrapper) {
+                      svgWrapper.style.transform = "none";
+                    }
+                  }}
+                  onMouseDown={(e) => {
+                    e.target.style.transform = "scale(0.95)";
+                  }}
+                  onMouseUp={(e) => {
+                    e.target.style.transform = "scale(1)";
+                  }}
+                  onClick={handleSavePanfleto}
+                >
+                  <div
+                    className="svg-wrapper-1"
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <div
+                      className="svg-wrapper"
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="30"
+                        height="30"
+                        className="icon"
+                        style={{
+                          transition: "transform 0.3s ease-in-out",
+                          fill: "#ffffff", // Branco
+                        }}
+                      >
+                        <path d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <span
+                    style={{
+                      marginLeft: "0.3em",
+                      transition: "opacity 0.3s ease-in-out",
+                    }}
+                  >
+                    Salvar e ir
+                  </span>
                 </button>
               </div>
             </div>
