@@ -62,7 +62,6 @@ const Templetemercado = () => {
     }));
   };
   const [positionTitulo, setPositionTitulo] = useState(45);
-
   const handleTituloPositionChange = (e) => {
     setPositionTitulo(e.target.value);
     setHeaderData((prevData) => ({
@@ -201,7 +200,7 @@ const Templetemercado = () => {
     localStorage.setItem(
       //Salva os dados no LocalStorage
       "frontContent",
-      JSON.stringify({ headerData, cardcolorData, cards }) //Armazena as tres variaveis e e converte para JSON utilizando JSON.stringify()
+      JSON.stringify({ headerData, cardcolorData, cards, pageBgColor }) //Armazena as tres variaveis e e converte para JSON utilizando JSON.stringify()
     );
     alert("Panfleto salvo! Apertem em (ok) para continuar"); // Gera um aviso na tela do usuario avisando que o panfleto foi salvo :)
     navigate("/panfleto-mercado"); //Redireciona o usuario para a paguna de panfleto-mercado apos o panfleto ser salvo
@@ -227,7 +226,7 @@ const Templetemercado = () => {
   const saveFormData = () => {
     localStorage.setItem(
       "formData",
-      JSON.stringify({ bgtypeheader, headerData, cards })
+      JSON.stringify({ bgtypeheader, headerData, cards, pageBgColor })
     );
   };
 
@@ -237,6 +236,7 @@ const Templetemercado = () => {
     if (savedData) {
       setBgTypeHeader(savedData.bgtypeheader);
       setHeaderData(savedData.headerData);
+      setPageBgColor(savedData.pageBgColor);
       setCards(savedData.cards || []);
     }
   }, []);
