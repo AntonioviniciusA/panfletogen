@@ -33,6 +33,9 @@ const Templetemercado = () => {
     titulofont: "",
     divHeight: 100,
   });
+
+  // alterar posicao vertical da logo header
+
   const [positionlogoV, setPositionlogoV] = useState(0);
 
   const handlelogoPositionVChange = (e) => {
@@ -42,6 +45,9 @@ const Templetemercado = () => {
       positionlogoV: e.target.value,
     }));
   };
+
+  // alterar posicao horizontal logo header
+
   const [positionlogo, setPositionlogo] = useState(0);
 
   const handlelogoPositionChange = (e) => {
@@ -52,6 +58,8 @@ const Templetemercado = () => {
     }));
   };
 
+  // alterar posicao vertical  da vaidade
+
   const [positionTituloV, setPositionTituloV] = useState(0);
 
   const handleTituloPositionVChange = (e) => {
@@ -61,6 +69,9 @@ const Templetemercado = () => {
       positionTituloV: e.target.value,
     }));
   };
+
+  // alterar posicao horizontal da validade
+
   const [positionTitulo, setPositionTitulo] = useState(45);
   const handleTituloPositionChange = (e) => {
     setPositionTitulo(e.target.value);
@@ -200,7 +211,7 @@ const Templetemercado = () => {
     localStorage.setItem(
       //Salva os dados no LocalStorage
       "frontContent",
-      JSON.stringify({ headerData, cardcolorData, cards, pageBgColor }) //Armazena as tres variaveis e e converte para JSON utilizando JSON.stringify()
+      JSON.stringify({ headerData, cardcolorData, cards, pageBgColor }) //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
     );
     alert("Panfleto salvo! Apertem em (ok) para continuar"); // Gera um aviso na tela do usuario avisando que o panfleto foi salvo :)
     navigate("/panfleto-mercado"); //Redireciona o usuario para a paguna de panfleto-mercado apos o panfleto ser salvo
@@ -253,6 +264,18 @@ const Templetemercado = () => {
     footerHeight: 100, //define a altura padrao do footer
   });
 
+  //alterar cor do fundo do footer
+
+  const [footerBgColor, setFooterBgColor] = useState(); // cor padrão do fundo da página
+  const backgroundfooter = (e) => {
+    const { value } = e.target;
+    setFooterBgColor(value); // altera a cor de fundo do "footer"
+  };
+
+  //
+
+  //input alterar posicao na horinzontal da logo do footer
+
   const handlelogoPositionfHChange = (e) => {
     const value = e.target.value;
     setFooterData((prevData) => ({
@@ -260,6 +283,8 @@ const Templetemercado = () => {
       positionlogofH: value,
     }));
   };
+
+  // alterar a posicao na vertical da logo do footer
 
   const handlelogoPositionfVChange = (e) => {
     const value = e.target.value;
@@ -871,6 +896,17 @@ const Templetemercado = () => {
                 }}
               >
                 <div>
+                  <label>
+                    Cor de fundo:
+                    <input
+                      type="color"
+                      name="page"
+                      className="colorswitch"
+                      value={footerBgColor}
+                      onChange={backgroundfooter}
+                    />
+                  </label>
+
                   <input
                     type="file"
                     name="logo"
@@ -1130,6 +1166,7 @@ const Templetemercado = () => {
               style={{
                 position: "relative",
                 height: `${footerData.footerHeight}px`, //altura definida pelo usuaruio no input
+                backgroundColor: footerBgColor, // Aplica a cor de fundo ao "footer"
                 border: "1px solid black",
               }}
             >
