@@ -945,8 +945,8 @@ const Templetemercado = () => {
                       id="positionlogofV"
                       min="0"
                       max="100"
-                      value={positionlogoV}
-                      onChange={handlelogoPositionVChange}
+                      value={footerData.positionlogofV}
+                      onChange={handlelogoPositionfVChange}
                       style={{ width: "100%" }}
                     />
                   </label>
