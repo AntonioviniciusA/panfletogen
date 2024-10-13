@@ -269,7 +269,7 @@ const Templetemercado = () => {
     logo: "",
     positionlogofH: 0,
     positionlogofV: 0,
-    footerHeight: 100, //define a altura padrao do footer
+    footerHeight: 150, //define a altura padrao do footer
   });
 
   //alterar cor do fundo do footer
