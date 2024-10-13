@@ -269,6 +269,12 @@ const Templetemercado = () => {
     logo: "",
     positionlogofH: 0,
     positionlogofV: 0,
+    positiontelfH: 0,
+    positiontelfV: 0,
+    positionemailfH: 0,
+    positionemailfV: 0,
+    positionenderecofH: 0,
+    positionenderecofV: 0,
     footerHeight: 150, //define a altura padrao do footer
   });
 
@@ -323,16 +329,16 @@ const Templetemercado = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: "20px",
-            backgroundColor: "#bfdbfe",
+            // borderRadius: "20px",
+            // backgroundColor: "#bfdbfe",
           }}
         >
           <div
             style={{
-              width: "90%",
-              margin: "3%",
+              width: "75%",
+              // margin: "3%",
               padding: "3%",
-              borderRadius: "20px",
+              borderRadius: "25px",
               backgroundColor: "#93c5fd",
             }}
           >
@@ -357,8 +363,8 @@ const Templetemercado = () => {
                 >
                   <div //div logo
                     style={{
-                      width: "90%",
-                      padding: "5%",
+                      width: "100%",
+                      padding: "4%",
                       borderRadius: "20px",
                       backgroundColor: "#bfdbfe",
                     }}
@@ -462,8 +468,8 @@ const Templetemercado = () => {
                   <div
                     id="div-titulo"
                     style={{
-                      width: "90%",
-                      padding: "5%",
+                      width: "100%",
+                      padding: "4%",
                       borderRadius: "20px",
                       backgroundColor: "#bfdbfe",
                     }}
@@ -556,8 +562,8 @@ const Templetemercado = () => {
                 >
                   <div
                     style={{
-                      width: "90%",
-                      padding: "5%",
+                      width: "100%",
+                      padding: "4%",
                       borderRadius: "20px",
                       backgroundColor: "#bfdbfe",
                     }}
@@ -653,8 +659,8 @@ const Templetemercado = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignContent: "center",
-                  width: "90%",
-                  padding: "5%",
+                  width: "100%",
+                  padding: "4%",
                   borderRadius: "20px",
                   backgroundColor: "#bfdbfe",
                 }}
@@ -671,8 +677,8 @@ const Templetemercado = () => {
                 </div>
                 <form
                   style={{
-                    width: "90%",
-                    padding: "5%",
+                    width: "100%",
+                    padding: "4%",
                     borderRadius: "20px",
                   }}
                 >
@@ -761,8 +767,8 @@ const Templetemercado = () => {
                   flexDirection: "column",
 
                   alignContent: "center",
-                  width: "90%",
-                  padding: "5%",
+                  width: "100%",
+                  padding: "4%",
                   borderRadius: "20px",
                   backgroundColor: "#bfdbfe",
                 }}
@@ -897,8 +903,8 @@ const Templetemercado = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignContent: "center",
-                  width: "90%",
-                  padding: "5%",
+                  width: "100%",
+                  padding: "4%",
                   borderRadius: "20px",
                   backgroundColor: "#bfdbfe",
                 }}
@@ -959,7 +965,7 @@ const Templetemercado = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
-                padding: "10px",
+                padding: "15px",
 
                 bgColor: "blue",
               }}
