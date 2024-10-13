@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { SketchPicker } from "react-color";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "@fontsource/roboto";
