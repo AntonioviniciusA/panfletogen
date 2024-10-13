@@ -237,7 +237,13 @@ const Templetemercado = () => {
   const saveFormData = () => {
     localStorage.setItem(
       "formData",
-      JSON.stringify({ bgtypeheader, headerData, cards, pageBgColor })
+      JSON.stringify({
+        bgtypeheader,
+        headerData,
+        cards,
+        pageBgColor,
+        footerBgColor,
+      })
     );
   };
 
@@ -248,6 +254,8 @@ const Templetemercado = () => {
       setBgTypeHeader(savedData.bgtypeheader);
       setHeaderData(savedData.headerData);
       setPageBgColor(savedData.pageBgColor);
+      setFooterBgColor(savedData.footerBgColor);
+
       setCards(savedData.cards || []);
     }
   }, []);
