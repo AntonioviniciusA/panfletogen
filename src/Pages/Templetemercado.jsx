@@ -1187,7 +1187,7 @@ const Templetemercado = () => {
                     top: `${footerData.positionlogofV}px`,
                   }}
                   width={100}
-                  alt="logo"
+                  alt="logo-footer"
                 />
               )}
             </footer>
