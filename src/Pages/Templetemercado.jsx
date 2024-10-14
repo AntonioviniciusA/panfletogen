@@ -21,7 +21,6 @@ const Templetemercado = () => {
     bgColor: "",
     titulo: "",
     tituloColor: "",
-    titulofontSize: "",
     duracao: "",
     duracaoColor: "",
     duracaofontSize: "",
@@ -32,6 +31,7 @@ const Templetemercado = () => {
     positionlogo: "",
     positionlogoV: "",
     titulofont: "",
+    titulofontSize: "",
     divHeight: 100,
   });
 
@@ -116,6 +116,27 @@ const Templetemercado = () => {
     setHeaderData((prevData) => ({
       ...prevData,
       titulofont: e.target.value,
+    }));
+  };
+
+  const [telfontSize, setTelFontSize] = useState("16px");
+  const [telfont, setTelFont] = useState("Arial");
+
+  const handleTelFontSizeChange = (e) => {
+    const newSize = e.target.value;
+    setTelFontSize(newSize);
+    setFooterData((prevData) => ({
+      ...prevData,
+      telfontSize: newSize,
+    }));
+  };
+
+  const handleTelFontChange = (e) => {
+    const newFont = e.target.value;
+    setTelFont(newFont);
+    setFooterData((prevData) => ({
+      ...prevData,
+      telfont: newFont,
     }));
   };
 
@@ -268,6 +289,7 @@ const Templetemercado = () => {
 
   const [footerData, setFooterData] = useState({
     logo: "",
+    tel: "",
     positionlogofH: 0,
     positionlogofV: 0,
     positiontelfH: 0,
@@ -276,6 +298,8 @@ const Templetemercado = () => {
     positionemailfV: 0,
     positionenderecofH: 0,
     positionenderecofV: 0,
+    telfont: "",
+    telfontSize: "",
     footerHeight: 150, //define a altura padrao do footer
   });
 
@@ -287,7 +311,19 @@ const Templetemercado = () => {
     setFooterBgColor(value); // altera a cor de fundo do "footer"
   };
 
-  //
+  //troca de cores textos do footer
+
+  //troca de cor tel
+
+  const [telColor, setTelColor] = useState("#000000");
+  const handletelColorChange = (e) => {
+    const newColor = e.target.value;
+    setTelColor(newColor); // Atualiza a cor no estado local
+    setFooterData((prevData) => ({
+      ...prevData,
+      telColor: newColor, // Atualiza a cor no footerData
+    }));
+  };
 
   //input alterar posicao na horinzontal da logo do footer
 
@@ -306,6 +342,32 @@ const Templetemercado = () => {
     setFooterData((prevData) => ({
       ...prevData,
       positionlogofV: value,
+    }));
+  };
+
+  // posição horizontal do telefone
+  const handleTelPositionHChange = (e) => {
+    const newValue = Number(e.target.value);
+    setFooterData((prevData) => ({
+      ...prevData,
+      positiontelfH: newValue,
+    }));
+  };
+
+  // posição vertical do telefone
+  const handleTelPositionVChange = (e) => {
+    const newValue = Number(e.target.value);
+    setFooterData((prevData) => ({
+      ...prevData,
+      positiontelfV: newValue,
+    }));
+  };
+
+  const handleTelChange = (e) => {
+    const { value } = e.target;
+    setFooterData((prevData) => ({
+      ...prevData,
+      tel: value,
     }));
   };
 
@@ -957,6 +1019,76 @@ const Templetemercado = () => {
                       style={{ width: "100%" }}
                     />
                   </label>
+
+                  <label>
+                    Número de Telefone:
+                    <input
+                      type="text"
+                      value={footerData.tel}
+                      onChange={handleTelChange} // Controle do número de telefone
+                    />
+                  </label>
+                  <div className="estiloletra">
+                    <select
+                      id="telfont"
+                      value={telfont}
+                      onChange={handleTelFontChange}
+                    >
+                      <option value="Arial">Arial</option>
+                      <option value="Courier New">Courier New</option>
+                      <option value="Georgia">Georgia</option>
+                      <option value="Times New Roman">Times New Roman</option>
+                      <option value="Verdana">Verdana</option>
+                      <option value="Roboto">Roboto</option>
+                      <option value="Open Sans">Open Sans</option>
+                      <option value="Lobster">Lobster</option>
+                      <option value="New Amsterdam">New Amsterdam</option>
+                    </select>
+
+                    <select
+                      id="telfontSize"
+                      value={telfontSize}
+                      onChange={handleTelFontSizeChange}
+                    >
+                      <option value="12px">12px</option>
+                      <option value="16px">16px</option>
+                      <option value="20px">20px</option>
+                      <option value="24px">24px</option>
+                      <option value="28px">28px</option>
+                      <option value="32px">32px</option>
+                      <option value="36px">36px</option>
+                    </select>
+
+                    <label>
+                      Escolha a cor do telefone:
+                      <input
+                        type="color"
+                        name="tituloColor"
+                        className="colorswitch"
+                        value={telColor} // Usa o valor de telColor no estado
+                        onChange={handletelColorChange} // Chama a função para mudar a cor
+                      />
+                    </label>
+                    <label>
+                      Posição Horizontal:
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={footerData.positiontelfH}
+                        onChange={handleTelPositionHChange} // Controle da posição horizontal
+                      />
+                    </label>
+
+                    <label>
+                      Posição Vertical:
+                      <input
+                        type="range"
+                        value={footerData.positiontelfV}
+                        onChange={handleTelPositionVChange} // Controle da posição vertical
+                      />
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1197,6 +1329,20 @@ const Templetemercado = () => {
                   alt="logo-footer"
                 />
               )}
+              <h1
+                style={{
+                  position: "relative",
+                  fontFamily: footerData.telfont,
+                  fontSize: footerData.telfontSize,
+                  left: footerData.positiontelfH + "%", // Posição horizontal
+                  top: footerData.positiontelfV + "px", // Posição vertical
+                  backgroundColor: footerBgColor, // Aplica a cor de fundo ao "footer"
+                  color: telColor,
+                  transition: "left 0.3s ease, top 0.3s ease", // Transição suave
+                }}
+              >
+                {footerData.tel} {/* Exibe o número de telefone */}
+              </h1>
             </footer>
           </div>
         </div>
