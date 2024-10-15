@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Rnd } from "react-rnd";
 import { SketchPicker } from "react-color";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -1451,16 +1452,28 @@ const Templetemercado = () => {
               }}
             >
               {footerData.logo && (
-                <img
-                  src={footerData.logo}
-                  style={{
-                    position: "relative",
-                    left: `${footerData.positionlogofH}%`,
-                    top: `${footerData.positionlogofV}px`,
+                <Rnd
+                  default={{
+                    x: footerData.positionlogofH,
+                    y: footerData.positionlogofV,
+                    width: 100,
+                    height: "auto",
                   }}
-                  width={100}
-                  alt="logo-footer"
-                />
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                  //  Garante que a imagem não possa ser arrastada para fora do elemento pai
+                >
+                  <img
+                    src={footerData.logo}
+                    // style={{
+                    //   position: "relative",
+                    //   left: `${footerData.positionlogofH}%`,
+                    //   top: `${footerData.positionlogofV}px`,
+                    // }}
+                    alt="logo-footer"
+                  />
+                </Rnd>
               )}
               <h1
                 style={{
