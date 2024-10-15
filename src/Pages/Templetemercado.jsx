@@ -420,7 +420,7 @@ const Templetemercado = () => {
               }}
             >
               <div>
-                <p>Escolha a altura do footer </p>
+                <p>Escolha a altura do Cabeçalho </p>
               </div>
 
               <div
@@ -1388,6 +1388,7 @@ const Templetemercado = () => {
                 >
                   <img src={headerData.logo} alt="logo" />
                 </Rnd>
+
                 {/* <img
                     src={headerData.logo}
                     style={{
