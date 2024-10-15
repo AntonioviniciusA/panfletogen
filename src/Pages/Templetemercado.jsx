@@ -29,8 +29,8 @@ const Templetemercado = () => {
     positionduracaoV: "",
     positionTitulo: "",
     positionTituloV: "",
-    positionlogo: "",
-    positionlogoV: "",
+    positionlogo: "1",
+    positionlogoV: "1",
     titulofont: "",
     titulofontSize: "",
     headerHeight: 150,
@@ -1127,7 +1127,7 @@ const Templetemercado = () => {
                     }
                   />
 
-                  <label>
+                  {/* <label>
                     Localização horizontal da Logo:
                     <input
                       type="range"
@@ -1150,7 +1150,7 @@ const Templetemercado = () => {
                       onChange={handlelogoPositionfVChange}
                       style={{ width: "100%" }}
                     />
-                  </label>
+                  </label> */}
 
                   <label>
                     Número de Telefone:
@@ -1375,8 +1375,20 @@ const Templetemercado = () => {
                   backgroundPosition: "center",
                 }}
               >
-                <div>
-                  <img
+                <Rnd
+                  default={{
+                    x: headerData.positionlogo,
+                    y: headerData.positionlogoV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
+                >
+                  <img src={headerData.logo} alt="logo" />
+                </Rnd>
+                {/* <img
                     src={headerData.logo}
                     style={{
                       position: "relative",
@@ -1385,34 +1397,33 @@ const Templetemercado = () => {
                     }}
                     width={100} //200
                     alt="logo"
-                  />
-                  <h1
-                    style={{
-                      color: headerData.tituloColor,
-                      fontFamily: headerData.titulofont,
-                      fontSize: headerData.titulofontSize,
-                      position: "relative",
-                      left: headerData.positionTitulo + "%",
-                      top: headerData.positionTituloV + "px",
-                      transition: "left 0.3s ease",
-                    }}
-                  >
-                    {headerData.titulo}
-                  </h1>
-                  <p
-                    style={{
-                      color: headerData.duracaoColor,
-                      fontFamily: headerData.duracaofont,
-                      fontSize: headerData.duracaofontSize,
-                      position: "relative",
-                      left: headerData.positionduracao + "%",
-                      top: headerData.positionduracaoV + "px",
-                      transition: "left 0.3s ease",
-                    }}
-                  >
-                    {headerData.duracao}
-                  </p>
-                </div>
+                  /> */}
+                <h1
+                  style={{
+                    color: headerData.tituloColor,
+                    fontFamily: headerData.titulofont,
+                    fontSize: headerData.titulofontSize,
+                    position: "relative",
+                    left: headerData.positionTitulo + "%",
+                    top: headerData.positionTituloV + "px",
+                    transition: "left 0.3s ease",
+                  }}
+                >
+                  {headerData.titulo}
+                </h1>
+                <p
+                  style={{
+                    color: headerData.duracaoColor,
+                    fontFamily: headerData.duracaofont,
+                    fontSize: headerData.duracaofontSize,
+                    position: "relative",
+                    left: headerData.positionduracao + "%",
+                    top: headerData.positionduracaoV + "px",
+                    transition: "left 0.3s ease",
+                  }}
+                >
+                  {headerData.duracao}
+                </p>
               </header>
             )}
 
