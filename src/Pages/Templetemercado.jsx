@@ -29,8 +29,8 @@ const Templetemercado = () => {
     positionduracaoV: "",
     positionTitulo: "",
     positionTituloV: "",
-    positionlogo: "1",
-    positionlogoV: "1",
+    positionlogo: 0,
+    positionlogoV: 0,
     titulofont: "",
     titulofontSize: "",
     headerHeight: 150,
@@ -317,13 +317,13 @@ const Templetemercado = () => {
     tel: "",
     positionlogofH: 0,
     positionlogofV: 0,
-    positiontelfH: 0,
-    positiontelfV: 0,
+    positiontelfH: "",
+    positiontelfV: "",
     positionemailfH: 0,
     positionemailfV: 0,
     positionenderecofH: 0,
     positionenderecofV: 0,
-    telfont: "",
+    telfont: "0",
     telfontSize: "",
     footerHeight: 150, //define a altura padrao do footer
   });
@@ -1193,6 +1193,7 @@ const Templetemercado = () => {
                         type="range"
                         min="0"
                         max="100"
+                        style={{ width: "100%" }}
                         value={footerData.positiontelfH}
                         onChange={handleTelPositionHChange} // Controle da posição horizontal
                       />
@@ -1569,19 +1570,21 @@ const Templetemercado = () => {
                   />
                 </Rnd>
               )}
+
               <h1
                 style={{
                   position: "relative",
                   fontFamily: footerData.telfont,
                   fontSize: footerData.telfontSize,
-                  left: footerData.positiontelfH + "%", // Posição horizontal
-                  top: footerData.positiontelfV + "px", // Posição vertical
-                  backgroundColor: footerBgColor, // Aplica a cor de fundo ao "footer"
+                  left: footerData.positiontelfH + "%",
+                  top: footerData.positiontelfV + "%",
+                  backgroundColor: footerBgColor,
                   color: telColor,
-                  transition: "left 0.3s ease, top 0.3s ease", // Transição suave
+                  transition: "left 0.3s ease, top 0.3s ease",
+                  width: "10%",
                 }}
               >
-                {footerData.tel} {/* Exibe o número de telefone */}
+                {footerData.tel}
               </h1>
             </footer>
           </div>
