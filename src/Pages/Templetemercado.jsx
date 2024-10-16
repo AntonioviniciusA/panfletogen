@@ -191,39 +191,64 @@ const Templetemercado = () => {
     }));
   };
   /*-------------------- PRODUTOS -------------------------*/
+
+  // Estado dos cards
   const [cards, setCards] = useState([]);
+
+  // Estado para a cor de fundo do preço
   const [cardcolorData, setCardColorData] = useState({
-    //setCardColorData atualiza o estado de acordo com a novas cores selecionadas
-    precocor: "#000000", //define a cor do preço como black
+    precocor: "#000000", // define a cor do preço como preto
   });
-  //alteraçao de cor do cartao
+
+  // Estado para a cor de fundo da página
+  const [pageBgColor, setPageBgColor] = useState("#ffffff");
+
+  // Estado para controlar o índice do card sendo editado
+  const [editingCardIndex, setEditingCardIndex] = useState(null);
+
+  // Altera a cor do preço do card
   const handleCardColorChange = (e) => {
     const { name, value } = e.target;
     setCardColorData({ ...cardcolorData, [name]: value });
   };
-  //ateraçao de informaçao do card
+
+  // Altera as informações do card
   const handleCardChange = (index, e) => {
     const { name, value } = e.target;
     const newCards = [...cards];
     newCards[index] = { ...newCards[index], [name]: value };
-    setCards(newCards); //define o novo estado do cartao
+    setCards(newCards); // Define o novo estado do card
   };
-  //adiciona um novo card
+
+  // Adiciona um novo card
   const handleAddCard = () => {
-    setCards([...cards, { image: "", description: "", price: "" }]); //Cria um novo array com os card existentes e define um novo card com as propriedades image, description, price vazais
+    setCards([...cards, { image: "", description: "", price: "" }]); // Cria um novo array com os cards existentes e define um novo card com as propriedades image, description e price vazias
   };
-  // alterar cor background 'page'
-  const [pageBgColor, setPageBgColor] = useState(); // cor padrão do fundo da página
+
+  // Altera a cor de fundo da página
   const backgroundcard = (e) => {
     const { value } = e.target;
-    setPageBgColor(value); // altera a cor de fundo do "page"
+    setPageBgColor(value); // Altera a cor de fundo da página
   };
-  //remove cards
+
+  // Remove um card
   const handleRemoveCard = (index) => {
     const newCards = [...cards];
-    newCards.splice(index, 1); //Utiliza o metodo Splice para remover um card em expecifico
+    newCards.splice(index, 1); // Remove o card específico
     setCards(newCards);
+    setEditingCardIndex(null); // Fecha o modal se o card editado for removido
   };
+
+  // Abre o modal de edição do card
+  const openEditModal = (index) => {
+    setEditingCardIndex(index); // Define o índice do card sendo editado
+  };
+
+  // Fecha o modal de edição do card
+  const closeEditModal = () => {
+    setEditingCardIndex(null); // Fecha o modal
+  };
+
   /*-------------------- CONFIG DE SAVE -------------------------*/
   {
     /* SALVA O DOCUMENTO*/
@@ -1445,18 +1470,106 @@ const Templetemercado = () => {
                 style={{ backgroundColor: pageBgColor }} // Aplica a cor de fundo
               >
                 <div className="cards">
-                  {cards &&
-                    cards.map((card, index) => (
-                      <div className="card" key={index}>
-                        <img src={card.image} alt={`Product ${index}`} />
-                        <p>{card.description}</p>
-                        <h1 style={{ color: cardcolorData.precocor }}>
-                          R${card.price}
-                        </h1>
-                      </div>
-                    ))}
+                  {cards.map((card, index) => (
+                    <div
+                      className="card"
+                      key={index}
+                      onClick={() => openEditModal(index)}
+                    >
+                      <img src={card.image} alt={`Product ${index}`} />
+                      <p>{card.description}</p>
+                      <h1 style={{ color: cardcolorData.precocor }}>
+                        R${card.price}
+                      </h1>
+                    </div>
+                  ))}
                 </div>
               </div>
+              {editingCardIndex !== null && (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    backgroundColor: "#bfdbfe",
+                    padding: "20px",
+                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "20px",
+                    zIndex: 5000,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <h3>Editar Card</h3>
+                    <form
+                      style={{
+                        width: "100%",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      <input
+                        type="file"
+                        name="image"
+                        onChange={(e) =>
+                          handleCardChange(editingCardIndex, {
+                            target: {
+                              name: "image",
+                              value: URL.createObjectURL(e.target.files[0]),
+                            },
+                          })
+                        }
+                      />
+                      <label>
+                        Descrição do Produto:
+                        <input
+                          type="text"
+                          name="description"
+                          value={cards[editingCardIndex].description}
+                          onChange={(e) =>
+                            handleCardChange(editingCardIndex, e)
+                          }
+                          placeholder="Descrição do Produto"
+                        />
+                      </label>
+                      <label>
+                        Preço:
+                        <input
+                          type="text"
+                          name="price"
+                          value={cards[editingCardIndex].price}
+                          onChange={(e) =>
+                            handleCardChange(editingCardIndex, e)
+                          }
+                          placeholder="9,99"
+                        />
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveCard(editingCardIndex)}
+                      >
+                        Remover
+                      </button>
+                    </form>
+                    <button
+                      onClick={closeEditModal}
+                      style={{
+                        backgroundColor: "red",
+                        padding: "5px",
+                        borderRadius: "5px",
+                        color: "white",
+                      }}
+                    >
+                      Fechar
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
             {/* Footer */}
             <footer
