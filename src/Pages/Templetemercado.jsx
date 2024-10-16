@@ -406,7 +406,7 @@ const Templetemercado = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#1e40af",
-          gap: "5%",
+          gap: "",
           padding: "35px",
         }}
       >
@@ -1342,7 +1342,7 @@ const Templetemercado = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              width: "50%",
+              width: "80%",
               padding: "10px",
               borderRadius: "20px 20px 0px 0px",
               backgroundColor: "#bfdbfe",
