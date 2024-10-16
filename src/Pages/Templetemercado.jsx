@@ -707,7 +707,12 @@ const Templetemercado = () => {
                         <option value="24px">24px</option>
                         <option value="28px">28px</option>
                         <option value="32px">32px</option>
-                        <option value="36px">36px</option>
+                        <option value="40px">40px</option>
+                        <option value="42px">42px</option>
+                        <option value="44px">44px</option>
+                        <option value="48px">48px</option>
+                        <option value="52px">52px</option>
+                        <option value="56px">56px</option>
                       </select>
 
                       <input
@@ -800,7 +805,6 @@ const Templetemercado = () => {
                         <option value="24px">24px</option>
                         <option value="28px">28px</option>
                         <option value="32px">32px</option>
-                        <option value="36px">36px</option>
                       </select>
 
                       <input
