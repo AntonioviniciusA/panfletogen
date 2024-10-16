@@ -17,9 +17,9 @@ const Templetemercado = () => {
     value: "",
   });
   const [headerData, setHeaderData] = useState({
+    bgImage: "",
     logo: "",
     bgColor: "",
-    bgImage: "",
     titulo: "",
     tituloColor: "",
     duracao: "",
@@ -29,10 +29,38 @@ const Templetemercado = () => {
     positionduracaoV: "",
     positionTitulo: "",
     positionTituloV: "",
+    positionlogo: "1",
+    positionlogoV: "1",
     titulofont: "",
     titulofontSize: "",
     headerHeight: 150,
   });
+
+  // alterar posicao vertical da logo header
+
+  const [positionlogoV, setPositionlogoV] = useState(0);
+
+  const handlelogoPositionVChange = (e) => {
+    setPositionlogoV(e.target.value);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      positionlogoV: e.target.value,
+    }));
+  };
+
+  // alterar posicao horizontal logo header
+
+  const [positionlogo, setPositionlogo] = useState(0);
+
+  const handlelogoPositionChange = (e) => {
+    setPositionlogo(e.target.value);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      positionlogo: e.target.value,
+    }));
+  };
+
+  // alterar posicao vertical  da vaidade
 
   const [positionTituloV, setPositionTituloV] = useState(0);
 
@@ -237,12 +265,6 @@ const Templetemercado = () => {
     if (headerData) {
       setHeaderData(headerData);
     }
-    if (cardcolorData) {
-      setCardColorData(cardcolorData);
-    }
-    if (cards) {
-      setCards(cards);
-    }
   };
   {
     /* SALVA O DOCUMENTO*/
@@ -409,134 +431,7 @@ const Templetemercado = () => {
             }}
           >
             {/* //ssssss */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
 
-                alignContent: "center",
-                width: "100%",
-                padding: "4%",
-                borderRadius: "20px",
-                backgroundColor: "#bfdbfe",
-              }}
-            >
-              <div>
-                <p>Escolha a altura do Cabeçalho </p>
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  gap: "20px",
-                }}
-              >
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
-                      headerHeight: 100,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  100px
-                </button>
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
-                      headerHeight: 150,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  150px
-                </button>
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
-                      headerHeight: 200,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  200px
-                </button>
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
-                      headerHeight: 250,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  250px
-                </button>
-              </div>
-            </div>
             {/* ss */}
             <br />
             <form
@@ -626,6 +521,158 @@ const Templetemercado = () => {
                         })
                       }
                     />
+                    <label>
+                      localização horizontal da Logo:
+                      <input
+                        type="range"
+                        id="positionlogo"
+                        min="0"
+                        max="100"
+                        value={positionlogo}
+                        onChange={handlelogoPositionChange}
+                        style={{ width: "100%" }}
+                      />
+                    </label>
+                    <label>
+                      localização vertical da Logo:
+                      <input
+                        type="range"
+                        id="positionlogoV"
+                        min="0"
+                        max="100"
+                        value={positionlogoV}
+                        onChange={handlelogoPositionVChange}
+                        style={{ width: "100%" }}
+                      />
+                    </label>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+
+                      alignContent: "center",
+                      width: "100%",
+                      padding: "4%",
+                      borderRadius: "20px",
+                      backgroundColor: "#bfdbfe",
+                    }}
+                  >
+                    <div>
+                      <p>Escolha a altura do Cabeçalho </p>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "20px",
+                      }}
+                    >
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 100,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        100px
+                      </button>
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 150,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        150px
+                      </button>
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 200,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        200px
+                      </button>
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 250,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        250px
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <br />
@@ -1389,7 +1436,7 @@ const Templetemercado = () => {
                         border:
                           selectedCardIndex === index
                             ? "3px solid blue" // add a cor
-                            : "1px solid #ccc", // remove a cor
+                            : "1px solid #ccc",
                         padding: "10px",
                         cursor: "pointer",
                       }}
