@@ -29,24 +29,10 @@ const Templetemercado = () => {
     positionduracaoV: "",
     positionTitulo: "",
     positionTituloV: "",
-    positionlogo: "1",
-    positionlogoV: "1",
     titulofont: "",
     titulofontSize: "",
     headerHeight: 150,
   });
-
-  // alterar posicao vertical da logo header
-
-  const [positionlogoV, setPositionlogoV] = useState(0);
-
-  const handlelogoPositionVChange = (e) => {
-    setPositionlogoV(e.target.value);
-    setHeaderData((prevData) => ({
-      ...prevData,
-      positionlogoV: e.target.value,
-    }));
-  };
 
   const [positionTituloV, setPositionTituloV] = useState(0);
 
