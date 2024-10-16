@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Rnd } from "react-rnd";
+import { SketchPicker } from "react-color";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "@fontsource/roboto";
@@ -20,7 +22,6 @@ const Templetemercado = () => {
     bgImage: "",
     titulo: "",
     tituloColor: "",
-    titulofontSize: "",
     duracao: "",
     duracaoColor: "",
     duracaofontSize: "",
@@ -28,10 +29,11 @@ const Templetemercado = () => {
     positionduracaoV: "",
     positionTitulo: "",
     positionTituloV: "",
-    positionlogo: "",
-    positionlogoV: "",
+    positionlogo: "1",
+    positionlogoV: "1",
     titulofont: "",
-    divHeight: 100,
+    titulofontSize: "",
+    headerHeight: 150,
   });
 
   // alterar posicao vertical da logo header
@@ -104,6 +106,27 @@ const Templetemercado = () => {
     }));
   };
 
+  const [telfontSize, setTelFontSize] = useState("16px");
+  const [telfont, setTelFont] = useState("Arial");
+
+  const handleTelFontSizeChange = (e) => {
+    const newSize = e.target.value;
+    setTelFontSize(newSize);
+    setFooterData((prevData) => ({
+      ...prevData,
+      telfontSize: newSize,
+    }));
+  };
+
+  const handleTelFontChange = (e) => {
+    const newFont = e.target.value;
+    setTelFont(newFont);
+    setFooterData((prevData) => ({
+      ...prevData,
+      telfont: newFont,
+    }));
+  };
+
   const [duracaofontSize, setduracaoFontSize] = useState("16px");
   const handleDuracaoFontSizeChange = (e) => {
     setduracaoFontSize(e.target.value);
@@ -154,39 +177,63 @@ const Templetemercado = () => {
     }));
   };
   /*-------------------- PRODUTOS -------------------------*/
+
+  // Estado dos cards
   const [cards, setCards] = useState([]);
+
+  // Estado para a cor de fundo do preço
   const [cardcolorData, setCardColorData] = useState({
-    //setCardColorData atualiza o estado de acordo com a novas cores selecionadas
-    precocor: "#000000", //define a cor do preço como black
+    precocor: "#000000", // define a cor do preço como preto
   });
-  //alteraçao de cor do cartao
+  const [pageBgColor, setPageBgColor] = useState("#ffffff");
+  const [editingCardIndex, setEditingCardIndex] = useState(null);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+
+  // Altera a cor do preço do card
   const handleCardColorChange = (e) => {
     const { name, value } = e.target;
     setCardColorData({ ...cardcolorData, [name]: value });
   };
-  //ateraçao de informaçao do card
+
+  // Altera as informações do card
   const handleCardChange = (index, e) => {
     const { name, value } = e.target;
     const newCards = [...cards];
     newCards[index] = { ...newCards[index], [name]: value };
-    setCards(newCards); //define o novo estado do cartao
+    setCards(newCards); // Define o novo estado do card
   };
-  //adiciona um novo card
+
+  // Adiciona um novo card
   const handleAddCard = () => {
-    setCards([...cards, { image: "", description: "", price: "" }]); //Cria um novo array com os card existentes e define um novo card com as propriedades image, description, price vazais
+    setCards([...cards, { image: "", description: "", price: "" }]); // Cria um novo array com os cards existentes e define um novo card com as propriedades image, description e price vazias
   };
-  // alterar cor background 'page'
-  const [pageBgColor, setPageBgColor] = useState(); // cor padrão do fundo da página
+
+  // Altera a cor de fundo da página
   const backgroundcard = (e) => {
     const { value } = e.target;
-    setPageBgColor(value); // altera a cor de fundo do "page"
+    setPageBgColor(value); // Altera a cor de fundo da página
   };
-  //remove cards
+
+  // Remove um card
   const handleRemoveCard = (index) => {
     const newCards = [...cards];
-    newCards.splice(index, 1); //Utiliza o metodo Splice para remover um card em expecifico
+    newCards.splice(index, 1); // Remove o card específico
     setCards(newCards);
+    setEditingCardIndex(null); // Fecha o modal se o card editado for removido
   };
+
+  // Abre o modal de edição do card
+  const openEditModal = (index) => {
+    setEditingCardIndex(index); // Define o índice do card sendo editado
+    setSelectedCardIndex(index);
+  };
+
+  // Fecha o modal de edição do card
+  const closeEditModal = () => {
+    setEditingCardIndex(null); // Fecha o modal
+    setSelectedCardIndex(null);
+  };
+
   /*-------------------- CONFIG DE SAVE -------------------------*/
   {
     /* SALVA O DOCUMENTO*/
@@ -229,7 +276,13 @@ const Templetemercado = () => {
   const saveFormData = () => {
     localStorage.setItem(
       "formData",
-      JSON.stringify({ bgtypeheader, headerData, cards, pageBgColor })
+      JSON.stringify({
+        bgtypeheader,
+        headerData,
+        cards,
+        pageBgColor,
+        footerBgColor,
+      })
     );
   };
 
@@ -240,6 +293,8 @@ const Templetemercado = () => {
       setBgTypeHeader(savedData.bgtypeheader);
       setHeaderData(savedData.headerData);
       setPageBgColor(savedData.pageBgColor);
+      setFooterBgColor(savedData.footerBgColor);
+
       setCards(savedData.cards || []);
     }
   }, []);
@@ -251,9 +306,18 @@ const Templetemercado = () => {
 
   const [footerData, setFooterData] = useState({
     logo: "",
+    tel: "",
     positionlogofH: 0,
     positionlogofV: 0,
-    footerHeight: 100, //define a altura padrao do footer
+    positiontelfH: 0,
+    positiontelfV: 0,
+    positionemailfH: 0,
+    positionemailfV: 0,
+    positionenderecofH: 0,
+    positionenderecofV: 0,
+    telfont: "",
+    telfontSize: "",
+    footerHeight: 150, //define a altura padrao do footer
   });
 
   //alterar cor do fundo do footer
@@ -264,7 +328,19 @@ const Templetemercado = () => {
     setFooterBgColor(value); // altera a cor de fundo do "footer"
   };
 
-  //
+  //troca de cores textos do footer
+
+  //troca de cor tel
+
+  const [telColor, setTelColor] = useState("#000000");
+  const handletelColorChange = (e) => {
+    const newColor = e.target.value;
+    setTelColor(newColor); // Atualiza a cor no estado local
+    setFooterData((prevData) => ({
+      ...prevData,
+      telColor: newColor, // Atualiza a cor no footerData
+    }));
+  };
 
   //input alterar posicao na horinzontal da logo do footer
 
@@ -283,6 +359,32 @@ const Templetemercado = () => {
     setFooterData((prevData) => ({
       ...prevData,
       positionlogofV: value,
+    }));
+  };
+
+  // posição horizontal do telefone
+  const handleTelPositionHChange = (e) => {
+    const newValue = Number(e.target.value);
+    setFooterData((prevData) => ({
+      ...prevData,
+      positiontelfH: newValue,
+    }));
+  };
+
+  // posição vertical do telefone
+  const handleTelPositionVChange = (e) => {
+    const newValue = Number(e.target.value);
+    setFooterData((prevData) => ({
+      ...prevData,
+      positiontelfV: newValue,
+    }));
+  };
+
+  const handleTelChange = (e) => {
+    const { value } = e.target;
+    setFooterData((prevData) => ({
+      ...prevData,
+      tel: value,
     }));
   };
 
@@ -307,19 +409,23 @@ const Templetemercado = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: "20px",
-            backgroundColor: "#bfdbfe",
+            // borderRadius: "20px",
+            // backgroundColor: "#bfdbfe",
           }}
         >
           <div
             style={{
-              width: "90%",
-              margin: "3%",
+              width: "75%",
+              // margin: "3%",
               padding: "3%",
-              borderRadius: "20px",
+              borderRadius: "25px",
               backgroundColor: "#93c5fd",
             }}
           >
+            {/* //ssssss */}
+
+            {/* ss */}
+            <br />
             <form
               onSubmit={Templetemercado}
               style={{
@@ -341,8 +447,8 @@ const Templetemercado = () => {
                 >
                   <div //div logo
                     style={{
-                      width: "90%",
-                      padding: "5%",
+                      width: "100%",
+                      padding: "4%",
                       borderRadius: "20px",
                       backgroundColor: "#bfdbfe",
                     }}
@@ -408,6 +514,134 @@ const Templetemercado = () => {
                       }
                     />
                   </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+
+                      alignContent: "center",
+                      width: "100%",
+                      padding: "4%",
+                      borderRadius: "20px",
+                      backgroundColor: "#bfdbfe",
+                    }}
+                  >
+                    <div>
+                      <p>Escolha a altura do Cabeçalho </p>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "20px",
+                      }}
+                    >
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 100,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        100px
+                      </button>
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 150,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        150px
+                      </button>
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 200,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        200px
+                      </button>
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 250,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        250px
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <br />
 
@@ -422,8 +656,8 @@ const Templetemercado = () => {
                   <div
                     id="div-titulo"
                     style={{
-                      width: "90%",
-                      padding: "5%",
+                      width: "100%",
+                      padding: "4%",
                       borderRadius: "20px",
                       backgroundColor: "#bfdbfe",
                     }}
@@ -466,7 +700,12 @@ const Templetemercado = () => {
                         <option value="24px">24px</option>
                         <option value="28px">28px</option>
                         <option value="32px">32px</option>
-                        <option value="36px">36px</option>
+                        <option value="40px">40px</option>
+                        <option value="42px">42px</option>
+                        <option value="44px">44px</option>
+                        <option value="48px">48px</option>
+                        <option value="52px">52px</option>
+                        <option value="56px">56px</option>
                       </select>
 
                       <input
@@ -516,8 +755,8 @@ const Templetemercado = () => {
                 >
                   <div
                     style={{
-                      width: "90%",
-                      padding: "5%",
+                      width: "100%",
+                      padding: "4%",
                       borderRadius: "20px",
                       backgroundColor: "#bfdbfe",
                     }}
@@ -559,7 +798,6 @@ const Templetemercado = () => {
                         <option value="24px">24px</option>
                         <option value="28px">28px</option>
                         <option value="32px">32px</option>
-                        <option value="36px">36px</option>
                       </select>
 
                       <input
@@ -613,8 +851,8 @@ const Templetemercado = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignContent: "center",
-                  width: "90%",
-                  padding: "5%",
+                  width: "100%",
+                  padding: "4%",
                   borderRadius: "20px",
                   backgroundColor: "#bfdbfe",
                 }}
@@ -631,8 +869,8 @@ const Templetemercado = () => {
                 </div>
                 <form
                   style={{
-                    width: "90%",
-                    padding: "5%",
+                    width: "100%",
+                    padding: "4%",
                     borderRadius: "20px",
                   }}
                 >
@@ -659,49 +897,6 @@ const Templetemercado = () => {
                     />
                   </label>
                 </form>
-                {cards.map((card, index) => (
-                  <form
-                    key={index}
-                    style={{
-                      width: "100%",
-                      borderRadius: "20px",
-                    }}
-                  >
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) =>
-                        handleCardChange(index, {
-                          target: {
-                            name: "image",
-                            value: URL.createObjectURL(e.target.files[0]),
-                          },
-                        })
-                      }
-                    />
-                    <input
-                      type="text"
-                      name="description"
-                      value={card.description}
-                      onChange={(e) => handleCardChange(index, e)}
-                      placeholder="Descrição do Produto"
-                    />
-                    <label>
-                      Preço
-                      <input
-                        type="text"
-                        name="price"
-                        value={card.price}
-                        onChange={(e) => handleCardChange(index, e)}
-                        placeholder="9,99"
-                      />
-                    </label>
-
-                    <button onClick={() => handleRemoveCard(index)}>
-                      Remover
-                    </button>
-                  </form>
-                ))}
                 <button onClick={handleAddCard}>Adicionar Card</button>
               </div>
             </div>
@@ -721,8 +916,8 @@ const Templetemercado = () => {
                   flexDirection: "column",
 
                   alignContent: "center",
-                  width: "90%",
-                  padding: "5%",
+                  width: "100%",
+                  padding: "4%",
                   borderRadius: "20px",
                   backgroundColor: "#bfdbfe",
                 }}
@@ -857,8 +1052,8 @@ const Templetemercado = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignContent: "center",
-                  width: "90%",
-                  padding: "5%",
+                  width: "100%",
+                  padding: "4%",
                   borderRadius: "20px",
                   backgroundColor: "#bfdbfe",
                 }}
@@ -886,7 +1081,7 @@ const Templetemercado = () => {
                     }
                   />
 
-                  <label>
+                  {/* <label>
                     Localização horizontal da Logo:
                     <input
                       type="range"
@@ -905,11 +1100,81 @@ const Templetemercado = () => {
                       id="positionlogofV"
                       min="0"
                       max="100"
-                      value={positionlogoV}
-                      onChange={handlelogoPositionVChange}
+                      value={footerData.positionlogofV}
+                      onChange={handlelogoPositionfVChange}
                       style={{ width: "100%" }}
                     />
+                  </label> */}
+
+                  <label>
+                    Número de Telefone:
+                    <input
+                      type="text"
+                      value={footerData.tel}
+                      onChange={handleTelChange} // Controle do número de telefone
+                    />
                   </label>
+                  <div className="estiloletra">
+                    <select
+                      id="telfont"
+                      value={telfont}
+                      onChange={handleTelFontChange}
+                    >
+                      <option value="Arial">Arial</option>
+                      <option value="Courier New">Courier New</option>
+                      <option value="Georgia">Georgia</option>
+                      <option value="Times New Roman">Times New Roman</option>
+                      <option value="Verdana">Verdana</option>
+                      <option value="Roboto">Roboto</option>
+                      <option value="Open Sans">Open Sans</option>
+                      <option value="Lobster">Lobster</option>
+                      <option value="New Amsterdam">New Amsterdam</option>
+                    </select>
+
+                    <select
+                      id="telfontSize"
+                      value={telfontSize}
+                      onChange={handleTelFontSizeChange}
+                    >
+                      <option value="12px">12px</option>
+                      <option value="16px">16px</option>
+                      <option value="20px">20px</option>
+                      <option value="24px">24px</option>
+                      <option value="28px">28px</option>
+                      <option value="32px">32px</option>
+                      <option value="36px">36px</option>
+                    </select>
+
+                    <label>
+                      Escolha a cor do telefone:
+                      <input
+                        type="color"
+                        name="tituloColor"
+                        className="colorswitch"
+                        value={telColor} // Usa o valor de telColor no estado
+                        onChange={handletelColorChange} // Chama a função para mudar a cor
+                      />
+                    </label>
+                    <label>
+                      Posição Horizontal:
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={footerData.positiontelfH}
+                        onChange={handleTelPositionHChange} // Controle da posição horizontal
+                      />
+                    </label>
+
+                    <label>
+                      Posição Vertical:
+                      <input
+                        type="range"
+                        value={footerData.positiontelfV}
+                        onChange={handleTelPositionVChange} // Controle da posição vertical
+                      />
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -919,7 +1184,7 @@ const Templetemercado = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
-                padding: "10px",
+                padding: "15px",
 
                 bgColor: "blue",
               }}
@@ -1058,12 +1323,27 @@ const Templetemercado = () => {
                 style={{
                   backgroundColor: headerData.bgColor,
                   backgroundImage: headerData.bgImage,
+                  height: `${headerData.headerHeight}px`, //altura definida pelo usuaruio no input
+
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
               >
-                <div>
-                  <img
+                <Rnd
+                  default={{
+                    x: headerData.positionlogo,
+                    y: headerData.positionlogoV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
+                >
+                  <img src={headerData.logo} alt="logo" />
+                </Rnd>
+
+                {/* <img
                     src={headerData.logo}
                     style={{
                       position: "relative",
@@ -1072,34 +1352,33 @@ const Templetemercado = () => {
                     }}
                     width={100} //200
                     alt="logo"
-                  />
-                  <h1
-                    style={{
-                      color: headerData.tituloColor,
-                      fontFamily: headerData.titulofont,
-                      fontSize: headerData.titulofontSize,
-                      position: "relative",
-                      left: headerData.positionTitulo + "%",
-                      top: headerData.positionTituloV + "px",
-                      transition: "left 0.3s ease",
-                    }}
-                  >
-                    {headerData.titulo}
-                  </h1>
-                  <p
-                    style={{
-                      color: headerData.duracaoColor,
-                      fontFamily: headerData.duracaofont,
-                      fontSize: headerData.duracaofontSize,
-                      position: "relative",
-                      left: headerData.positionduracao + "%",
-                      top: headerData.positionduracaoV + "px",
-                      transition: "left 0.3s ease",
-                    }}
-                  >
-                    {headerData.duracao}
-                  </p>
-                </div>
+                  /> */}
+                <h1
+                  style={{
+                    color: headerData.tituloColor,
+                    fontFamily: headerData.titulofont,
+                    fontSize: headerData.titulofontSize,
+                    position: "relative",
+                    left: headerData.positionTitulo + "%",
+                    top: headerData.positionTituloV + "px",
+                    transition: "left 0.3s ease",
+                  }}
+                >
+                  {headerData.titulo}
+                </h1>
+                <p
+                  style={{
+                    color: headerData.duracaoColor,
+                    fontFamily: headerData.duracaofont,
+                    fontSize: headerData.duracaofontSize,
+                    position: "relative",
+                    left: headerData.positionduracao + "%",
+                    top: headerData.positionduracaoV + "px",
+                    transition: "left 0.3s ease",
+                  }}
+                >
+                  {headerData.duracao}
+                </p>
               </header>
             )}
 
@@ -1116,18 +1395,114 @@ const Templetemercado = () => {
                 style={{ backgroundColor: pageBgColor }} // Aplica a cor de fundo
               >
                 <div className="cards">
-                  {cards &&
-                    cards.map((card, index) => (
-                      <div className="card" key={index}>
-                        <img src={card.image} alt={`Product ${index}`} />
-                        <p>{card.description}</p>
-                        <h1 style={{ color: cardcolorData.precocor }}>
-                          R${card.price}
-                        </h1>
-                      </div>
-                    ))}
+                  {cards.map((card, index) => (
+                    <div
+                      key={index}
+                      className="card"
+                      onClick={() => openEditModal(index)}
+                      style={{
+                        border:
+                          selectedCardIndex === index
+                            ? "3px solid blue" // add a cor
+                            : "1px solid #ccc", // remove a cor
+                        padding: "10px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <img src={card.image} alt={`Product ${index}`} />
+                      <p>{card.description}</p>
+                      <h1 style={{ color: cardcolorData.precocor }}>
+                        R${card.price}
+                      </h1>
+                    </div>
+                  ))}
                 </div>
               </div>
+              {editingCardIndex !== null && (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    backgroundColor: "#bfdbfe",
+                    padding: "20px",
+                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "20px",
+                    zIndex: 5000,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <h3>Editar Card</h3>
+                    <form
+                      style={{
+                        width: "100%",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      <input
+                        type="file"
+                        name="image"
+                        onChange={(e) =>
+                          handleCardChange(editingCardIndex, {
+                            target: {
+                              name: "image",
+                              value: URL.createObjectURL(e.target.files[0]),
+                            },
+                          })
+                        }
+                      />
+                      <label>
+                        Descrição do Produto:
+                        <input
+                          type="text"
+                          name="description"
+                          value={cards[editingCardIndex].description}
+                          onChange={(e) =>
+                            handleCardChange(editingCardIndex, e)
+                          }
+                          placeholder="Descrição do Produto"
+                        />
+                      </label>
+                      <label>
+                        Preço:
+                        <input
+                          type="text"
+                          name="price"
+                          value={cards[editingCardIndex].price}
+                          onChange={(e) =>
+                            handleCardChange(editingCardIndex, e)
+                          }
+                          placeholder="9,99"
+                        />
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveCard(editingCardIndex)}
+                      >
+                        Remover
+                      </button>
+                    </form>
+                    <button
+                      onClick={closeEditModal}
+                      style={{
+                        backgroundColor: "red",
+                        padding: "5px",
+                        borderRadius: "5px",
+                        color: "white",
+                      }}
+                    >
+                      Fechar
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
             {/* Footer */}
             <footer
@@ -1139,17 +1514,43 @@ const Templetemercado = () => {
               }}
             >
               {footerData.logo && (
-                <img
-                  src={footerData.logo}
-                  style={{
-                    position: "relative",
-                    left: `${footerData.positionlogofH}%`,
-                    top: `${footerData.positionlogofV}px`,
+                <Rnd
+                  default={{
+                    x: footerData.positionlogofH,
+                    y: footerData.positionlogofV,
+                    width: 100,
+                    height: "auto",
                   }}
-                  width={100}
-                  alt="logo"
-                />
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                  //  Garante que a imagem não possa ser arrastada para fora do elemento pai
+                >
+                  <img
+                    src={footerData.logo}
+                    // style={{
+                    //   position: "relative",
+                    //   left: `${footerData.positionlogofH}%`,
+                    //   top: `${footerData.positionlogofV}px`,
+                    // }}
+                    alt="logo-footer"
+                  />
+                </Rnd>
               )}
+              <h1
+                style={{
+                  position: "relative",
+                  fontFamily: footerData.telfont,
+                  fontSize: footerData.telfontSize,
+                  left: footerData.positiontelfH + "%", // Posição horizontal
+                  top: footerData.positiontelfV + "px", // Posição vertical
+                  backgroundColor: footerBgColor, // Aplica a cor de fundo ao "footer"
+                  color: telColor,
+                  transition: "left 0.3s ease, top 0.3s ease", // Transição suave
+                }}
+              >
+                {footerData.tel} {/* Exibe o número de telefone */}
+              </h1>
             </footer>
           </div>
         </div>
