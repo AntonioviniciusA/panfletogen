@@ -17,9 +17,9 @@ const Templetemercado = () => {
     value: "",
   });
   const [headerData, setHeaderData] = useState({
-    bgImage: "",
     logo: "",
     bgColor: "",
+    bgImage: "",
     titulo: "",
     tituloColor: "",
     duracao: "",
@@ -29,38 +29,10 @@ const Templetemercado = () => {
     positionduracaoV: "",
     positionTitulo: "",
     positionTituloV: "",
-    positionlogo: "1",
-    positionlogoV: "1",
     titulofont: "",
     titulofontSize: "",
     headerHeight: 150,
   });
-
-  // alterar posicao vertical da logo header
-
-  const [positionlogoV, setPositionlogoV] = useState(0);
-
-  const handlelogoPositionVChange = (e) => {
-    setPositionlogoV(e.target.value);
-    setHeaderData((prevData) => ({
-      ...prevData,
-      positionlogoV: e.target.value,
-    }));
-  };
-
-  // alterar posicao horizontal logo header
-
-  const [positionlogo, setPositionlogo] = useState(0);
-
-  const handlelogoPositionChange = (e) => {
-    setPositionlogo(e.target.value);
-    setHeaderData((prevData) => ({
-      ...prevData,
-      positionlogo: e.target.value,
-    }));
-  };
-
-  // alterar posicao vertical  da vaidade
 
   const [positionTituloV, setPositionTituloV] = useState(0);
 
@@ -265,6 +237,12 @@ const Templetemercado = () => {
     if (headerData) {
       setHeaderData(headerData);
     }
+    if (cardcolorData) {
+      setCardColorData(cardcolorData);
+    }
+    if (cards) {
+      setCards(cards);
+    }
   };
   {
     /* SALVA O DOCUMENTO*/
@@ -300,6 +278,7 @@ const Templetemercado = () => {
     if (savedData) {
       setBgTypeHeader(savedData.bgtypeheader);
       setHeaderData(savedData.headerData);
+      setCards(savedData.cards || []);
       setPageBgColor(savedData.pageBgColor);
       setFooterBgColor(savedData.footerBgColor);
 
@@ -648,30 +627,6 @@ const Templetemercado = () => {
                         })
                       }
                     />
-                    <label>
-                      localização horizontal da Logo:
-                      <input
-                        type="range"
-                        id="positionlogo"
-                        min="0"
-                        max="100"
-                        value={positionlogo}
-                        onChange={handlelogoPositionChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
-                    <label>
-                      localização vertical da Logo:
-                      <input
-                        type="range"
-                        id="positionlogoV"
-                        min="0"
-                        max="100"
-                        value={positionlogoV}
-                        onChange={handlelogoPositionVChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
                   </div>
                 </div>
                 <br />
