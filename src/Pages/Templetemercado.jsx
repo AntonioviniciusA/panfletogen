@@ -199,12 +199,9 @@ const Templetemercado = () => {
   const [cardcolorData, setCardColorData] = useState({
     precocor: "#000000", // define a cor do preço como preto
   });
-
-  // Estado para a cor de fundo da página
   const [pageBgColor, setPageBgColor] = useState("#ffffff");
-
-  // Estado para controlar o índice do card sendo editado
   const [editingCardIndex, setEditingCardIndex] = useState(null);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
 
   // Altera a cor do preço do card
   const handleCardColorChange = (e) => {
@@ -242,11 +239,13 @@ const Templetemercado = () => {
   // Abre o modal de edição do card
   const openEditModal = (index) => {
     setEditingCardIndex(index); // Define o índice do card sendo editado
+    setSelectedCardIndex(index);
   };
 
   // Fecha o modal de edição do card
   const closeEditModal = () => {
     setEditingCardIndex(null); // Fecha o modal
+    setSelectedCardIndex(null);
   };
 
   /*-------------------- CONFIG DE SAVE -------------------------*/
@@ -930,49 +929,6 @@ const Templetemercado = () => {
                     />
                   </label>
                 </form>
-                {cards.map((card, index) => (
-                  <form
-                    key={index}
-                    style={{
-                      width: "100%",
-                      borderRadius: "20px",
-                    }}
-                  >
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) =>
-                        handleCardChange(index, {
-                          target: {
-                            name: "image",
-                            value: URL.createObjectURL(e.target.files[0]),
-                          },
-                        })
-                      }
-                    />
-                    <input
-                      type="text"
-                      name="description"
-                      value={card.description}
-                      onChange={(e) => handleCardChange(index, e)}
-                      placeholder="Descrição do Produto"
-                    />
-                    <label>
-                      Preço
-                      <input
-                        type="text"
-                        name="price"
-                        value={card.price}
-                        onChange={(e) => handleCardChange(index, e)}
-                        placeholder="9,99"
-                      />
-                    </label>
-
-                    <button onClick={() => handleRemoveCard(index)}>
-                      Remover
-                    </button>
-                  </form>
-                ))}
                 <button onClick={handleAddCard}>Adicionar Card</button>
               </div>
             </div>
@@ -1470,17 +1426,20 @@ const Templetemercado = () => {
                 className="page "
                 style={{ backgroundColor: pageBgColor }} // Aplica a cor de fundo
               >
-                <div
-                  className="cards"
-                  style={{
-                    cursor: "pointer",
-                  }}
-                >
+                <div className="cards">
                   {cards.map((card, index) => (
                     <div
-                      className="card"
                       key={index}
+                      className="card"
                       onClick={() => openEditModal(index)}
+                      style={{
+                        border:
+                          selectedCardIndex === index
+                            ? "3px solid blue" // add a cor
+                            : "1px solid #ccc", // remove a cor
+                        padding: "10px",
+                        cursor: "pointer",
+                      }}
                     >
                       <img src={card.image} alt={`Product ${index}`} />
                       <p>{card.description}</p>
