@@ -697,8 +697,13 @@ const Templetemercado = () => {
                     }}
                   >
                     <label>
-                      Frase Promocional:
+                      <p> Frase Promocional:</p>
                       <input
+                        style={
+                          {
+                            // maxWidth: "300px",
+                          }
+                        }
                         type="text"
                         name="titulo"
                         value={headerData.titulo}
@@ -1187,28 +1192,6 @@ const Templetemercado = () => {
                         className="colorswitch"
                         value={telColor} // Usa o valor de telColor no estado
                         onChange={handletelColorChange} // Chama a função para mudar a cor
-                      />
-                    </label>
-                    <label>
-                      Posição Horizontal:
-                      <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        style={{ width: "100%" }}
-                        value={footerData.positiontelfH}
-                        onChange={handleTelPositionHChange} // Controle da posição horizontal
-                      />
-                    </label>
-
-                    <label>
-                      Posição Vertical:
-                      <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value={footerData.positiontelfV}
-                        onChange={handleTelPositionVChange} // Controle da posição vertical
                       />
                     </label>
                   </div>
