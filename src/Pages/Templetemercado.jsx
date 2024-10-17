@@ -521,30 +521,6 @@ const Templetemercado = () => {
                         })
                       }
                     />
-                    <label>
-                      localização horizontal da Logo:
-                      <input
-                        type="range"
-                        id="positionlogo"
-                        min="0"
-                        max="100"
-                        value={positionlogo}
-                        onChange={handlelogoPositionChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
-                    <label>
-                      localização vertical da Logo:
-                      <input
-                        type="range"
-                        id="positionlogoV"
-                        min="0"
-                        max="100"
-                        value={positionlogoV}
-                        onChange={handlelogoPositionVChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
                   </div>
                   <div
                     style={{
