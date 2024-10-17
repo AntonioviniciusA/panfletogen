@@ -1349,19 +1349,35 @@ const Templetemercado = () => {
                     width={100} //200
                     alt="logo"
                   /> */}
-                <h1
-                  style={{
-                    color: headerData.tituloColor,
-                    fontFamily: headerData.titulofont,
-                    fontSize: headerData.titulofontSize,
-                    position: "relative",
-                    left: headerData.positionTitulo + "%",
-                    top: headerData.positionTituloV + "px",
-                    transition: "left 0.3s ease",
+                <Rnd
+                  default={{
+                    x: headerData.positionTitulo,
+                    y: headerData.positionTituloV,
+                    height: "auto",
+                    backgroundColor: "blue",
                   }}
+                  minWidth={50}
+                  minHeight={0}
+                  bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
+                  enableResizing={false} // Desativa completamente o redimensionamento
+                  style={{ cursor: "move" }} // Força o cursor a ser "move"
                 >
-                  {headerData.titulo}
-                </h1>
+                  <div>
+                    <h1
+                      style={{
+                        color: headerData.tituloColor,
+                        fontFamily: headerData.titulofont,
+                        fontSize: headerData.titulofontSize,
+                        position: "relative",
+                        left: headerData.positionTitulo + "%",
+                        top: headerData.positionTituloV + "px",
+                        transition: "left 0.3s ease",
+                      }}
+                    >
+                      {headerData.titulo}
+                    </h1>
+                  </div>
+                </Rnd>
                 <p
                   style={{
                     color: headerData.duracaoColor,
