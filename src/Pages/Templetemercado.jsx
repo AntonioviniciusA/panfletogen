@@ -1194,7 +1194,7 @@ const Templetemercado = () => {
                       <input
                         type="range"
                         min="0"
-                        max="100"
+                        max="90"
                         style={{ width: "100%" }}
                         value={footerData.positiontelfH}
                         onChange={handleTelPositionHChange} // Controle da posição horizontal
@@ -1205,6 +1205,8 @@ const Templetemercado = () => {
                       Posição Vertical:
                       <input
                         type="range"
+                        min="0"
+                        max="90"
                         value={footerData.positiontelfV}
                         onChange={handleTelPositionVChange} // Controle da posição vertical
                       />
@@ -1582,10 +1584,9 @@ const Templetemercado = () => {
                   fontSize: footerData.telfontSize,
                   left: footerData.positiontelfH + "%",
                   top: footerData.positiontelfV + "%",
-                  backgroundColor: footerBgColor,
+
                   color: telColor,
                   transition: "left 0.3s ease, top 0.3s ease",
-                  width: "10%",
                 }}
               >
                 {footerData.tel}
