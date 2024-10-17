@@ -1588,8 +1588,8 @@ const Templetemercado = () => {
                 minWidth={165}
                 maxHeight={25}
                 bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
-                disableResize={true}
-                style={{ cursor: "move" }}
+                enableResizing={false} // Desativa completamente o redimensionamento
+                style={{ cursor: "move" }} // Força o cursor a ser "move"
               >
                 <p
                   style={{
