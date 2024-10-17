@@ -732,30 +732,6 @@ const Templetemercado = () => {
                       />
                     </div>
                     <br />
-                    <label>
-                      localização horizontal da validade:
-                      <input
-                        type="range"
-                        id="positionTitulo"
-                        min="0"
-                        max="100"
-                        value={positionTitulo}
-                        onChange={handleTituloPositionChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
-                    <label>
-                      localização vertical da validade:
-                      <input
-                        type="range"
-                        id="positionTituloV"
-                        min="0"
-                        max="100"
-                        value={positionTituloV}
-                        onChange={handleTituloPositionVChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
                   </div>
                 </div>
                 <br />
