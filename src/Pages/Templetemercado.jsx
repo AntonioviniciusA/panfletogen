@@ -1361,7 +1361,7 @@ const Templetemercado = () => {
                   backgroundColor: headerData.bgColor,
                   backgroundImage: headerData.bgImage,
                   height: `${headerData.headerHeight}px`, //altura definida pelo usuaruio no input
-
+                  position: "relative",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
