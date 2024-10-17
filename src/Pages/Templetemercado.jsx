@@ -1103,6 +1103,7 @@ const Templetemercado = () => {
                       type="text"
                       value={footerData.tel}
                       onChange={handleTelChange} // Controle do número de telefone
+                      maxLength="16"
                     />
                   </label>
                   <div className="estiloletra">
@@ -1532,8 +1533,8 @@ const Templetemercado = () => {
                   height: "auto",
                   backgroundColor: "blue",
                 }}
-                maxWidth={165}
-                minWidth={165}
+                maxWidth={160}
+                minWidth={160}
                 maxHeight={25}
                 bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
                 enableResizing={false} // Desativa completamente o redimensionamento
