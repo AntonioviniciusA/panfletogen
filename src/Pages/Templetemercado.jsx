@@ -732,6 +732,30 @@ const Templetemercado = () => {
                       />
                     </div>
                     <br />
+                    <label>
+                      localização horizontal da validade:
+                      <input
+                        type="range"
+                        id="positionTitulo"
+                        min="0"
+                        max="100"
+                        value={positionTitulo}
+                        onChange={handleTituloPositionChange}
+                        style={{ width: "100%" }}
+                      />
+                    </label>
+                    <label>
+                      localização vertical da validade:
+                      <input
+                        type="range"
+                        id="positionTituloV"
+                        min="0"
+                        max="100"
+                        value={positionTituloV}
+                        onChange={handleTituloPositionVChange}
+                        style={{ width: "100%" }}
+                      />
+                    </label>
                   </div>
                 </div>
                 <br />
@@ -1338,21 +1362,18 @@ const Templetemercado = () => {
                   enableResizing={false} // Desativa completamente o redimensionamento
                   style={{ cursor: "move" }} // Força o cursor a ser "move"
                 >
-                  <div>
-                    <h1
-                      style={{
-                        color: headerData.tituloColor,
-                        fontFamily: headerData.titulofont,
-                        fontSize: headerData.titulofontSize,
-                        position: "relative",
-                        left: headerData.positionTitulo + "%",
-                        top: headerData.positionTituloV + "px",
-                        transition: "left 0.3s ease",
-                      }}
-                    >
-                      {headerData.titulo}
-                    </h1>
-                  </div>
+                  <h1
+                    style={{
+                      color: headerData.tituloColor,
+                      fontFamily: headerData.titulofont,
+                      fontSize: headerData.titulofontSize,
+                      position: "relative",
+
+                      transition: "left 0.3s ease",
+                    }}
+                  >
+                    {headerData.titulo}
+                  </h1>
                 </Rnd>
                 <p
                   style={{
