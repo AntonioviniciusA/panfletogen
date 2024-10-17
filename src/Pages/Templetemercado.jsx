@@ -1194,7 +1194,7 @@ const Templetemercado = () => {
                       <input
                         type="range"
                         min="0"
-                        max="90"
+                        max="100"
                         style={{ width: "100%" }}
                         value={footerData.positiontelfH}
                         onChange={handleTelPositionHChange} // Controle da posição horizontal
@@ -1206,7 +1206,7 @@ const Templetemercado = () => {
                       <input
                         type="range"
                         min="0"
-                        max="90"
+                        max="100"
                         value={footerData.positiontelfV}
                         onChange={handleTelPositionVChange} // Controle da posição vertical
                       />
@@ -1577,27 +1577,35 @@ const Templetemercado = () => {
                 </Rnd>
               )}
 
-              <h1
-                style={{
-                  position: "relative",
-                  fontFamily: footerData.telfont,
-                  fontSize: footerData.telfontSize,
-                  left: footerData.positiontelfH + "%",
-                  top: footerData.positiontelfV + "%",
-
-                  color: telColor,
-                  transition: "left 0.3s ease, top 0.3s ease",
+              <Rnd
+                default={{
+                  x: footerData.positiontelfH,
+                  y: footerData.positiontelfV,
+                  height: "auto",
+                  backgroundColor: "blue",
                 }}
+                maxWidth={165}
+                minWidth={165}
+                maxHeight={20}
+                bounds="parent"
+                //  Garante que a imagem não possa ser arrastada para fora do elemento pai
               >
-                {footerData.tel}
-              </h1>
+                <p
+                  style={{
+                    position: "relative",
+                    fontFamily: footerData.telfont,
+                    fontSize: footerData.telfontSize,
+                    width: "150px",
+                    color: telColor,
+                  }}
+                >
+                  {footerData.tel}
+                </p>
+              </Rnd>
             </footer>
           </div>
         </div>
       </div>
-      <br />
-      <br />
-      <br />
 
       <Footer />
     </>
