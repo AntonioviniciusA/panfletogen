@@ -350,17 +350,17 @@ const Templetemercado = () => {
     positionAddressFV: "",
     //
     positionsocial1fH: 650,
-    positionsocial1fV: 110,
+    positionsocial1fV: 150,
     social1Ffont: "",
     social1FfontSize: "",
     //
     positionsocial2fH: 500,
-    positionsocial2fV: 110,
+    positionsocial2fV: 150,
     social2Ffont: "",
     social2FfontSize: "",
     //
 
-    footerHeight: 150, //define a altura padrao do footer
+    footerHeight: 200, //define a altura padrao do footer
   });
 
   //alterar cor do fundo do footer
