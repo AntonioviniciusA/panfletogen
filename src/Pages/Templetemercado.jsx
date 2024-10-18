@@ -7,6 +7,12 @@ import Footer from "../components/Footer";
 import "@fontsource/roboto";
 import "@fontsource/open-sans";
 import "@fontsource/lobster";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 const Templetemercado = () => {
   /*-------------------- HEADER-------------------------*/
   {
@@ -318,12 +324,18 @@ const Templetemercado = () => {
     tel: "",
     positionlogofH: 0,
     positionlogofV: 0,
+    //
+    positionimg1fH: 0,
+    positionimg1fV: 0,
+    //
+    positionimg2fH: 0,
+    positionimg2fV: 0,
+    //
+    positionimg3fH: 0,
+    positionimg3fV: 0,
+    //
     positiontelfH: "",
     positiontelfV: "",
-    positionemailfH: 0,
-    positionemailfV: 0,
-    positionenderecofH: 0,
-    positionenderecofV: 0,
     telfont: "0",
     telfontSize: "",
     //
@@ -407,7 +419,42 @@ const Templetemercado = () => {
       tel: value,
     }));
   };
+  //
+  const SocialInput = () => {
+    const [socialColor, setSocialColor] = useState("#000000"); // Cor padrão
+    const [socialIcon, setSocialIcon] = useState(""); // Ícone padrão
+    const [userInput, setUserInput] = useState(""); // Texto que o usuário vai escrever
 
+    // Função para mudar a cor da rede social
+    const handleSocialColorChange = (event) => {
+      setSocialColor(event.target.value);
+    };
+
+    // Função para mudar o ícone da rede social
+    const handleIconChange = (event) => {
+      setSocialIcon(event.target.value); // O valor será o nome da rede social
+    };
+
+    // Função para mudar o texto que o usuário escreve
+    const handleUserInputChange = (event) => {
+      setUserInput(event.target.value);
+    };
+
+    // Função para escolher o ícone baseado no nome da rede social
+    const getSocialIcon = () => {
+      switch (socialIcon) {
+        case "facebook":
+          return faFacebook;
+        case "twitter":
+          return faTwitter;
+        case "instagram":
+          return faInstagram;
+        default:
+          return null;
+      }
+    };
+  };
+  //
   return (
     <>
       <Header />
@@ -1159,6 +1206,42 @@ const Templetemercado = () => {
                         onChange={handletelColorChange} // Chama a função para mudar a cor
                       />
                     </label>
+                    {/*  */}
+                    <label>
+                      Escolha a cor da rede social:
+                      <input
+                        type="color"
+                        name="socialColor"
+                        value={socialColor}
+                        onChange={handleSocialColorChange}
+                      />
+                    </label>
+
+                    <label>
+                      Escolha a rede social:
+                      <select
+                        name="socialIcon"
+                        value={socialIcon}
+                        onChange={handleIconChange}
+                      >
+                        <option value="">Selecione</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="twitter">Twitter</option>
+                        <option value="instagram">Instagram</option>
+                      </select>
+                    </label>
+
+                    <label>
+                      Escreva o que deseja para a rede social:
+                      <input
+                        type="text"
+                        name="userInput"
+                        placeholder="Digite o texto"
+                        value={userInput}
+                        onChange={handleUserInputChange}
+                      />
+                    </label>
+                    {/* // */}
                   </div>
                 </div>
               </div>
@@ -1564,6 +1647,23 @@ const Templetemercado = () => {
                   {footerData.tel}
                 </p>
               </Rnd>
+              {/*  */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  color: socialColor,
+                }}
+              >
+                {socialIcon && (
+                  <FontAwesomeIcon
+                    icon={getSocialIcon()}
+                    style={{ fontSize: "30px", marginRight: "10px" }}
+                  />
+                )}
+                <p style={{ fontSize: "16px", margin: 0 }}>{userInput}</p>
+              </div>
+              {/*  */}
             </footer>
           </div>
         </div>
