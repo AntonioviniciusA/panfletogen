@@ -349,6 +349,11 @@ const Templetemercado = () => {
     positionAddressFH: "",
     positionAddressFV: "",
     //
+    positionsocial1fH,
+    positionsocial1fV,
+    socialFfont: "",
+    socialFfontSize: "",
+    //
     footerHeight: 150, //define a altura padrao do footer
   });
 
@@ -1220,7 +1225,7 @@ const Templetemercado = () => {
                         onChange={handleLogoColorChange}
                       />
                     </label>
-
+                    <br />
                     <label>
                       Escolha a rede social:
                       <select
@@ -1234,7 +1239,7 @@ const Templetemercado = () => {
                         <option value="instagram">Instagram</option>
                       </select>
                     </label>
-
+                    <br />
                     <label>
                       Escreva o que deseja para a rede social:
                       <input
