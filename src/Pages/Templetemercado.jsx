@@ -1662,21 +1662,32 @@ const Templetemercado = () => {
                 </p>
               </Rnd>
               {/*  */}
-              <div style={{ display: "flex", alignItems: "center" }}>
-                {socialIcon && (
-                  <FontAwesomeIcon
-                    icon={getSocialIcon()}
-                    style={{
-                      fontSize: "30px",
-                      marginRight: "10px",
-                      color: logoColor,
-                    }}
-                  />
-                )}
-                <p style={{ fontSize: "16px", margin: 0, color: textColor }}>
-                  {userInput}
-                </p>
-              </div>
+              <Rnd
+                default={{
+                  x: footerData.positionsocial1fH,
+                  y: footerData.positionsocial1fV,
+                  height: "auto",
+                }}
+                bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
+                enableResizing={false} // Desativa completamente o redimensionamento
+                style={{ cursor: "move" }} // Força o cursor a ser "move"
+              >
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  {socialIcon && (
+                    <FontAwesomeIcon
+                      icon={getSocialIcon()}
+                      style={{
+                        fontSize: "30px",
+                        marginRight: "10px",
+                        color: logoColor,
+                      }}
+                    />
+                  )}
+                  <p style={{ fontSize: "16px", margin: 0, color: textColor }}>
+                    {userInput}
+                  </p>
+                </div>
+              </Rnd>
               {/*  */}
             </footer>
           </div>
