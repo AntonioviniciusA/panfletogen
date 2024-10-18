@@ -349,11 +349,17 @@ const Templetemercado = () => {
     positionAddressFH: "",
     positionAddressFV: "",
     //
-    positionsocial1fH,
-    positionsocial1fV,
-    socialFfont: "",
-    socialFfontSize: "",
+    positionsocial1fH: 0,
+    positionsocial1fV: 0,
+    social1Ffont: "",
+    social1FfontSize: "",
     //
+    positionsocial2fH: 0,
+    positionsocial2fV: 0,
+    social2Ffont: "",
+    social2FfontSize: "",
+    //
+
     footerHeight: 150, //define a altura padrao do footer
   });
 
@@ -430,27 +436,56 @@ const Templetemercado = () => {
   const [textColor, setTextColor] = useState("#000000");
   const [socialIcon, setSocialIcon] = useState("");
   const [userInput, setUserInput] = useState("");
+  const [logoColor2, setLogoColor2] = useState("#000000");
+  const [textColor2, setTextColo2] = useState("#000000");
+  const [socialIcon2, setSocialIcon2] = useState("");
+  const [userInput2, setUserInput2] = useState("");
 
   // Função para mudar a cor da rede social
   const handleLogoColorChange = (event) => {
     setLogoColor(event.target.value);
+  };
+  const handleLogoColor2Change = (event) => {
+    setLogoColor2(event.target.value);
   };
 
   // Função para mudar a cor do texto
   const handleTextColorChange = (event) => {
     setTextColor(event.target.value);
   };
+  const handleTextColor2Change = (event) => {
+    setTextColor2(event.target.value);
+  };
 
   const handleIconChange = (event) => {
     setSocialIcon(event.target.value);
+  };
+  const handleIcon2Change = (event) => {
+    setSocialIcon2(event.target.value);
   };
 
   const handleUserInputChange = (event) => {
     setUserInput(event.target.value);
   };
+  const handleUserInput2Change = (event) => {
+    setUserInput2(event.target.value);
+  };
 
   const getSocialIcon = () => {
     switch (socialIcon) {
+      case "facebook":
+        return faFacebook;
+      case "twitter":
+        return faTwitter;
+      case "instagram":
+        return faInstagram;
+      default:
+        return null;
+    }
+  };
+
+  const getSocialIcon2 = () => {
+    switch (socialIcon2) {
       case "facebook":
         return faFacebook;
       case "twitter":
@@ -1241,7 +1276,7 @@ const Templetemercado = () => {
                     </label>
                     <br />
                     <label>
-                      Escreva o que deseja para a rede social:
+                      Escreva a rede social:
                       <input
                         type="text"
                         name="userInput"
@@ -1258,6 +1293,53 @@ const Templetemercado = () => {
                         name="textColor"
                         value={textColor}
                         onChange={handleTextColorChange}
+                      />
+                    </label>
+                    {/* // */}
+                    {/*  */}
+                    <br />
+                    <label>
+                      Escolha a cor da rede social:
+                      <input
+                        type="color"
+                        name="socialColor2"
+                        value={logoColor2}
+                        onChange={handleLogoColor2Change}
+                      />
+                    </label>
+                    <br />
+                    <label>
+                      Escolha a rede social2:
+                      <select
+                        name="socialIcon2"
+                        value={socialIcon2}
+                        onChange={handleIcon2Change}
+                      >
+                        <option value="">Selecione</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="twitter">Twitter</option>
+                        <option value="instagram">Instagram</option>
+                      </select>
+                    </label>
+                    <br />
+                    <label>
+                      Escreva o nome da rede:
+                      <input
+                        type="text"
+                        name="userInput2"
+                        placeholder="Digite o texto"
+                        value={userInput2}
+                        onChange={handleUserInput2Change}
+                      />
+                    </label>
+                    <br />
+                    <label>
+                      Escolha a cor do texto:
+                      <input
+                        type="color"
+                        name="textColor2"
+                        value={textColor2}
+                        onChange={handleTextColor2Change}
                       />
                     </label>
                     {/* // */}
@@ -1647,7 +1729,6 @@ const Templetemercado = () => {
                   height: "auto",
                   backgroundColor: "blue",
                 }}
-                maxWidth={160}
                 minWidth={160}
                 maxHeight={25}
                 bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
@@ -1659,7 +1740,7 @@ const Templetemercado = () => {
                     position: "relative",
                     fontFamily: footerData.telfont,
                     fontSize: footerData.telfontSize,
-                    width: "150px",
+                    width: "auto",
                     color: telColor,
                   }}
                 >
@@ -1690,6 +1771,34 @@ const Templetemercado = () => {
                   )}
                   <p style={{ fontSize: "16px", margin: 0, color: textColor }}>
                     {userInput}
+                  </p>
+                </div>
+              </Rnd>
+              {/*  */}
+              {/*  */}
+              <Rnd
+                default={{
+                  x: footerData.positionsocial2fH,
+                  y: footerData.positionsocial2fV,
+                  height: "auto",
+                }}
+                bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
+                enableResizing={false} // Desativa completamente o redimensionamento
+                style={{ cursor: "move" }} // Força o cursor a ser "move"
+              >
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  {socialIcon2 && (
+                    <FontAwesomeIcon
+                      icon={getSocialIcon2()}
+                      style={{
+                        fontSize: "30px",
+                        marginRight: "10px",
+                        color: logoColor2,
+                      }}
+                    />
+                  )}
+                  <p style={{ fontSize: "16px", margin: 0, color: textColor2 }}>
+                    {userInput2}
                   </p>
                 </div>
               </Rnd>
