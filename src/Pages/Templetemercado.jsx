@@ -420,40 +420,43 @@ const Templetemercado = () => {
     }));
   };
   //
-  const SocialInput = () => {
-    const [socialColor, setSocialColor] = useState("#000000"); // Cor padrão
-    const [socialIcon, setSocialIcon] = useState(""); // Ícone padrão
-    const [userInput, setUserInput] = useState(""); // Texto que o usuário vai escrever
 
-    // Função para mudar a cor da rede social
-    const handleSocialColorChange = (event) => {
-      setSocialColor(event.target.value);
-    };
+  const [logoColor, setLogoColor] = useState("#000000");
+  const [textColor, setTextColor] = useState("#000000");
+  const [socialIcon, setSocialIcon] = useState("");
+  const [userInput, setUserInput] = useState("");
 
-    // Função para mudar o ícone da rede social
-    const handleIconChange = (event) => {
-      setSocialIcon(event.target.value); // O valor será o nome da rede social
-    };
-
-    // Função para mudar o texto que o usuário escreve
-    const handleUserInputChange = (event) => {
-      setUserInput(event.target.value);
-    };
-
-    // Função para escolher o ícone baseado no nome da rede social
-    const getSocialIcon = () => {
-      switch (socialIcon) {
-        case "facebook":
-          return faFacebook;
-        case "twitter":
-          return faTwitter;
-        case "instagram":
-          return faInstagram;
-        default:
-          return null;
-      }
-    };
+  // Função para mudar a cor da rede social
+  const handleLogoColorChange = (event) => {
+    setLogoColor(event.target.value);
   };
+
+  // Função para mudar a cor do texto
+  const handleTextColorChange = (event) => {
+    setTextColor(event.target.value);
+  };
+
+  const handleIconChange = (event) => {
+    setSocialIcon(event.target.value);
+  };
+
+  const handleUserInputChange = (event) => {
+    setUserInput(event.target.value);
+  };
+
+  const getSocialIcon = () => {
+    switch (socialIcon) {
+      case "facebook":
+        return faFacebook;
+      case "twitter":
+        return faTwitter;
+      case "instagram":
+        return faInstagram;
+      default:
+        return null;
+    }
+  };
+
   //
   return (
     <>
@@ -1207,13 +1210,14 @@ const Templetemercado = () => {
                       />
                     </label>
                     {/*  */}
+                    <br />
                     <label>
                       Escolha a cor da rede social:
                       <input
                         type="color"
                         name="socialColor"
-                        value={socialColor}
-                        onChange={handleSocialColorChange}
+                        value={logoColor}
+                        onChange={handleLogoColorChange}
                       />
                     </label>
 
@@ -1239,6 +1243,16 @@ const Templetemercado = () => {
                         placeholder="Digite o texto"
                         value={userInput}
                         onChange={handleUserInputChange}
+                      />
+                    </label>
+                    <br />
+                    <label>
+                      Escolha a cor do texto:
+                      <input
+                        type="color"
+                        name="textColor"
+                        value={textColor}
+                        onChange={handleTextColorChange}
                       />
                     </label>
                     {/* // */}
@@ -1648,20 +1662,20 @@ const Templetemercado = () => {
                 </p>
               </Rnd>
               {/*  */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  color: socialColor,
-                }}
-              >
+              <div style={{ display: "flex", alignItems: "center" }}>
                 {socialIcon && (
                   <FontAwesomeIcon
                     icon={getSocialIcon()}
-                    style={{ fontSize: "30px", marginRight: "10px" }}
+                    style={{
+                      fontSize: "30px",
+                      marginRight: "10px",
+                      color: logoColor,
+                    }}
                   />
                 )}
-                <p style={{ fontSize: "16px", margin: 0 }}>{userInput}</p>
+                <p style={{ fontSize: "16px", margin: 0, color: textColor }}>
+                  {userInput}
+                </p>
               </div>
               {/*  */}
             </footer>
