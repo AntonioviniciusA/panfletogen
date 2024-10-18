@@ -334,28 +334,28 @@ const Templetemercado = () => {
     positionimg3fH: 0,
     positionimg3fV: 0,
     //
-    positiontelfH: "",
-    positiontelfV: "",
+    positiontelfH: 10,
+    positiontelfV: 0,
     telfont: "0",
     telfontSize: "",
     //
     emailFfont: "",
     emailFfontSize: "",
-    positionEmailFH: "",
-    positionEmailFV: "",
+    positionEmailFH: 10,
+    positionEmailFV: 20,
     //
     addressFfont: "",
     addressFfontSize: "",
     positionAddressFH: "",
     positionAddressFV: "",
     //
-    positionsocial1fH: 0,
-    positionsocial1fV: 0,
+    positionsocial1fH: 650,
+    positionsocial1fV: 110,
     social1Ffont: "",
     social1FfontSize: "",
     //
-    positionsocial2fH: 0,
-    positionsocial2fV: 0,
+    positionsocial2fH: 500,
+    positionsocial2fV: 110,
     social2Ffont: "",
     social2FfontSize: "",
     //
@@ -437,7 +437,7 @@ const Templetemercado = () => {
   const [socialIcon, setSocialIcon] = useState("");
   const [userInput, setUserInput] = useState("");
   const [logoColor2, setLogoColor2] = useState("#000000");
-  const [textColor2, setTextColo2] = useState("#000000");
+  const [textColor2, setTextColor2] = useState("#000000");
   const [socialIcon2, setSocialIcon2] = useState("");
   const [userInput2, setUserInput2] = useState("");
 
