@@ -33,6 +33,7 @@ const Templetemercado = () => {
     positionlogoV: 0,
     titulofont: "",
     titulofontSize: "",
+
     headerHeight: 150,
   });
 
@@ -325,6 +326,17 @@ const Templetemercado = () => {
     positionenderecofV: 0,
     telfont: "0",
     telfontSize: "",
+    //
+    emailFfont: "",
+    emailFfontSize: "",
+    positionEmailFH: "",
+    positionEmailFV: "",
+    //
+    addressFfont: "",
+    addressFfontSize: "",
+    positionAddressFH: "",
+    positionAddressFV: "",
+    //
     footerHeight: 150, //define a altura padrao do footer
   });
 
