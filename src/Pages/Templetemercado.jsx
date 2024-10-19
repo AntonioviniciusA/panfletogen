@@ -327,6 +327,10 @@ const Templetemercado = () => {
   const [footerData, setFooterData] = useState({
     logo: "",
     tel: "",
+    image1f: "",
+    image2f: "",
+    image3f: "",
+    image4f: "",
     positionlogofH: 0,
     positionlogofV: 0,
     //
@@ -338,6 +342,9 @@ const Templetemercado = () => {
     //
     positionimg3fH: 0,
     positionimg3fV: 0,
+    //
+    positionimg4fH: 0,
+    positionimg4fV: 0,
     //
     positiontelfH: 10,
     positiontelfV: 0,
@@ -1179,6 +1186,46 @@ const Templetemercado = () => {
                     }
                   />
 
+                  <input
+                    type="file"
+                    name="image1f"
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        image1f: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
+                  />
+                  <input
+                    type="file"
+                    name="image2f"
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        image2f: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
+                  />
+                  <input
+                    type="file"
+                    name="image3f"
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        image3f: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
+                  />
+                  <input
+                    type="file"
+                    name="image4f"
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        image4f: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
+                  />
                   {/* <label>
                     Localização horizontal da Logo:
                     <input
@@ -1747,7 +1794,66 @@ const Templetemercado = () => {
                   />
                 </Rnd>
               )}
-
+              {footerData.image1f && (
+                <Rnd
+                  default={{
+                    x: footerData.positionimg1fH,
+                    y: footerData.positionimg1fV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                >
+                  <img src={footerData.image1f} alt="image-footer-1" />
+                </Rnd>
+              )}
+              {footerData.image2f && (
+                <Rnd
+                  default={{
+                    x: footerData.positionimg2fH,
+                    y: footerData.positionimg2fV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                >
+                  <img src={footerData.image2f} alt="image-footer-2" />
+                </Rnd>
+              )}
+              {footerData.image3f && (
+                <Rnd
+                  default={{
+                    x: footerData.positionimg3fH,
+                    y: footerData.positionimg3fV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                >
+                  <img src={footerData.image3f} alt="image-footer-3" />
+                </Rnd>
+              )}
+              {footerData.image4f && (
+                <Rnd
+                  default={{
+                    x: footerData.positionimg4fH,
+                    y: footerData.positionimg4fV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                >
+                  <img src={footerData.image4f} alt="image-footer-4" />
+                </Rnd>
+              )}
               <Rnd
                 default={{
                   x: footerData.positiontelfH,
