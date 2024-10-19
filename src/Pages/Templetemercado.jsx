@@ -265,7 +265,12 @@ const Templetemercado = () => {
     localStorage.setItem(
       //Salva os dados no LocalStorage
       "frontContent",
-      JSON.stringify({ headerData, cardcolorData, cards, pageBgColor }) //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
+      JSON.stringify({
+        headerData,
+        cardcolorData,
+        cards,
+        pageBgColor,
+      }) //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
     );
     alert("Panfleto salvo! Apertem em (ok) para continuar"); // Gera um aviso na tela do usuario avisando que o panfleto foi salvo :)
     navigate("/panfleto-mercado"); //Redireciona o usuario para a paguna de panfleto-mercado apos o panfleto ser salvo
@@ -1500,14 +1505,28 @@ const Templetemercado = () => {
               >
                 <Rnd
                   default={{
-                    x: headerData.positionlogo,
-                    y: headerData.positionlogoV,
+                    x: headerData.positionlogo, // Posição inicial X da logo
+                    y: headerData.positionlogoV, // Posição inicial Y da logo
                     width: 100,
                     height: "auto",
                   }}
                   minWidth={50}
                   minHeight={50}
-                  bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
+                  bounds="parent"
+                  onDragStop={(e, d) => {
+                    setHeaderData((prevData) => ({
+                      ...prevData,
+                      positionlogo: d.x, // Atualiza a posição X no estado
+                      positionlogoV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setHeaderData((prevData) => ({
+                      ...prevData,
+                      positionlogo: position.x, // Atualiza a posição X no estado
+                      positionlogoV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
                 >
                   <img src={headerData.logo} alt="logo" />
                 </Rnd>
@@ -1524,16 +1543,23 @@ const Templetemercado = () => {
                   /> */}
                 <Rnd
                   default={{
-                    x: headerData.positionTitulo,
-                    y: headerData.positionTituloV,
+                    x: headerData.positionTitulo, // Posição inicial X do título
+                    y: headerData.positionTituloV, // Posição inicial Y do título
                     height: "auto",
-                    backgroundColor: "blue",
                   }}
                   minWidth={50}
                   minHeight={0}
-                  bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
-                  enableResizing={false} // Desativa completamente o redimensionamento
+                  bounds="parent" // Garante que o título não seja arrastado para fora do elemento pai
+                  enableResizing={false} // Desativa o redimensionamento
                   style={{ cursor: "move" }} // Força o cursor a ser "move"
+                  onDragStop={(e, d) => {
+                    // Atualiza a posição do título no estado quando o arrasto parar
+                    setHeaderData((prevData) => ({
+                      ...prevData,
+                      positionTitulo: d.x, // Atualiza a posição X do título
+                      positionTituloV: d.y, // Atualiza a posição Y do título
+                    }));
+                  }}
                 >
                   <h1
                     style={{
@@ -1541,13 +1567,13 @@ const Templetemercado = () => {
                       fontFamily: headerData.titulofont,
                       fontSize: headerData.titulofontSize,
                       position: "relative",
-
                       transition: "left 0.3s ease",
                     }}
                   >
                     {headerData.titulo}
                   </h1>
                 </Rnd>
+
                 <p
                   style={{
                     color: headerData.duracaoColor,
