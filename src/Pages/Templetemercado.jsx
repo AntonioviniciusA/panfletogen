@@ -355,11 +355,11 @@ const Templetemercado = () => {
     positionAddressFV: "",
     //
     positionsocial1fH: 650,
-    positionsocial1fV: 150,
+    positionsocial1fV: 100,
     social1Ffont: "",
     social1FfontSize: "",
     //
-    positionsocial2fH: 500,
+    positionsocial2fH: 650,
     positionsocial2fV: 150,
     social2Ffont: "",
     social2FfontSize: "",
