@@ -206,7 +206,7 @@ const Templetemercado = () => {
   const [cardcolorData, setCardColorData] = useState({
     precocor: "#000000", // define a cor do preço como preto
   });
-  const [pageBgColor, setPageBgColor] = useState("#ffffff");
+  const [pageBgColorData, setPageBgColorData] = useState("#ffffff");
   const [editingCardIndex, setEditingCardIndex] = useState(null);
   const [selectedCardIndex, setSelectedCardIndex] = useState(null);
 
@@ -232,7 +232,7 @@ const Templetemercado = () => {
   // Altera a cor de fundo da página
   const backgroundcard = (e) => {
     const { value } = e.target;
-    setPageBgColor(value); // Altera a cor de fundo da página
+    setPageBgColorData(value); // Altera a cor de fundo da página
   };
 
   // Remove um card
@@ -266,16 +266,30 @@ const Templetemercado = () => {
       //Salva os dados no LocalStorage
       "frontContent",
       JSON.stringify({
+        bgtypeheader,
         headerData,
-        cardcolorData,
         cards,
-        pageBgColor,
+        pageBgColorData,
+        footerBgColor,
+        footerData,
+        cardcolorData: {
+          precocor: cardcolorData.precocor || "#000000", // Garante que há um valor padrão
+        },
       }) //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
     );
     alert("Panfleto salvo! Apertem em (ok) para continuar"); // Gera um aviso na tela do usuario avisando que o panfleto foi salvo :)
     navigate("/panfleto-mercado"); //Redireciona o usuario para a paguna de panfleto-mercado apos o panfleto ser salvo
     if (headerData) {
       setHeaderData(headerData);
+    }
+    if (cards) {
+      setCards(cards);
+    }
+    if (footerData) {
+      setFooterData(footerData);
+    }
+    if (cardcolorData) {
+      setCardColorData(cardcolorData);
     }
   };
   {
@@ -300,8 +314,10 @@ const Templetemercado = () => {
         bgtypeheader,
         headerData,
         cards,
-        pageBgColor,
+        pageBgColorData,
         footerBgColor,
+        footerData,
+        cardcolorData,
       })
     );
   };
@@ -309,20 +325,23 @@ const Templetemercado = () => {
   // Carrega os dados salvos do localStorage ao montar o componente
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("formData"));
-    if (savedData) {
-      setBgTypeHeader(savedData.bgtypeheader);
-      setHeaderData(savedData.headerData);
-      setPageBgColor(savedData.pageBgColor);
-      setFooterBgColor(savedData.footerBgColor);
+    console.log("Dados recuperados do localStorage:", savedData);
 
+    if (savedData) {
+      setBgTypeHeader(savedData.bgtypeheader || "defaultHeader");
+      setHeaderData(savedData.headerData);
+      setPageBgColorData(savedData.pageBgColorData);
+      setFooterBgColor(savedData.footerBgColor);
+      setFooterData(savedData.footer || footerData);
       setCards(savedData.cards || []);
+      setCardColorData(savedData.cardcolorData || { precocor: "#000000" });
     }
   }, []);
   {
     /* SALVA HISTORICO DO USUARIO*/
   }
 
-  // footer configs
+  /*-------------------- CONFIG DO FOOTERS -------------------------*/
 
   const [footerData, setFooterData] = useState({
     logo: "",
@@ -348,14 +367,14 @@ const Templetemercado = () => {
     //
     positiontelfH: 10,
     positiontelfV: 0,
-    telfont: "0",
-    telfontSize: "",
+    telfont: "Arial",
+    telfontSize: "16px",
     //
     emailFfont: "",
     emailFfontSize: "",
     positionEmailFH: 10,
     positionEmailFV: 20,
-    //
+
     addressFfont: "",
     addressFfontSize: "",
     positionAddressFH: "",
@@ -371,6 +390,8 @@ const Templetemercado = () => {
     social2Ffont: "",
     social2FfontSize: "",
     //
+    socialText1: "",
+    socialText2: "",
 
     footerHeight: 200, //define a altura padrao do footer
   });
@@ -509,7 +530,6 @@ const Templetemercado = () => {
     }
   };
 
-  //
   return (
     <>
       <Header />
@@ -987,7 +1007,7 @@ const Templetemercado = () => {
                       type="color"
                       name="page"
                       className="colorswitch"
-                      value={pageBgColor}
+                      value={pageBgColorData}
                       onChange={backgroundcard}
                     />
                   </label>
@@ -1260,6 +1280,7 @@ const Templetemercado = () => {
                       maxLength="16"
                     />
                   </label>
+
                   <div className="estiloletra">
                     <select
                       id="telfont"
@@ -1647,7 +1668,7 @@ const Templetemercado = () => {
             >
               <div
                 className="page "
-                style={{ backgroundColor: pageBgColor }} // Aplica a cor de fundo
+                style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
               >
                 <div className="cards">
                   {cards.map((card, index) => (
@@ -1666,7 +1687,7 @@ const Templetemercado = () => {
                     >
                       <img src={card.image} alt={`Product ${index}`} />
                       <p>{card.description}</p>
-                      <h1 style={{ color: cardcolorData.precocor }}>
+                      <h1 style={{ color: cardcolorData.precocor || "white" }}>
                         R${card.price}
                       </h1>
                     </div>
@@ -1781,17 +1802,8 @@ const Templetemercado = () => {
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
-                  //  Garante que a imagem não possa ser arrastada para fora do elemento pai
                 >
-                  <img
-                    src={footerData.logo}
-                    // style={{
-                    //   position: "relative",
-                    //   left: `${footerData.positionlogofH}%`,
-                    //   top: `${footerData.positionlogofV}px`,
-                    // }}
-                    alt="logo-footer"
-                  />
+                  <img src={footerData.logo} alt="logo-footer" />
                 </Rnd>
               )}
               {footerData.image1f && (
@@ -1854,88 +1866,85 @@ const Templetemercado = () => {
                   <img src={footerData.image4f} alt="image-footer-4" />
                 </Rnd>
               )}
-              <Rnd
-                default={{
-                  x: footerData.positiontelfH,
-                  y: footerData.positiontelfV,
-                  height: "auto",
-                  backgroundColor: "blue",
-                }}
-                minWidth={160}
-                maxHeight={25}
-                bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
-                enableResizing={false} // Desativa completamente o redimensionamento
-                style={{ cursor: "move" }} // Força o cursor a ser "move"
-              >
-                <p
-                  style={{
-                    position: "relative",
-                    fontFamily: footerData.telfont,
-                    fontSize: footerData.telfontSize,
-                    width: "auto",
-                    color: telColor,
+
+              {footerData.tel && (
+                <Rnd
+                  default={{
+                    x: footerData.positiontelfH,
+                    y: footerData.positiontelfV,
+                    height: "auto",
                   }}
+                  minWidth={160}
+                  maxHeight={25}
+                  bounds="parent"
+                  enableResizing={false}
+                  style={{ cursor: "move" }}
                 >
-                  {footerData.tel}
-                </p>
-              </Rnd>
-              {/*  */}
+                  <p
+                    style={{
+                      position: "relative",
+                      fontFamily: footerData?.telfont || "Arial",
+                      fontSize: footerData?.telfontSize || "16px",
+                      width: "auto",
+                      color: footerData?.telColor || "black",
+                    }}
+                  >
+                    {footerData.tel}
+                  </p>
+                </Rnd>
+              )}
+
               <Rnd
                 default={{
                   x: footerData.positionsocial1fH,
                   y: footerData.positionsocial1fV,
                   height: "auto",
                 }}
-                bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
-                enableResizing={false} // Desativa completamente o redimensionamento
-                style={{ cursor: "move" }} // Força o cursor a ser "move"
+                bounds="parent"
+                enableResizing={false}
+                style={{ cursor: "move" }}
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  {socialIcon && (
-                    <FontAwesomeIcon
-                      icon={getSocialIcon()}
-                      style={{
-                        fontSize: "30px",
-                        marginRight: "10px",
-                        color: logoColor,
-                      }}
-                    />
-                  )}
-                  <p style={{ fontSize: "16px", margin: 0, color: textColor }}>
-                    {userInput}
+                  <FontAwesomeIcon
+                    icon={getSocialIcon()}
+                    style={{
+                      fontSize: "30px",
+                      marginRight: "10px",
+                      color: "gray",
+                    }}
+                  />
+                  <p style={{ fontSize: "16px", margin: 0, color: "black" }}>
+                    {footerData.socialText1}
                   </p>
                 </div>
               </Rnd>
-              {/*  */}
-              {/*  */}
+
               <Rnd
                 default={{
                   x: footerData.positionsocial2fH,
                   y: footerData.positionsocial2fV,
                   height: "auto",
                 }}
-                bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
-                enableResizing={false} // Desativa completamente o redimensionamento
-                style={{ cursor: "move" }} // Força o cursor a ser "move"
+                bounds="parent"
+                enableResizing={false}
+                style={{ cursor: "move" }}
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  {socialIcon2 && (
-                    <FontAwesomeIcon
-                      icon={getSocialIcon2()}
-                      style={{
-                        fontSize: "30px",
-                        marginRight: "10px",
-                        color: logoColor2,
-                      }}
-                    />
-                  )}
-                  <p style={{ fontSize: "16px", margin: 0, color: textColor2 }}>
-                    {userInput2}
+                  <FontAwesomeIcon
+                    icon={getSocialIcon2()}
+                    style={{
+                      fontSize: "30px",
+                      marginRight: "10px",
+                      color: "gray",
+                    }}
+                  />
+                  <p style={{ fontSize: "16px", margin: 0, color: "black" }}>
+                    {footerData.socialText2}
                   </p>
                 </div>
               </Rnd>
-              {/*  */}
             </footer>
+            {/*  */}
           </div>
         </div>
       </div>
