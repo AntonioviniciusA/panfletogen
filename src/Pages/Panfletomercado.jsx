@@ -118,7 +118,11 @@ const Panfletomercado = () => {
             <div className="card" key={index}>
               <img src={card.image} alt={`Product ${index}`} />
               <p>{card.description}</p>
-              <h1 style={{ color: frontContent.cardcolorData.precocor }}>
+              <h1
+                style={{
+                  color: frontContent.cardcolorData?.precocor || "black",
+                }}
+              >
                 R${card.price}
               </h1>
             </div>
