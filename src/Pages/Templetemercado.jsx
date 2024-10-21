@@ -325,8 +325,13 @@ const Templetemercado = () => {
   // Carrega os dados salvos do localStorage ao montar o componente
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("formData"));
-    console.log("Dados recuperados do localStorage:", savedData);
-
+    if (savedData) {
+      setBgTypeHeader(savedData.bgtypeheader);
+      setHeaderData(savedData.headerData);
+      setCards(savedData.cards || []);
+      setPageBgColor(savedData.pageBgColor);
+      setFooterBgColor(savedData.footerBgColor);
+    }
     if (savedData) {
       setBgTypeHeader(savedData.bgtypeheader || "defaultHeader");
       setHeaderData(savedData.headerData);
@@ -336,7 +341,7 @@ const Templetemercado = () => {
       setCards(savedData.cards || []);
       setCardColorData(savedData.cardcolorData || { precocor: "#000000" });
     }
-  }, []);
+  });
   {
     /* SALVA HISTORICO DO USUARIO*/
   }
