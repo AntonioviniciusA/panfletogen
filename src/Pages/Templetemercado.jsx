@@ -7,6 +7,12 @@ import Footer from "../components/Footer";
 import "@fontsource/roboto";
 import "@fontsource/open-sans";
 import "@fontsource/lobster";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 const Templetemercado = () => {
   /*-------------------- HEADER-------------------------*/
   {
@@ -17,9 +23,9 @@ const Templetemercado = () => {
     value: "",
   });
   const [headerData, setHeaderData] = useState({
+    bgImage: "",
     logo: "",
     bgColor: "",
-    bgImage: "",
     titulo: "",
     tituloColor: "",
     duracao: "",
@@ -29,10 +35,39 @@ const Templetemercado = () => {
     positionduracaoV: "",
     positionTitulo: "",
     positionTituloV: "",
+    positionlogo: 0,
+    positionlogoV: 0,
     titulofont: "",
     titulofontSize: "",
+
     headerHeight: 150,
   });
+
+  // alterar posicao vertical da logo header
+
+  const [positionlogoV, setPositionlogoV] = useState(0);
+
+  const handlelogoPositionVChange = (e) => {
+    setPositionlogoV(e.target.value);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      positionlogoV: e.target.value,
+    }));
+  };
+
+  // alterar posicao horizontal logo header
+
+  const [positionlogo, setPositionlogo] = useState(0);
+
+  const handlelogoPositionChange = (e) => {
+    setPositionlogo(e.target.value);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      positionlogo: e.target.value,
+    }));
+  };
+
+  // alterar posicao vertical  da vaidade
 
   const [positionTituloV, setPositionTituloV] = useState(0);
 
@@ -171,7 +206,7 @@ const Templetemercado = () => {
   const [cardcolorData, setCardColorData] = useState({
     precocor: "#000000", // define a cor do preço como preto
   });
-  const [pageBgColor, setPageBgColor] = useState("#ffffff");
+  const [pageBgColorData, setPageBgColorData] = useState("#ffffff");
   const [editingCardIndex, setEditingCardIndex] = useState(null);
   const [selectedCardIndex, setSelectedCardIndex] = useState(null);
 
@@ -197,7 +232,7 @@ const Templetemercado = () => {
   // Altera a cor de fundo da página
   const backgroundcard = (e) => {
     const { value } = e.target;
-    setPageBgColor(value); // Altera a cor de fundo da página
+    setPageBgColorData(value); // Altera a cor de fundo da página
   };
 
   // Remove um card
@@ -230,18 +265,31 @@ const Templetemercado = () => {
     localStorage.setItem(
       //Salva os dados no LocalStorage
       "frontContent",
-      JSON.stringify({ headerData, cardcolorData, cards, pageBgColor }) //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
+      JSON.stringify({
+        bgtypeheader,
+        headerData,
+        cards,
+        pageBgColorData,
+        footerBgColor,
+        footerData,
+        cardcolorData: {
+          precocor: cardcolorData.precocor || "#000000", // Garante que há um valor padrão
+        },
+      }) //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
     );
     alert("Panfleto salvo! Apertem em (ok) para continuar"); // Gera um aviso na tela do usuario avisando que o panfleto foi salvo :)
     navigate("/panfleto-mercado"); //Redireciona o usuario para a paguna de panfleto-mercado apos o panfleto ser salvo
     if (headerData) {
       setHeaderData(headerData);
     }
-    if (cardcolorData) {
-      setCardColorData(cardcolorData);
-    }
     if (cards) {
       setCards(cards);
+    }
+    if (footerData) {
+      setFooterData(footerData);
+    }
+    if (cardcolorData) {
+      setCardColorData(cardcolorData);
     }
   };
   {
@@ -266,8 +314,10 @@ const Templetemercado = () => {
         bgtypeheader,
         headerData,
         cards,
-        pageBgColor,
+        pageBgColorData,
         footerBgColor,
+        footerData,
+        cardcolorData,
       })
     );
   };
@@ -282,29 +332,73 @@ const Templetemercado = () => {
       setPageBgColor(savedData.pageBgColor);
       setFooterBgColor(savedData.footerBgColor);
 
+    if (savedData) {
+      setBgTypeHeader(savedData.bgtypeheader || "defaultHeader");
+      setHeaderData(savedData.headerData);
+      setPageBgColorData(savedData.pageBgColorData);
+      setFooterBgColor(savedData.footerBgColor);
+      setFooterData(savedData.footer || footerData);
       setCards(savedData.cards || []);
+      setCardColorData(savedData.cardcolorData || { precocor: "#000000" });
     }
   }, []);
   {
     /* SALVA HISTORICO DO USUARIO*/
   }
 
-  // footer configs
+  /*-------------------- CONFIG DO FOOTERS -------------------------*/
 
   const [footerData, setFooterData] = useState({
     logo: "",
     tel: "",
+    image1f: "",
+    image2f: "",
+    image3f: "",
+    image4f: "",
     positionlogofH: 0,
     positionlogofV: 0,
-    positiontelfH: 0,
+    //
+    positionimg1fH: 0,
+    positionimg1fV: 0,
+    //
+    positionimg2fH: 0,
+    positionimg2fV: 0,
+    //
+    positionimg3fH: 0,
+    positionimg3fV: 0,
+    //
+    positionimg4fH: 0,
+    positionimg4fV: 0,
+    //
+    positiontelfH: 10,
     positiontelfV: 0,
-    positionemailfH: 0,
-    positionemailfV: 0,
-    positionenderecofH: 0,
-    positionenderecofV: 0,
-    telfont: "",
-    telfontSize: "",
-    footerHeight: 150, //define a altura padrao do footer
+    telfont: "Arial",
+    telfontSize: "16px",
+    //
+    emailFfont: "",
+    emailFfontSize: "",
+    positionEmailFH: 10,
+    positionEmailFV: 20,
+
+    addressFfont: "",
+    addressFfontSize: "",
+    positionAddressFH: "",
+    positionAddressFV: "",
+    //
+    positionsocial1fH: 650,
+    positionsocial1fV: 100,
+    social1Ffont: "",
+    social1FfontSize: "",
+    //
+    positionsocial2fH: 650,
+    positionsocial2fV: 150,
+    social2Ffont: "",
+    social2FfontSize: "",
+    //
+    socialText1: "",
+    socialText2: "",
+
+    footerHeight: 200, //define a altura padrao do footer
   });
 
   //alterar cor do fundo do footer
@@ -374,6 +468,72 @@ const Templetemercado = () => {
       tel: value,
     }));
   };
+  //
+
+  const [logoColor, setLogoColor] = useState("#000000");
+  const [textColor, setTextColor] = useState("#000000");
+  const [socialIcon, setSocialIcon] = useState("");
+  const [userInput, setUserInput] = useState("");
+  const [logoColor2, setLogoColor2] = useState("#000000");
+  const [textColor2, setTextColor2] = useState("#000000");
+  const [socialIcon2, setSocialIcon2] = useState("");
+  const [userInput2, setUserInput2] = useState("");
+
+  // Função para mudar a cor da rede social
+  const handleLogoColorChange = (event) => {
+    setLogoColor(event.target.value);
+  };
+  const handleLogoColor2Change = (event) => {
+    setLogoColor2(event.target.value);
+  };
+
+  // Função para mudar a cor do texto
+  const handleTextColorChange = (event) => {
+    setTextColor(event.target.value);
+  };
+  const handleTextColor2Change = (event) => {
+    setTextColor2(event.target.value);
+  };
+
+  const handleIconChange = (event) => {
+    setSocialIcon(event.target.value);
+  };
+  const handleIcon2Change = (event) => {
+    setSocialIcon2(event.target.value);
+  };
+
+  const handleUserInputChange = (event) => {
+    setUserInput(event.target.value);
+  };
+  const handleUserInput2Change = (event) => {
+    setUserInput2(event.target.value);
+  };
+
+  const getSocialIcon = () => {
+    switch (socialIcon) {
+      case "facebook":
+        return faFacebook;
+      case "twitter":
+        return faTwitter;
+      case "instagram":
+        return faInstagram;
+      default:
+        return null;
+    }
+  };
+
+  const getSocialIcon2 = () => {
+    switch (socialIcon2) {
+      case "facebook":
+        return faFacebook;
+      case "twitter":
+        return faTwitter;
+      case "instagram":
+        return faInstagram;
+      default:
+        return null;
+    }
+  };
 
   return (
     <>
@@ -385,7 +545,7 @@ const Templetemercado = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#1e40af",
-          gap: "5%",
+          gap: "",
           padding: "35px",
         }}
       >
@@ -410,134 +570,7 @@ const Templetemercado = () => {
             }}
           >
             {/* //ssssss */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
 
-                alignContent: "center",
-                width: "100%",
-                padding: "4%",
-                borderRadius: "20px",
-                backgroundColor: "#bfdbfe",
-              }}
-            >
-              <div>
-                <p>Escolha a altura do Cabeçalho </p>
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  gap: "20px",
-                }}
-              >
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
-                      headerHeight: 100,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  100px
-                </button>
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
-                      headerHeight: 150,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  150px
-                </button>
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
-                      headerHeight: 200,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  200px
-                </button>
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
-                      headerHeight: 250,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  250px
-                </button>
-              </div>
-            </div>
             {/* ss */}
             <br />
             <form
@@ -628,6 +661,136 @@ const Templetemercado = () => {
                       }
                     />
                   </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+
+                      alignContent: "center",
+                      width: "100%",
+                      padding: "4%",
+                      borderRadius: "20px",
+                      backgroundColor: "#bfdbfe",
+                      width: "100%",
+                      height: "500%",
+                    }}
+                  >
+                    <div>
+                      <p>Escolha a altura do Cabeçalho </p>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "20px",
+                      }}
+                    >
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 100,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        100px
+                      </button>
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 150,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        150px
+                      </button>
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 200,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        200px
+                      </button>
+                      <button
+                        onClick={() =>
+                          setHeaderData((prevData) => ({
+                            ...prevData,
+                            headerHeight: 250,
+                          }))
+                        }
+                        style={{
+                          backgroundColor: "#007BFF", // Cor de fundo
+                          color: "#FFFFFF", // Cor do texto
+                          border: "none", // Sem borda
+                          borderRadius: "5px", // Cantos arredondados
+                          padding: "5px", // Espaçamento interno
+                          fontSize: "14px", // Tamanho da fonte
+                          cursor: "pointer", // Cursor de mão ao passar o mouse
+                          transition: "background-color 0.3s", // Transição suave
+                        }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#0056b3")
+                        } // Cor ao passar o mouse
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.backgroundColor = "#007BFF")
+                        } // Cor ao sair
+                      >
+                        250px
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <br />
 
@@ -649,8 +812,13 @@ const Templetemercado = () => {
                     }}
                   >
                     <label>
-                      Frase Promocional:
+                      <p> Frase Promocional:</p>
                       <input
+                        style={
+                          {
+                            // maxWidth: "300px",
+                          }
+                        }
                         type="text"
                         name="titulo"
                         value={headerData.titulo}
@@ -703,30 +871,6 @@ const Templetemercado = () => {
                       />
                     </div>
                     <br />
-                    <label>
-                      localização horizontal da validade:
-                      <input
-                        type="range"
-                        id="positionTitulo"
-                        min="0"
-                        max="100"
-                        value={positionTitulo}
-                        onChange={handleTituloPositionChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
-                    <label>
-                      localização vertical da validade:
-                      <input
-                        type="range"
-                        id="positionTituloV"
-                        min="0"
-                        max="100"
-                        value={positionTituloV}
-                        onChange={handleTituloPositionVChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
                   </div>
                 </div>
                 <br />
@@ -868,7 +1012,7 @@ const Templetemercado = () => {
                       type="color"
                       name="page"
                       className="colorswitch"
-                      value={pageBgColor}
+                      value={pageBgColorData}
                       onChange={backgroundcard}
                     />
                   </label>
@@ -1067,6 +1211,46 @@ const Templetemercado = () => {
                     }
                   />
 
+                  <input
+                    type="file"
+                    name="image1f"
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        image1f: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
+                  />
+                  <input
+                    type="file"
+                    name="image2f"
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        image2f: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
+                  />
+                  <input
+                    type="file"
+                    name="image3f"
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        image3f: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
+                  />
+                  <input
+                    type="file"
+                    name="image4f"
+                    onChange={(e) =>
+                      setFooterData({
+                        ...footerData,
+                        image4f: URL.createObjectURL(e.target.files[0]),
+                      })
+                    }
+                  />
                   {/* <label>
                     Localização horizontal da Logo:
                     <input
@@ -1098,8 +1282,10 @@ const Templetemercado = () => {
                       type="text"
                       value={footerData.tel}
                       onChange={handleTelChange} // Controle do número de telefone
+                      maxLength="16"
                     />
                   </label>
+
                   <div className="estiloletra">
                     <select
                       id="telfont"
@@ -1141,25 +1327,100 @@ const Templetemercado = () => {
                         onChange={handletelColorChange} // Chama a função para mudar a cor
                       />
                     </label>
+                    {/*  */}
+                    <br />
                     <label>
-                      Posição Horizontal:
+                      Escolha a cor da rede social:
                       <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value={footerData.positiontelfH}
-                        onChange={handleTelPositionHChange} // Controle da posição horizontal
+                        type="color"
+                        name="socialColor"
+                        value={logoColor}
+                        onChange={handleLogoColorChange}
                       />
                     </label>
-
+                    <br />
                     <label>
-                      Posição Vertical:
+                      Escolha a rede social:
+                      <select
+                        name="socialIcon"
+                        value={socialIcon}
+                        onChange={handleIconChange}
+                      >
+                        <option value="">Selecione</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="twitter">Twitter</option>
+                        <option value="instagram">Instagram</option>
+                      </select>
+                    </label>
+                    <br />
+                    <label>
+                      Escreva a rede social:
                       <input
-                        type="range"
-                        value={footerData.positiontelfV}
-                        onChange={handleTelPositionVChange} // Controle da posição vertical
+                        type="text"
+                        name="userInput"
+                        placeholder="Digite o texto"
+                        value={userInput}
+                        onChange={handleUserInputChange}
                       />
                     </label>
+                    <br />
+                    <label>
+                      Escolha a cor do texto:
+                      <input
+                        type="color"
+                        name="textColor"
+                        value={textColor}
+                        onChange={handleTextColorChange}
+                      />
+                    </label>
+                    {/* // */}
+                    {/*  */}
+                    <br />
+                    <label>
+                      Escolha a cor da rede social:
+                      <input
+                        type="color"
+                        name="socialColor2"
+                        value={logoColor2}
+                        onChange={handleLogoColor2Change}
+                      />
+                    </label>
+                    <br />
+                    <label>
+                      Escolha a rede social2:
+                      <select
+                        name="socialIcon2"
+                        value={socialIcon2}
+                        onChange={handleIcon2Change}
+                      >
+                        <option value="">Selecione</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="twitter">Twitter</option>
+                        <option value="instagram">Instagram</option>
+                      </select>
+                    </label>
+                    <br />
+                    <label>
+                      Escreva o nome da rede:
+                      <input
+                        type="text"
+                        name="userInput2"
+                        placeholder="Digite o texto"
+                        value={userInput2}
+                        onChange={handleUserInput2Change}
+                      />
+                    </label>
+                    <br />
+                    <label>
+                      Escolha a cor do texto:
+                      <input
+                        type="color"
+                        name="textColor2"
+                        value={textColor2}
+                        onChange={handleTextColor2Change}
+                      />
+                    </label>
+                    {/* // */}
                   </div>
                 </div>
               </div>
@@ -1293,7 +1554,7 @@ const Templetemercado = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              width: "50%",
+              width: "80%",
               padding: "10px",
               borderRadius: "20px 20px 0px 0px",
               backgroundColor: "#bfdbfe",
@@ -1310,21 +1571,35 @@ const Templetemercado = () => {
                   backgroundColor: headerData.bgColor,
                   backgroundImage: headerData.bgImage,
                   height: `${headerData.headerHeight}px`, //altura definida pelo usuaruio no input
-
+                  position: "relative",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
               >
                 <Rnd
                   default={{
-                    x: headerData.positionlogo,
-                    y: headerData.positionlogoV,
+                    x: headerData.positionlogo, // Posição inicial X da logo
+                    y: headerData.positionlogoV, // Posição inicial Y da logo
                     width: 100,
                     height: "auto",
                   }}
                   minWidth={50}
                   minHeight={50}
-                  bounds="parent" //  Garante que a imagem não possa ser arrastada para fora do elemento pai
+                  bounds="parent"
+                  onDragStop={(e, d) => {
+                    setHeaderData((prevData) => ({
+                      ...prevData,
+                      positionlogo: d.x, // Atualiza a posição X no estado
+                      positionlogoV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setHeaderData((prevData) => ({
+                      ...prevData,
+                      positionlogo: position.x, // Atualiza a posição X no estado
+                      positionlogoV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
                 >
                   <img src={headerData.logo} alt="logo" />
                 </Rnd>
@@ -1339,19 +1614,39 @@ const Templetemercado = () => {
                     width={100} //200
                     alt="logo"
                   /> */}
-                <h1
-                  style={{
-                    color: headerData.tituloColor,
-                    fontFamily: headerData.titulofont,
-                    fontSize: headerData.titulofontSize,
-                    position: "relative",
-                    left: headerData.positionTitulo + "%",
-                    top: headerData.positionTituloV + "px",
-                    transition: "left 0.3s ease",
+                <Rnd
+                  default={{
+                    x: headerData.positionTitulo, // Posição inicial X do título
+                    y: headerData.positionTituloV, // Posição inicial Y do título
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={0}
+                  bounds="parent" // Garante que o título não seja arrastado para fora do elemento pai
+                  enableResizing={false} // Desativa o redimensionamento
+                  style={{ cursor: "move" }} // Força o cursor a ser "move"
+                  onDragStop={(e, d) => {
+                    // Atualiza a posição do título no estado quando o arrasto parar
+                    setHeaderData((prevData) => ({
+                      ...prevData,
+                      positionTitulo: d.x, // Atualiza a posição X do título
+                      positionTituloV: d.y, // Atualiza a posição Y do título
+                    }));
                   }}
                 >
-                  {headerData.titulo}
-                </h1>
+                  <h1
+                    style={{
+                      color: headerData.tituloColor,
+                      fontFamily: headerData.titulofont,
+                      fontSize: headerData.titulofontSize,
+                      position: "relative",
+                      transition: "left 0.3s ease",
+                    }}
+                  >
+                    {headerData.titulo}
+                  </h1>
+                </Rnd>
+
                 <p
                   style={{
                     color: headerData.duracaoColor,
@@ -1378,7 +1673,7 @@ const Templetemercado = () => {
             >
               <div
                 className="page "
-                style={{ backgroundColor: pageBgColor }} // Aplica a cor de fundo
+                style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
               >
                 <div className="cards">
                   {cards.map((card, index) => (
@@ -1390,14 +1685,14 @@ const Templetemercado = () => {
                         border:
                           selectedCardIndex === index
                             ? "3px solid blue" // add a cor
-                            : "1px solid #ccc", // remove a cor
+                            : "1px solid #ccc",
                         padding: "10px",
                         cursor: "pointer",
                       }}
                     >
                       <img src={card.image} alt={`Product ${index}`} />
                       <p>{card.description}</p>
-                      <h1 style={{ color: cardcolorData.precocor }}>
+                      <h1 style={{ color: cardcolorData.precocor || "white" }}>
                         R${card.price}
                       </h1>
                     </div>
@@ -1409,11 +1704,13 @@ const Templetemercado = () => {
                   style={{
                     position: "fixed",
                     top: "50%",
-                    left: "50%",
+                    left: "30%",
+                    width: "30%",
                     transform: "translate(-50%, -50%)",
                     backgroundColor: "#bfdbfe",
                     padding: "20px",
-                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                    boxShadow:
+                      "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
                     borderRadius: "20px",
                     zIndex: 5000,
                   }}
@@ -1510,40 +1807,152 @@ const Templetemercado = () => {
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
-                  //  Garante que a imagem não possa ser arrastada para fora do elemento pai
                 >
-                  <img
-                    src={footerData.logo}
-                    // style={{
-                    //   position: "relative",
-                    //   left: `${footerData.positionlogofH}%`,
-                    //   top: `${footerData.positionlogofV}px`,
-                    // }}
-                    alt="logo-footer"
-                  />
+                  <img src={footerData.logo} alt="logo-footer" />
                 </Rnd>
               )}
-              <h1
-                style={{
-                  position: "relative",
-                  fontFamily: footerData.telfont,
-                  fontSize: footerData.telfontSize,
-                  left: footerData.positiontelfH + "%", // Posição horizontal
-                  top: footerData.positiontelfV + "px", // Posição vertical
-                  backgroundColor: footerBgColor, // Aplica a cor de fundo ao "footer"
-                  color: telColor,
-                  transition: "left 0.3s ease, top 0.3s ease", // Transição suave
+              {footerData.image1f && (
+                <Rnd
+                  default={{
+                    x: footerData.positionimg1fH,
+                    y: footerData.positionimg1fV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                >
+                  <img src={footerData.image1f} alt="image-footer-1" />
+                </Rnd>
+              )}
+              {footerData.image2f && (
+                <Rnd
+                  default={{
+                    x: footerData.positionimg2fH,
+                    y: footerData.positionimg2fV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                >
+                  <img src={footerData.image2f} alt="image-footer-2" />
+                </Rnd>
+              )}
+              {footerData.image3f && (
+                <Rnd
+                  default={{
+                    x: footerData.positionimg3fH,
+                    y: footerData.positionimg3fV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                >
+                  <img src={footerData.image3f} alt="image-footer-3" />
+                </Rnd>
+              )}
+              {footerData.image4f && (
+                <Rnd
+                  default={{
+                    x: footerData.positionimg4fH,
+                    y: footerData.positionimg4fV,
+                    width: 100,
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                >
+                  <img src={footerData.image4f} alt="image-footer-4" />
+                </Rnd>
+              )}
+
+              {footerData.tel && (
+                <Rnd
+                  default={{
+                    x: footerData.positiontelfH,
+                    y: footerData.positiontelfV,
+                    height: "auto",
+                  }}
+                  minWidth={160}
+                  maxHeight={25}
+                  bounds="parent"
+                  enableResizing={false}
+                  style={{ cursor: "move" }}
+                >
+                  <p
+                    style={{
+                      position: "relative",
+                      fontFamily: footerData?.telfont || "Arial",
+                      fontSize: footerData?.telfontSize || "16px",
+                      width: "auto",
+                      color: footerData?.telColor || "black",
+                    }}
+                  >
+                    {footerData.tel}
+                  </p>
+                </Rnd>
+              )}
+
+              <Rnd
+                default={{
+                  x: footerData.positionsocial1fH,
+                  y: footerData.positionsocial1fV,
+                  height: "auto",
                 }}
+                bounds="parent"
+                enableResizing={false}
+                style={{ cursor: "move" }}
               >
-                {footerData.tel} {/* Exibe o número de telefone */}
-              </h1>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <FontAwesomeIcon
+                    icon={getSocialIcon()}
+                    style={{
+                      fontSize: "30px",
+                      marginRight: "10px",
+                      color: "gray",
+                    }}
+                  />
+                  <p style={{ fontSize: "16px", margin: 0, color: "black" }}>
+                    {footerData.socialText1}
+                  </p>
+                </div>
+              </Rnd>
+
+              <Rnd
+                default={{
+                  x: footerData.positionsocial2fH,
+                  y: footerData.positionsocial2fV,
+                  height: "auto",
+                }}
+                bounds="parent"
+                enableResizing={false}
+                style={{ cursor: "move" }}
+              >
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <FontAwesomeIcon
+                    icon={getSocialIcon2()}
+                    style={{
+                      fontSize: "30px",
+                      marginRight: "10px",
+                      color: "gray",
+                    }}
+                  />
+                  <p style={{ fontSize: "16px", margin: 0, color: "black" }}>
+                    {footerData.socialText2}
+                  </p>
+                </div>
+              </Rnd>
             </footer>
+            {/*  */}
           </div>
         </div>
       </div>
-      <br />
-      <br />
-      <br />
 
       <Footer />
     </>
