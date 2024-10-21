@@ -549,8 +549,6 @@ const Templetemercado = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            // borderRadius: "20px",
-            // backgroundColor: "#bfdbfe",
           }}
         >
           <div
@@ -1243,31 +1241,6 @@ const Templetemercado = () => {
                       })
                     }
                   />
-                  {/* <label>
-                    Localização horizontal da Logo:
-                    <input
-                      type="range"
-                      id="positionlogofH"
-                      min="0"
-                      max="100"
-                      value={footerData.positionlogofH}
-                      onChange={handlelogoPositionfHChange}
-                      style={{ width: "100%" }}
-                    />
-                  </label>
-                  <label>
-                    localização vertical da Logo:
-                    <input
-                      type="range"
-                      id="positionlogofV"
-                      min="0"
-                      max="100"
-                      value={footerData.positionlogofV}
-                      onChange={handlelogoPositionfVChange}
-                      style={{ width: "100%" }}
-                    />
-                  </label> */}
-
                   <label>
                     Número de Telefone:
                     <input
@@ -1365,7 +1338,7 @@ const Templetemercado = () => {
                         onChange={handleTextColorChange}
                       />
                     </label>
-                    {/* // */}
+
                     {/*  */}
                     <br />
                     <label>
@@ -1596,16 +1569,6 @@ const Templetemercado = () => {
                   <img src={headerData.logo} alt="logo" />
                 </Rnd>
 
-                {/* <img
-                    src={headerData.logo}
-                    style={{
-                      position: "relative",
-                      left: `${headerData.positionlogo}%`,
-                      top: `${headerData.positionlogoV}px`,
-                    }}
-                    width={100} //200
-                    alt="logo"
-                  /> */}
                 <Rnd
                   default={{
                     x: headerData.positionTitulo, // Posição inicial X do título
