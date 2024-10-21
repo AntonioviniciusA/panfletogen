@@ -326,13 +326,6 @@ const Templetemercado = () => {
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("formData"));
     if (savedData) {
-      setBgTypeHeader(savedData.bgtypeheader);
-      setHeaderData(savedData.headerData);
-      setCards(savedData.cards || []);
-      setPageBgColor(savedData.pageBgColor);
-      setFooterBgColor(savedData.footerBgColor);
-    }
-    if (savedData) {
       setBgTypeHeader(savedData.bgtypeheader || "defaultHeader");
       setHeaderData(savedData.headerData);
       setPageBgColorData(savedData.pageBgColorData);
