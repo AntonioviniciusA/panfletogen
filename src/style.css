@@ -45,11 +45,12 @@ input {
 }
 
 .card {
-  width: 30%;
+  width: 142px;
+  height: 268px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
+  margin: 5px;
+  padding: 5px;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -71,8 +72,13 @@ input {
   width: 115%;
 }
 .page {
-  width: 800px;
-  border-radius: 2%;
+  width: 794px;
+  max-height: 2246px;
+  border: 3px black solid;
+}
+.pageCards {
+  width: 794px;
+  max-height: 2046px;
   border: 3px black solid;
 }
 form {

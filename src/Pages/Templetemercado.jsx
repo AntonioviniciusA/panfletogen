@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Rnd } from "react-rnd";
-import { SketchPicker } from "react-color";
+// import { SketchPicker } from "react-color";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "@fontsource/roboto";
@@ -13,6 +13,8 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 const Templetemercado = () => {
   /*-------------------- HEADER-------------------------*/
   {
@@ -44,7 +46,6 @@ const Templetemercado = () => {
   });
 
   // alterar posicao vertical da logo header
-
   const [positionlogoV, setPositionlogoV] = useState(0);
 
   const handlelogoPositionVChange = (e) => {
@@ -166,25 +167,34 @@ const Templetemercado = () => {
     }));
   };
   const [bgImage, setBgImage] = useState("");
-
+  const [bgColor, setBgColor] = useState("transparent");
+  const handleClearChange = (e) => {
+    setBgTypeHeader(e.target.value);
+    setBgImage(``);
+    setBgColor(``);
+    setHeaderData((prevData) => ({
+      ...prevData,
+      bgImage: ``,
+      bgColor: ``,
+    }));
+  };
   const handleUrlChange = (e) => {
-    const url = e.target.value;
+    const url = e.target.files[0];
     setBgImage(`url(${url})`);
     setHeaderData((prevData) => ({
       ...prevData,
-      bgUrl: url,
+      bgImage: `url(${url})`,
     }));
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const fileUrl = URL.createObjectURL(file); // Corrigido para usar URL.createObjectURL para arquivos
-      setBgImage(`url(${fileUrl})`); // Atualiza o estado do background com a URL da imagem
+      const fileUrl = URL.createObjectURL(file);
+      setBgImage(`url(${fileUrl})`);
       setHeaderData((prevData) => ({
         ...prevData,
-        bgImage: fileUrl, // Atualiza o headerData com a URL do arquivo
-        bgColor,
+        bgImage: `url(${fileUrl})`,
       }));
     }
   };
@@ -200,7 +210,6 @@ const Templetemercado = () => {
   /*-------------------- PRODUTOS -------------------------*/
 
   // Estado dos cards
-  const [cards, setCards] = useState([]);
 
   // Estado para a cor de fundo do preço
   const [cardcolorData, setCardColorData] = useState({
@@ -226,7 +235,15 @@ const Templetemercado = () => {
 
   // Adiciona um novo card
   const handleAddCard = () => {
-    setCards([...cards, { image: "", description: "", price: "" }]); // Cria um novo array com os cards existentes e define um novo card com as propriedades image, description e price vazias
+    if (cards.length < maxCards) {
+      setCards([
+        ...cards,
+        `Card ${cards.length + 1}`,
+        { image: "", description: "", price: "" },
+      ]);
+    } else {
+      alert("Você atingiu o limite de cards.");
+    } // Cria um novo array com os cards existentes e define um novo card com as propriedades image, description e price vazias
   };
 
   // Altera a cor de fundo da página
@@ -255,92 +272,7 @@ const Templetemercado = () => {
     setSelectedCardIndex(null);
   };
 
-  /*-------------------- CONFIG DE SAVE -------------------------*/
-  {
-    /* SALVA O DOCUMENTO*/
-  }
-  const handleSavePanfleto = (e) => {
-    e.preventDefault();
-    saveFormData(); // Captura os dados do form antes de salvar
-    localStorage.setItem(
-      //Salva os dados no LocalStorage
-      "frontContent",
-      JSON.stringify({
-        bgtypeheader,
-        headerData,
-        cards,
-        pageBgColorData,
-        footerBgColor,
-        footerData,
-        cardcolorData: {
-          precocor: cardcolorData.precocor || "#000000", // Garante que há um valor padrão
-        },
-      }) //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
-    );
-    alert("Panfleto salvo! Apertem em (ok) para continuar"); // Gera um aviso na tela do usuario avisando que o panfleto foi salvo :)
-    navigate("/panfleto-mercado"); //Redireciona o usuario para a paguna de panfleto-mercado apos o panfleto ser salvo
-    if (headerData) {
-      setHeaderData(headerData);
-    }
-    if (cards) {
-      setCards(cards);
-    }
-    if (footerData) {
-      setFooterData(footerData);
-    }
-    if (cardcolorData) {
-      setCardColorData(cardcolorData);
-    }
-  };
-  {
-    /* SALVA O DOCUMENTO*/
-  }
-  {
-    /* NAVEGA*/
-  }
-  const navigate = useNavigate();
-  {
-    /* NAVEGA*/
-  }
-  {
-    /* SALVA HISTORICO DO USUARIO*/
-  }
-
-  // Função para salvar os dados no localStorage
-  const saveFormData = () => {
-    localStorage.setItem(
-      "formData",
-      JSON.stringify({
-        bgtypeheader,
-        headerData,
-        cards,
-        pageBgColorData,
-        footerBgColor,
-        footerData,
-        cardcolorData,
-      })
-    );
-  };
-
-  // Carrega os dados salvos do localStorage ao montar o componente
-  useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem("formData"));
-    if (savedData) {
-      setBgTypeHeader(savedData.bgtypeheader || "defaultHeader");
-      setHeaderData(savedData.headerData);
-      setPageBgColorData(savedData.pageBgColorData);
-      setFooterBgColor(savedData.footerBgColor);
-      setFooterData(savedData.footer || footerData);
-      setCards(savedData.cards || []);
-      setCardColorData(savedData.cardcolorData || { precocor: "#000000" });
-    }
-  });
-  {
-    /* SALVA HISTORICO DO USUARIO*/
-  }
-
   /*-------------------- CONFIG DO FOOTERS -------------------------*/
-
   const [footerData, setFooterData] = useState({
     logo: "",
     tel: "",
@@ -527,7 +459,194 @@ const Templetemercado = () => {
         return null;
     }
   };
+  const [cards, setCards] = useState([]);
+  let maxCards;
+  switch (headerData.headerHeight) {
+    case 100:
+      switch (footerData.footerHeight) {
+        case 100:
+          maxCards = 34;
+          break;
+        case 150:
+          maxCards = 30;
+          break;
+        case 200:
+          maxCards = 26;
+          break;
+        case 250:
+          maxCards = 22;
+          break;
+        default:
+          maxCards = 0;
+      }
+      break;
+    case 150:
+      switch (footerData.footerHeight) {
+        case 100:
+          maxCards = 32;
+          break;
+        case 150:
+          maxCards = 28;
+          break;
+        case 200:
+          maxCards = 24;
+          break;
+        case 250:
+          maxCards = 20;
+          break;
+        default:
+          maxCards = 0;
+      }
+      break;
+    case 200:
+      switch (footerData.footerHeight) {
+        case 100:
+          maxCards = 30;
+          break;
+        case 150:
+          maxCards = 26;
+          break;
+        case 200:
+          maxCards = 22;
+          break;
+        case 250:
+          maxCards = 18;
+          break;
+        default:
+          maxCards = 0;
+      }
+      break;
+    case 250:
+      switch (footerData.footerHeight) {
+        case 100:
+          maxCards = 30;
+          break;
+        case 150:
+          maxCards = 30;
+          break;
+        case 200:
+          maxCards = 24;
+          break;
+        case 250:
+          maxCards = 20;
+          break;
+        default:
+          maxCards = 0;
+      }
+      break;
+    default:
+      maxCards = 0;
+  }
 
+  console.log(`O número máximo de cards é: ${maxCards}`);
+  /*-------------------- CONFIG DE SAVE -------------------------*/
+  {
+    /* SALVA O DOCUMENTO*/
+  }
+  const handleSavePanfleto = (e) => {
+    e.preventDefault();
+    saveFormData(); // Captura os dados do form antes de salvar
+    localStorage.setItem(
+      //Salva os dados no LocalStorage
+      "frontContent",
+      JSON.stringify({
+        bgtypeheader,
+        headerData,
+        cards,
+        pageBgColorData,
+        footerBgColor,
+        footerData,
+        cardcolorData: {
+          precocor: cardcolorData.precocor || "#000000", // Garante que há um valor padrão
+        },
+      }) //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
+    );
+    alert("Panfleto salvo! Apertem em (ok) para continuar"); // Gera um aviso na tela do usuario avisando que o panfleto foi salvo :)
+    if (headerData) {
+      setHeaderData(headerData);
+    }
+    if (cards) {
+      setCards(cards);
+    }
+    if (footerData) {
+      setFooterData(footerData);
+    }
+    if (cardcolorData) {
+      setCardColorData(cardcolorData);
+    }
+  };
+  {
+    /* SALVA O DOCUMENTO*/
+  }
+  {
+    /* NAVEGA*/
+  }
+  const navigate = useNavigate();
+  {
+    /* NAVEGA*/
+  }
+  {
+    /* SALVA HISTORICO DO USUARIO*/
+  }
+
+  // Função para salvar os dados no localStorage
+  const saveFormData = () => {
+    localStorage.setItem(
+      "formData",
+      JSON.stringify({
+        bgtypeheader,
+        headerData,
+        cards,
+        pageBgColorData,
+        footerBgColor,
+        footerData,
+        cardcolorData,
+      })
+    );
+  };
+  function clear() {
+    localStorage.removeItem("formData");
+    console.log("LocalStorage limpo!");
+  }
+  // Carrega os dados salvos do localStorage ao montar o componente
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("formData"));
+    if (savedData) {
+      setBgTypeHeader(savedData.bgtypeheader || "defaultHeader");
+      setHeaderData(savedData.headerData);
+      setPageBgColorData(savedData.pageBgColorData);
+      setFooterBgColor(savedData.footerBgColor);
+      setFooterData(savedData.footer || footerData);
+      setCards(savedData.cards || []);
+      setCardColorData(savedData.cardcolorData || { precocor: "#000000" });
+    }
+  }, []);
+
+  const handleDownloadPDF = () => {
+    const input = document.getElementById("front-page"); // ID do elemento a ser convertido
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      const imgWidth = 190; // Largura da imagem no PDF
+      const pageHeight = pdf.internal.pageSize.height;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const heightLeft = imgHeight;
+
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+      position += heightLeft;
+
+      // Se a imagem for maior que a altura da página, adicione uma nova página
+      if (heightLeft >= pageHeight) {
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+      }
+
+      pdf.save("panfleto.pdf");
+    });
+  };
   return (
     <>
       <Header />
@@ -575,6 +694,7 @@ const Templetemercado = () => {
                 height: "500%",
               }}
             >
+              <button onClick={clear}>Limpar Local Storage</button>
               <div>
                 <p>Escolha a altura do Cabeçalho </p>
               </div>
@@ -725,9 +845,7 @@ const Templetemercado = () => {
                         value={bgtypeheader}
                         name="bgtypeheader"
                         id="bgtypeheader"
-                        onChange={(e) => {
-                          setBgTypeHeader(e.target.value);
-                        }}
+                        onChange={handleClearChange}
                       >
                         <option
                           value=""
@@ -741,6 +859,7 @@ const Templetemercado = () => {
                         <option value="file">Imagem</option>
                         <option value="color">Cor de Fundo</option>
                       </select>
+                      <br />
 
                       {bgtypeheader === "url" && (
                         <input
@@ -1495,9 +1614,10 @@ const Templetemercado = () => {
                       transition: "opacity 0.3s ease-in-out",
                     }}
                   >
-                    Salvar e ir
+                    Salvar
                   </span>
                 </button>
+                <button onClick={handleDownloadPDF}>Baixar PDF</button>
               </div>
             </div>
           </div>
@@ -1627,7 +1747,7 @@ const Templetemercado = () => {
               }}
             >
               <div
-                className="page "
+                className="pageCards"
                 style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
               >
                 <div className="cards">
@@ -1641,7 +1761,6 @@ const Templetemercado = () => {
                           selectedCardIndex === index
                             ? "3px solid blue" // add a cor
                             : "1px solid #ccc",
-                        padding: "10px",
                         cursor: "pointer",
                       }}
                     >
