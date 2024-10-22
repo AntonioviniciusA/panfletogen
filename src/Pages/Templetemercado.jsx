@@ -397,11 +397,11 @@ const Templetemercado = () => {
 
   const [logoColor, setLogoColor] = useState("#000000");
   const [textColor, setTextColor] = useState("#000000");
-  const [socialIcon, setSocialIcon] = useState("");
+  const [socialIcon, setSocialIcon] = useState("faFacebook");
   const [userInput, setUserInput] = useState("");
   const [logoColor2, setLogoColor2] = useState("#000000");
   const [textColor2, setTextColor2] = useState("#000000");
-  const [socialIcon2, setSocialIcon2] = useState("");
+  const [socialIcon2, setSocialIcon2] = useState("faInstagram");
   const [userInput2, setUserInput2] = useState("");
 
   // Função para mudar a cor da rede social
@@ -474,7 +474,7 @@ const Templetemercado = () => {
           maxCards = 26;
           break;
         case 250:
-          maxCards = 22;
+          maxCards = 25;
           break;
         default:
           maxCards = 0;
@@ -525,10 +525,10 @@ const Templetemercado = () => {
           maxCards = 30;
           break;
         case 200:
-          maxCards = 24;
+          maxCards = 25;
           break;
         case 250:
-          maxCards = 20;
+          maxCards = 21;
           break;
         default:
           maxCards = 0;
@@ -694,7 +694,9 @@ const Templetemercado = () => {
                 height: "500%",
               }}
             >
-              <button onClick={clear}>Limpar Local Storage</button>
+              <button onClick={clear} className="btn">
+                Limpar Local Storage
+              </button>
               <div>
                 <p>Escolha a altura do Cabeçalho </p>
               </div>
@@ -1290,6 +1292,118 @@ const Templetemercado = () => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
+
+                  alignContent: "center",
+                  width: "100%",
+                  padding: "4%",
+                  borderRadius: "20px",
+                  backgroundColor: "#bfdbfe",
+                  width: "100%",
+                  height: "500%",
+                }}
+              >
+                <h2>Adicione uma imagem:</h2>
+                <div className="container-filesF">
+                  <div class="tooltip">
+                    <input
+                      type="file"
+                      name="logo"
+                      onChange={(e) =>
+                        setFooterData({
+                          ...footerData,
+                          logo: URL.createObjectURL(e.target.files[0]),
+                        })
+                      }
+                    />
+                    <span class="tooltiptext">Logo</span>
+                    <label htmlFor="file-upload" className="custom-file-upload">
+                      <span>+</span> {/* Logo ou ícone */}
+                    </label>
+                  </div>
+                  <div class="tooltip">
+                    <input
+                      type="file"
+                      name="image1f"
+                      onChange={(e) =>
+                        setFooterData({
+                          ...footerData,
+                          image1f: URL.createObjectURL(e.target.files[0]),
+                        })
+                      }
+                    />
+                    <span class="tooltiptext">Imagem 1</span>
+                    <label htmlFor="file-upload" className="custom-file-upload">
+                      <span>+</span> {/* Logo ou ícone */}
+                    </label>
+                  </div>
+                  <div class="tooltip">
+                    <input
+                      type="file"
+                      name="image2f"
+                      onChange={(e) =>
+                        setFooterData({
+                          ...footerData,
+                          image2f: URL.createObjectURL(e.target.files[0]),
+                        })
+                      }
+                    />
+                    <span class="tooltiptext">Imagem 2</span>
+
+                    <label htmlFor="file-upload" className="custom-file-upload">
+                      <span>+</span> {/* Logo ou ícone */}
+                    </label>
+                  </div>
+                  <div class="tooltip">
+                    <input
+                      type="file"
+                      name="image3f"
+                      onChange={(e) =>
+                        setFooterData({
+                          ...footerData,
+                          image3f: URL.createObjectURL(e.target.files[0]),
+                        })
+                      }
+                    />
+                    <span class="tooltiptext">Imagem 3</span>
+
+                    <label htmlFor="file-upload" className="custom-file-upload">
+                      <span>+</span> {/* Logo ou ícone */}
+                    </label>
+                  </div>
+                  <div class="tooltip">
+                    <input
+                      type="file"
+                      name="image4f"
+                      id="file-upload"
+                      style={{ display: "none" }}
+                      onChange={(e) =>
+                        setFooterData({
+                          ...footerData,
+                          image4f: URL.createObjectURL(e.target.files[0]),
+                        })
+                      }
+                    />
+                    <span class="tooltiptext">Imagem 4</span>
+
+                    <label htmlFor="file-upload" className="custom-file-upload">
+                      <span>+</span> {/* Logo ou ícone */}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div
+              style={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
                   alignContent: "center",
                   width: "100%",
                   padding: "4%",
@@ -1309,57 +1423,6 @@ const Templetemercado = () => {
                     />
                   </label>
 
-                  <input
-                    type="file"
-                    name="logo"
-                    onChange={(e) =>
-                      setFooterData({
-                        ...footerData,
-                        logo: URL.createObjectURL(e.target.files[0]),
-                      })
-                    }
-                  />
-
-                  <input
-                    type="file"
-                    name="image1f"
-                    onChange={(e) =>
-                      setFooterData({
-                        ...footerData,
-                        image1f: URL.createObjectURL(e.target.files[0]),
-                      })
-                    }
-                  />
-                  <input
-                    type="file"
-                    name="image2f"
-                    onChange={(e) =>
-                      setFooterData({
-                        ...footerData,
-                        image2f: URL.createObjectURL(e.target.files[0]),
-                      })
-                    }
-                  />
-                  <input
-                    type="file"
-                    name="image3f"
-                    onChange={(e) =>
-                      setFooterData({
-                        ...footerData,
-                        image3f: URL.createObjectURL(e.target.files[0]),
-                      })
-                    }
-                  />
-                  <input
-                    type="file"
-                    name="image4f"
-                    onChange={(e) =>
-                      setFooterData({
-                        ...footerData,
-                        image4f: URL.createObjectURL(e.target.files[0]),
-                      })
-                    }
-                  />
                   <label>
                     Número de Telefone:
                     <input
@@ -1418,6 +1481,7 @@ const Templetemercado = () => {
                       <input
                         type="color"
                         name="socialColor"
+                        className="colorswitch"
                         value={logoColor}
                         onChange={handleLogoColorChange}
                       />
@@ -1430,7 +1494,7 @@ const Templetemercado = () => {
                         value={socialIcon}
                         onChange={handleIconChange}
                       >
-                        <option value="">Selecione</option>
+                        <option value="facebook">Selecione</option>
                         <option value="facebook">Facebook</option>
                         <option value="twitter">Twitter</option>
                         <option value="instagram">Instagram</option>
@@ -1453,6 +1517,7 @@ const Templetemercado = () => {
                       <input
                         type="color"
                         name="textColor"
+                        className="colorswitch"
                         value={textColor}
                         onChange={handleTextColorChange}
                       />
@@ -1465,6 +1530,7 @@ const Templetemercado = () => {
                       <input
                         type="color"
                         name="socialColor2"
+                        className="colorswitch"
                         value={logoColor2}
                         onChange={handleLogoColor2Change}
                       />
@@ -1477,7 +1543,7 @@ const Templetemercado = () => {
                         value={socialIcon2}
                         onChange={handleIcon2Change}
                       >
-                        <option value="">Selecione</option>
+                        <option value="facebook">Selecione</option>
                         <option value="facebook">Facebook</option>
                         <option value="twitter">Twitter</option>
                         <option value="instagram">Instagram</option>
@@ -1500,6 +1566,7 @@ const Templetemercado = () => {
                       <input
                         type="color"
                         name="textColor2"
+                        className="colorswitch"
                         value={textColor2}
                         onChange={handleTextColor2Change}
                       />
@@ -1617,7 +1684,9 @@ const Templetemercado = () => {
                     Salvar
                   </span>
                 </button>
-                <button onClick={handleDownloadPDF}>Baixar PDF</button>
+                <button onClick={handleDownloadPDF} className="btn">
+                  Baixar PDF
+                </button>
               </div>
             </div>
           </div>
@@ -1671,6 +1740,7 @@ const Templetemercado = () => {
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
+                  enableResizing={true}
                   onDragStop={(e, d) => {
                     setHeaderData((prevData) => ({
                       ...prevData,
