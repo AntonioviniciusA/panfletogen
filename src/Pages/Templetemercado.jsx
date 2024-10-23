@@ -1344,6 +1344,7 @@ const Templetemercado = () => {
                     <input
                       type="file"
                       name="logo"
+                      id="file-upload-logoF"
                       onChange={(e) =>
                         setFooterData({
                           ...footerData,
@@ -1352,7 +1353,10 @@ const Templetemercado = () => {
                       }
                     />
                     <span class="tooltiptext">Logo</span>
-                    <label htmlFor="file-upload" className="custom-file-upload">
+                    <label
+                      htmlFor="file-upload-logoF"
+                      className="custom-file-upload"
+                    >
                       <span>+</span> {/* Logo ou ícone */}
                     </label>
                   </div>
@@ -1360,6 +1364,7 @@ const Templetemercado = () => {
                     <input
                       type="file"
                       name="image1f"
+                      id="file-upload-img-one"
                       onChange={(e) =>
                         setFooterData({
                           ...footerData,
@@ -1368,7 +1373,10 @@ const Templetemercado = () => {
                       }
                     />
                     <span class="tooltiptext">Imagem 1</span>
-                    <label htmlFor="file-upload" className="custom-file-upload">
+                    <label
+                      htmlFor="file-upload-img-one"
+                      className="custom-file-upload"
+                    >
                       <span>+</span> {/* Logo ou ícone */}
                     </label>
                   </div>
@@ -1376,6 +1384,7 @@ const Templetemercado = () => {
                     <input
                       type="file"
                       name="image2f"
+                      id="file-upload-img-two"
                       onChange={(e) =>
                         setFooterData({
                           ...footerData,
@@ -1383,7 +1392,7 @@ const Templetemercado = () => {
                         })
                       }
                     />
-                    <span class="tooltiptext">Imagem 2</span>
+                    <span class="file-upload-img-two">Imagem 2</span>
 
                     <label htmlFor="file-upload" className="custom-file-upload">
                       <span>+</span> {/* Logo ou ícone */}
@@ -1393,6 +1402,7 @@ const Templetemercado = () => {
                     <input
                       type="file"
                       name="image3f"
+                      id="file-upload-img-three"
                       onChange={(e) =>
                         setFooterData({
                           ...footerData,
@@ -1402,7 +1412,10 @@ const Templetemercado = () => {
                     />
                     <span class="tooltiptext">Imagem 3</span>
 
-                    <label htmlFor="file-upload" className="custom-file-upload">
+                    <label
+                      htmlFor="file-upload-img-three"
+                      className="custom-file-upload"
+                    >
                       <span>+</span> {/* Logo ou ícone */}
                     </label>
                   </div>
@@ -1410,7 +1423,7 @@ const Templetemercado = () => {
                     <input
                       type="file"
                       name="image4f"
-                      id="file-upload"
+                      id="file-upload-imgifour"
                       style={{ display: "none" }}
                       onChange={(e) =>
                         setFooterData({
@@ -1421,7 +1434,10 @@ const Templetemercado = () => {
                     />
                     <span class="tooltiptext">Imagem 4</span>
 
-                    <label htmlFor="file-upload" className="custom-file-upload">
+                    <label
+                      htmlFor="file-upload-imgifour"
+                      className="custom-file-upload"
+                    >
                       <span>+</span> {/* Logo ou ícone */}
                     </label>
                   </div>
