@@ -398,11 +398,11 @@ const Templetemercado = () => {
   const [logoColor, setLogoColor] = useState("#000000");
   const [textColor, setTextColor] = useState("#000000");
   const [socialIcon, setSocialIcon] = useState("faFacebook");
-  const [userInput, setUserInput] = useState("Sua conta aqui");
+  const [userInput, setUserInput] = useState("");
   const [logoColor2, setLogoColor2] = useState("#000000");
   const [textColor2, setTextColor2] = useState("#000000");
   const [socialIcon2, setSocialIcon2] = useState("faInstagram");
-  const [userInput2, setUserInput2] = useState("Sua conta aqui");
+  const [userInput2, setUserInput2] = useState("");
 
   // Função para mudar a cor da rede social
   const handleLogoColorChange = (event) => {
@@ -698,6 +698,7 @@ const Templetemercado = () => {
         }}
       >
         <div
+          className="container-config"
           //container de configurações
           style={{
             display: "flex",
@@ -716,20 +717,7 @@ const Templetemercado = () => {
             }}
           >
             {/* //ssssss */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-
-                alignContent: "center",
-                width: "100%",
-                padding: "4%",
-                borderRadius: "20px",
-                backgroundColor: "#bfdbfe",
-                width: "100%",
-                height: "500%",
-              }}
-            >
+            <div className="sub-container-config">
               <button onClick={clear} className="btn">
                 Limpar Local Storage
               </button>
@@ -870,14 +858,7 @@ const Templetemercado = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <div //div logo
-                    style={{
-                      width: "100%",
-                      padding: "4%",
-                      borderRadius: "20px",
-                      backgroundColor: "#bfdbfe",
-                    }}
-                  >
+                  <div className="sub-container-config">
                     <div className="">
                       <select
                         value={bgtypeheader}
@@ -1123,17 +1104,7 @@ const Templetemercado = () => {
                 justifyContent: "center",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignContent: "center",
-                  width: "100%",
-                  padding: "4%",
-                  borderRadius: "20px",
-                  backgroundColor: "#bfdbfe",
-                }}
-              >
+              <div className="sub-container-config">
                 {" "}
                 <div
                   style={{
@@ -1179,7 +1150,6 @@ const Templetemercado = () => {
             </div>
             <br />
             {/* config footer  */}
-
             <div
               style={{
                 display: "flex",
@@ -1187,22 +1157,10 @@ const Templetemercado = () => {
                 justifyContent: "center",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-
-                  alignContent: "center",
-                  width: "100%",
-                  padding: "4%",
-                  borderRadius: "20px",
-                  backgroundColor: "#bfdbfe",
-                }}
-              >
+              <div className="sub-container-config">
                 <div>
                   <p>Escolha a altura do footer </p>
                 </div>
-
                 <div
                   style={{
                     display: "flex",
@@ -1324,20 +1282,7 @@ const Templetemercado = () => {
                 justifyContent: "center",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-
-                  alignContent: "center",
-                  width: "100%",
-                  padding: "4%",
-                  borderRadius: "20px",
-                  backgroundColor: "#bfdbfe",
-                  width: "100%",
-                  height: "500%",
-                }}
-              >
+              <div className="sub-container-config">
                 <h2>Adicione uma imagem:</h2>
                 <div className="container-filesF">
                   <div class="tooltip">
@@ -1448,6 +1393,20 @@ const Templetemercado = () => {
               </div>
             </div>
             <br />
+            <div className="sub-container-config">
+              <label>
+                Cor de fundo:
+                <input
+                  type="color"
+                  name="page"
+                  className="colorswitch"
+                  value={footerBgColor}
+                  onChange={backgroundfooter}
+                />
+              </label>
+            </div>
+
+            <br />
             <div
               style={{
                 display: "flex",
@@ -1467,17 +1426,6 @@ const Templetemercado = () => {
                 }}
               >
                 <div>
-                  <label>
-                    Cor de fundo:
-                    <input
-                      type="color"
-                      name="page"
-                      className="colorswitch"
-                      value={footerBgColor}
-                      onChange={backgroundfooter}
-                    />
-                  </label>
-
                   <label>
                     Número de Telefone:
                     <input

@@ -111,6 +111,17 @@ form {
   height: auto;
 }
 
+.sub-container-config {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 4%;
+  border-radius: 20px;
+  background-color: #bfdbfe;
+  width: 100%;
+  height: 500%;
+}
+
 .container-filesF {
   display: flex;
   align-items: center;
