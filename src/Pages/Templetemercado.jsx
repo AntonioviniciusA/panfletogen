@@ -233,6 +233,9 @@ const Templetemercado = () => {
     setCards(newCards); // Define o novo estado do card
   };
 
+  //
+  //
+  //
   // Adiciona um novo card
   const handleAddCard = () => {
     if (cards.length < maxCards) {
@@ -241,10 +244,20 @@ const Templetemercado = () => {
         `Card ${cards.length + 1}`,
         { image: "", description: "", price: "" },
       ]);
+    } else if (CardsExtension.length < maxCardsExtension) {
+      alert("Você atingiu o limite de cards na primeira pagina.");
+      setCardsExtension([
+        ...CardsExtension,
+        `Card ${setCardsExtension.length + 1}`,
+        { image: "", description: "", price: "" },
+      ]);
     } else {
-      alert("Você atingiu o limite de cards.");
-    } // Cria um novo array com os cards existentes e define um novo card com as propriedades image, description e price vazias
+      alert("Você atingiu o limite de cards em ambas paginas.");
+    }
   };
+  //
+  //
+  //
 
   // Altera a cor de fundo da página
   const backgroundcard = (e) => {
@@ -460,7 +473,9 @@ const Templetemercado = () => {
     }
   };
   const [cards, setCards] = useState([]);
-  let maxCards = 100;
+  const [CardsExtension, setCardsExtension] = useState([]);
+  let maxCards = 9; //100
+  let maxCardsExtension = 6;
 
   console.log(`O número máximo de cards é: ${maxCards}`);
   /*-------------------- CONFIG DE SAVE -------------------------*/
@@ -1698,7 +1713,6 @@ const Templetemercado = () => {
           >
             <h1>Preview</h1>
           </div>
-
           <div id="front-page" className="page">
             {headerData && (
               <header
@@ -2091,6 +2105,40 @@ const Templetemercado = () => {
             </footer>
             {/*  */}
           </div>
+          <br />
+
+          <br />
+          {/*  */}
+          <div id="backpage">
+            <div
+              className="pageCards"
+              style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
+            >
+              <div className="cards">
+                {CardsExtension.map((card, index) => (
+                  <div
+                    key={index}
+                    className="card"
+                    onClick={() => openEditModal(index)}
+                    style={{
+                      border:
+                        selectedCardIndex === index
+                          ? "3px solid blue" // add a cor
+                          : "1px solid #ccc",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <img src={card.image} alt={`Product ${index}`} />
+                    <p>{card.description}</p>
+                    <h1 style={{ color: cardcolorData.precocor || "white" }}>
+                      R${card.price}
+                    </h1>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/*  */}
         </div>
       </div>
 
