@@ -84,8 +84,10 @@ input {
   margin: 5px;
 }
 .page {
-  width: 794px;
-  max-height: 2246px;
+  width: 210mm; /* Largura A4 */
+  height: 297mm; /* Altura A4 */
+  overflow: hidden; /* Para esconder o conteúdo que não cabe */
+  position: relative;
   border: 3px black solid;
 }
 .pageCards {
