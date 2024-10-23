@@ -624,46 +624,90 @@ const Templetemercado = () => {
 
   function generatePDF() {
     try {
-      const preview = document.getElementById("front-page"); // Altere para o ID correto do seu preview
+      // Pegue a div do firstPage
+      const firstPage = document.getElementById("front-page"); // Altere para o ID correto do seu firstPage
+      const secondPage = document.getElementById("second-page"); // Altere para o ID da segunda div
 
-      if (!preview) {
-        alert("Elemento de preview não encontrado!");
+      if (!firstPage) {
+        alert("Elementos de preview não encontrados!");
         return;
       }
 
+      // Definindo as dimensões da página A4 em pixels a 96 DPI
+      const pageWidth = (210 / 25.4) * 96; // Largura em pixels
+      const pageHeight = (297 / 25.4) * 96; // Altura em pixels
+
+      // Capture o conteúdo da primeira página
       html2canvas(preview, { scale: 2 })
-        .then((canvas) => {
-          const imgData = canvas.toDataURL("image/png");
+        .then((canvas1) => {
+          const imgData1 = canvas1.toDataURL("image/png");
           const pdf = new jsPDF("p", "mm", "a4");
 
-          const pageWidth = pdf.internal.pageSize.getWidth();
-          const pageHeight = pdf.internal.pageSize.getHeight();
+          let position = 0; // Posição inicial da parte da imagem que será renderizada
 
-          const imgWidth = canvas.width;
-          const imgHeight = canvas.height;
+          // Renderiza a imagem da primeira página
+          while (position < canvas1.height) {
+            const canvasHeight = Math.min(
+              pageHeight * (canvas1.width / imgData1.width),
+              canvas1.height - position
+            );
 
-          const ratio = imgWidth / imgHeight;
-          const pdfHeight = pageWidth / ratio;
+            // Adiciona a imagem da primeira página
+            pdf.addImage(
+              imgData1,
+              "PNG",
+              0,
+              position * (pageWidth / canvas1.width),
+              pageWidth,
+              canvasHeight
+            );
 
-          let position = 0;
+            position += canvasHeight; // Atualiza a posição para a próxima parte
 
-          if (pdfHeight <= pageHeight) {
-            pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pdfHeight);
-          } else {
-            while (position < imgHeight) {
-              const canvasHeight = Math.min(pdfHeight, imgHeight - position);
-              pdf.addImage(imgData, "PNG", 0, -position, pageWidth, pdfHeight);
-              position += pageHeight;
-              if (position < imgHeight) {
-                pdf.addPage();
-              }
+            if (position < canvas1.height) {
+              pdf.addPage(); // Adiciona nova página se ainda houver conteúdo
             }
           }
 
-          pdf.save("preview.pdf");
+          // Capture o conteúdo da segunda página
+          html2canvas(secondPage, { scale: 2 })
+            .then((canvas2) => {
+              const imgData2 = canvas2.toDataURL("image/png");
+              position = 0; // Resetar a posição para a segunda página
+
+              // Renderiza a imagem da segunda página
+              while (position < canvas2.height) {
+                const canvasHeight = Math.min(
+                  pageHeight * (canvas2.width / imgData2.width),
+                  canvas2.height - position
+                );
+
+                // Adiciona a imagem da segunda página
+                pdf.addImage(
+                  imgData2,
+                  "PNG",
+                  0,
+                  position * (pageWidth / canvas2.width),
+                  pageWidth,
+                  canvasHeight
+                );
+
+                position += canvasHeight; // Atualiza a posição para a próxima parte
+
+                if (position < canvas2.height) {
+                  pdf.addPage(); // Adiciona nova página se ainda houver conteúdo
+                }
+              }
+
+              pdf.save("preview.pdf");
+            })
+            .catch((error) => {
+              console.error("Erro ao capturar a segunda página:", error);
+              retryGeneration();
+            });
         })
         .catch((error) => {
-          console.error("Erro ao gerar PDF:", error);
+          console.error("Erro ao capturar a primeira página:", error);
           retryGeneration();
         });
     } catch (error) {
@@ -908,11 +952,17 @@ const Templetemercado = () => {
                       )}
 
                       {bgtypeheader === "file" && (
-                        <input
-                          type="file"
-                          name="bgImage"
-                          onChange={handleFileChange}
-                        />
+                        <span class="tooltiptext">
+                          <label className="custom-file-upload">
+                            <input
+                              type="file"
+                              name="bgImage"
+                              onChange={handleFileChange}
+                            />
+                            <span>+</span> {/* Logo ou ícone */}
+                          </label>
+                          Fundo Header
+                        </span>
                       )}
 
                       {bgtypeheader === "color" && (
@@ -926,17 +976,22 @@ const Templetemercado = () => {
                       )}
                     </div>
                     <br />
-
-                    <input
-                      type="file"
-                      name="logo"
-                      onChange={(e) =>
-                        setHeaderData({
-                          ...headerData,
-                          logo: URL.createObjectURL(e.target.files[0]),
-                        })
-                      }
-                    />
+                    <span class="tooltiptext">
+                      <label className="custom-file-upload">
+                        <input
+                          type="file"
+                          name="logo"
+                          onChange={(e) =>
+                            setHeaderData({
+                              ...headerData,
+                              logo: URL.createObjectURL(e.target.files[0]),
+                            })
+                          }
+                        />
+                        <span>+</span> {/* Logo ou ícone */}
+                      </label>
+                      LOGO
+                    </span>
                   </div>
                 </div>
                 <br />
