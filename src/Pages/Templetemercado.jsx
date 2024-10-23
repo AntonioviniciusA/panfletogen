@@ -398,11 +398,11 @@ const Templetemercado = () => {
   const [logoColor, setLogoColor] = useState("#000000");
   const [textColor, setTextColor] = useState("#000000");
   const [socialIcon, setSocialIcon] = useState("faFacebook");
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState("Sua conta aqui");
   const [logoColor2, setLogoColor2] = useState("#000000");
   const [textColor2, setTextColor2] = useState("#000000");
   const [socialIcon2, setSocialIcon2] = useState("faInstagram");
-  const [userInput2, setUserInput2] = useState("");
+  const [userInput2, setUserInput2] = useState("Sua conta aqui");
 
   // Função para mudar a cor da rede social
   const handleLogoColorChange = (event) => {
