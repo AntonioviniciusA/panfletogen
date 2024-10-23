@@ -471,7 +471,7 @@ const Templetemercado = () => {
           maxCards = 30;
           break;
         case 200:
-          maxCards = 26;
+          maxCards = 30;
           break;
         case 250:
           maxCards = 25;
@@ -622,31 +622,67 @@ const Templetemercado = () => {
     }
   }, []);
 
-  const handleDownloadPDF = () => {
-    const input = document.getElementById("front-page"); // ID do elemento a ser convertido
+  function generatePDF() {
+    try {
+      const preview = document.getElementById("front-page"); // Altere para o ID correto do seu preview
 
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      const imgWidth = 190; // Largura da imagem no PDF
-      const pageHeight = pdf.internal.pageSize.height;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      const heightLeft = imgHeight;
-
-      let position = 0;
-
-      pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
-      position += heightLeft;
-
-      // Se a imagem for maior que a altura da página, adicione uma nova página
-      if (heightLeft >= pageHeight) {
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+      if (!preview) {
+        alert("Elemento de preview não encontrado!");
+        return;
       }
 
-      pdf.save("panfleto.pdf");
-    });
-  };
+      html2canvas(preview, { scale: 2 })
+        .then((canvas) => {
+          const imgData = canvas.toDataURL("image/png");
+          const pdf = new jsPDF("p", "mm", "a4");
+
+          const pageWidth = pdf.internal.pageSize.getWidth();
+          const pageHeight = pdf.internal.pageSize.getHeight();
+
+          const imgWidth = canvas.width;
+          const imgHeight = canvas.height;
+
+          const ratio = imgWidth / imgHeight;
+          const pdfHeight = pageWidth / ratio;
+
+          let position = 0;
+
+          if (pdfHeight <= pageHeight) {
+            pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pdfHeight);
+          } else {
+            while (position < imgHeight) {
+              const canvasHeight = Math.min(pdfHeight, imgHeight - position);
+              pdf.addImage(imgData, "PNG", 0, -position, pageWidth, pdfHeight);
+              position += pageHeight;
+              if (position < imgHeight) {
+                pdf.addPage();
+              }
+            }
+          }
+
+          pdf.save("preview.pdf");
+        })
+        .catch((error) => {
+          console.error("Erro ao gerar PDF:", error);
+          retryGeneration();
+        });
+    } catch (error) {
+      console.error("Erro ao tentar gerar o PDF:", error);
+      retryGeneration();
+    }
+
+    function retryGeneration() {
+      const retry = confirm(
+        "Houve um erro ao gerar o panfleto. Deseja tentar novamente?"
+      );
+      if (retry) {
+        generatePDF(); // Tenta gerar novamente
+      } else {
+        alert("A geração do panfleto foi cancelada.");
+      }
+    }
+  }
+
   return (
     <>
       <Header />
@@ -1684,7 +1720,7 @@ const Templetemercado = () => {
                     Salvar
                   </span>
                 </button>
-                <button onClick={handleDownloadPDF} className="btn">
+                <button onClick={generatePDF} className="btn">
                   Baixar PDF
                 </button>
               </div>
