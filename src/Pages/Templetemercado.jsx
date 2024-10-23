@@ -1392,9 +1392,12 @@ const Templetemercado = () => {
                         })
                       }
                     />
-                    <span class="file-upload-img-two">Imagem 2</span>
+                    <span class="tooltiptext">Imagem 2</span>
 
-                    <label htmlFor="file-upload" className="custom-file-upload">
+                    <label
+                      htmlFor="file-upload-img-two"
+                      className="custom-file-upload"
+                    >
                       <span>+</span> {/* Logo ou ícone */}
                     </label>
                   </div>
