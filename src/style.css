@@ -84,8 +84,8 @@ input {
   margin: 5px;
 }
 .page {
-  width: 210mm; /* Largura A4 */
-  height: 594mm; /* Altura A4 */
+  width: 210mm; /* Largura A4 == 210mm*/
+  height: 594mm; /* Altura A4 == 297mm*/
   overflow: hidden; /* Para esconder o conteúdo que não cabe */
   position: relative;
   border: 3px black solid;
