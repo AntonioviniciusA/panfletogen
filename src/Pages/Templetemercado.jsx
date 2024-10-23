@@ -1855,18 +1855,32 @@ const Templetemercado = () => {
                         borderRadius: "20px",
                       }}
                     >
-                      <input
-                        type="file"
-                        name="image"
-                        onChange={(e) =>
-                          handleCardChange(editingCardIndex, {
-                            target: {
-                              name: "image",
-                              value: URL.createObjectURL(e.target.files[0]),
-                            },
-                          })
-                        }
-                      />
+                      <div class="tooltip">
+                        <input
+                          type="file"
+                          name="image"
+                          id="file-upload-imgcard"
+                          onChange={(e) =>
+                            handleCardChange(editingCardIndex, {
+                              target: {
+                                name: "image",
+                                value: URL.createObjectURL(e.target.files[0]),
+                              },
+                            })
+                          }
+                        />
+
+                        <span class="tooltiptext">Imagem card</span>
+
+                        <label
+                          htmlFor="file-upload-imgcard"
+                          className="custom-file-upload"
+                        >
+                          <span>+</span> {/* Logo ou ícone */}
+                        </label>
+                        <span class="tooltiptext">Imagem 3</span>
+                      </div>
+                      <br />
                       <label>
                         Descrição do Produto:
                         <input
