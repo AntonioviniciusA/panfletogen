@@ -218,7 +218,8 @@ const Templetemercado = () => {
   const [pageBgColorData, setPageBgColorData] = useState("#ffffff");
   const [editingCardIndex, setEditingCardIndex] = useState(null);
   const [selectedCardIndex, setSelectedCardIndex] = useState(null);
-
+  const [editingCardIndexb, setEditingCardIndexb] = useState(null);
+  const [selectedCardIndexb, setSelectedCardIndexb] = useState(null);
   // Altera a cor do preço do card
   const handleCardColorChange = (e) => {
     const { name, value } = e.target;
@@ -232,7 +233,16 @@ const Templetemercado = () => {
     newCards[index] = { ...newCards[index], [name]: value };
     setCards(newCards); // Define o novo estado do card
   };
-
+  const handleCardChangeb = (index, e) => {
+    const { name, value } = e.target;
+    const newCards = [...cardsExtension];
+    newCards[index] = { ...newCards[index], [name]: value };
+    setCardsExtension(newCards); // Define o novo estado do card
+  };
+  const [cards, setCards] = useState([]);
+  const [cardsExtension, setCardsExtension] = useState([]);
+  let maxCards = 9; //100
+  let maxCardsExtension = 6;
   //
   //
   //
@@ -244,11 +254,11 @@ const Templetemercado = () => {
         `Card ${cards.length + 1}`,
         { image: "", description: "", price: "" },
       ]);
-    } else if (CardsExtension.length < maxCardsExtension) {
+    } else if (cardsExtension.length < maxCardsExtension) {
       alert("Você atingiu o limite de cards na primeira pagina.");
       setCardsExtension([
-        ...CardsExtension,
-        `Card ${setCardsExtension.length + 1}`,
+        ...cardsExtension,
+        `CardExtension ${cardsExtension.length + 10}`,
         { image: "", description: "", price: "" },
       ]);
     } else {
@@ -272,13 +282,34 @@ const Templetemercado = () => {
     setCards(newCards);
     setEditingCardIndex(null); // Fecha o modal se o card editado for removido
   };
-
+  const handleRemoveCardb = (index) => {
+    const newCards = [...cardsExtension];
+    newCards.splice(index, 1); // Remove o card específico
+    setCardsExtension(newCards);
+    setEditingCardIndexb(null); // Fecha o modal se o card editado for removido
+  };
   // Abre o modal de edição do card
   const openEditModal = (index) => {
-    setEditingCardIndex(index); // Define o índice do card sendo editado
+    setEditingCardIndex(null); // Fecha o modal
+    setSelectedCardIndex(null);
+    setEditingCardIndexb(null); // Fecha o modal
+    setSelectedCardIndexb(null);
+    setEditingCardIndex(index);
     setSelectedCardIndex(index);
   };
-
+  const openEditModalb = (index) => {
+    setEditingCardIndex(null); // Fecha o modal
+    setSelectedCardIndex(null);
+    setEditingCardIndexb(null); // Fecha o modal
+    setSelectedCardIndexb(null);
+    setEditingCardIndexb(index);
+    setSelectedCardIndexb(index);
+  };
+  // Fecha o modal de edição do card
+  const closeEditModalb = () => {
+    setEditingCardIndexb(null); // Fecha o modal
+    setSelectedCardIndexb(null);
+  };
   // Fecha o modal de edição do card
   const closeEditModal = () => {
     setEditingCardIndex(null); // Fecha o modal
@@ -472,10 +503,6 @@ const Templetemercado = () => {
         return null;
     }
   };
-  const [cards, setCards] = useState([]);
-  const [CardsExtension, setCardsExtension] = useState([]);
-  let maxCards = 9; //100
-  let maxCardsExtension = 6;
 
   console.log(`O número máximo de cards é: ${maxCards}`);
   /*-------------------- CONFIG DE SAVE -------------------------*/
@@ -2115,14 +2142,14 @@ const Templetemercado = () => {
               style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
             >
               <div className="cards">
-                {CardsExtension.map((card, index) => (
+                {cardsExtension.map((card, index) => (
                   <div
                     key={index}
                     className="card"
-                    onClick={() => openEditModal(index)}
+                    onClick={() => openEditModalb(index)}
                     style={{
                       border:
-                        selectedCardIndex === index
+                        selectedCardIndexb === index
                           ? "3px solid blue" // add a cor
                           : "1px solid #ccc",
                       cursor: "pointer",
@@ -2135,6 +2162,109 @@ const Templetemercado = () => {
                     </h1>
                   </div>
                 ))}
+                {editingCardIndexb !== null && (
+                  <div
+                    style={{
+                      position: "fixed",
+                      top: "50%",
+                      left: "30%",
+                      width: "30%",
+                      transform: "translate(-50%, -50%)",
+                      backgroundColor: "#bfdbfe",
+                      padding: "20px",
+                      boxShadow:
+                        "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                      borderRadius: "20px",
+                      zIndex: 5000,
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <h3>Editar Card</h3>
+                      <form
+                        style={{
+                          width: "100%",
+                          borderRadius: "20px",
+                        }}
+                      >
+                        <div class="tooltip">
+                          <input
+                            type="file"
+                            name="image"
+                            id="file-upload-imgcard"
+                            onChange={(e) =>
+                              handleCardChangeb(editingCardIndexb, {
+                                target: {
+                                  name: "image",
+                                  value: URL.createObjectURL(e.target.files[0]),
+                                },
+                              })
+                            }
+                          />
+
+                          <span class="tooltiptext">Imagem card</span>
+
+                          <label
+                            htmlFor="file-upload-imgcard"
+                            className="custom-file-upload"
+                          >
+                            <span>+</span> {/* Logo ou ícone */}
+                          </label>
+                          <span class="tooltiptext">Imagem 3</span>
+                        </div>
+                        <br />
+                        <label>
+                          Descrição do Produto:
+                          <input
+                            type="text"
+                            name="description"
+                            value={
+                              cardsExtension[editingCardIndexb].description
+                            }
+                            onChange={(e) =>
+                              handleCardChangeb(editingCardIndexb, e)
+                            }
+                            placeholder="Descrição do Produto"
+                          />
+                        </label>
+                        <label>
+                          Preço:
+                          <input
+                            type="text"
+                            name="price"
+                            value={cardsExtension[editingCardIndexb].price}
+                            onChange={(e) =>
+                              handleCardChangeb(editingCardIndexb, e)
+                            }
+                            placeholder="9,99"
+                          />
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveCardb(editingCardIndexb)}
+                        >
+                          Remover
+                        </button>
+                      </form>
+                      <button
+                        onClick={closeEditModalb}
+                        style={{
+                          backgroundColor: "red",
+                          padding: "5px",
+                          borderRadius: "5px",
+                          color: "white",
+                        }}
+                      >
+                        Fechar
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
