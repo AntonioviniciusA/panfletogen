@@ -241,8 +241,8 @@ const Templetemercado = () => {
   };
   const [cards, setCards] = useState([]);
   const [cardsExtension, setCardsExtension] = useState([]);
-  let maxCards = 9; //100
-  let maxCardsExtension = 6;
+  let maxCards = 14; //100
+  let maxCardsExtension = 15;
   //
   //
   //
@@ -255,7 +255,7 @@ const Templetemercado = () => {
         { image: "", description: "", price: "" },
       ]);
     } else if (cardsExtension.length < maxCardsExtension) {
-      alert("Você atingiu o limite de cards na primeira pagina.");
+      // alert("Você atingiu o limite de cards na primeira pagina.");
       setCardsExtension([
         ...cardsExtension,
         `CardExtension ${cardsExtension.length + 10}`,
