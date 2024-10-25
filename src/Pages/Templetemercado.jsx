@@ -241,8 +241,8 @@ const Templetemercado = () => {
   };
   const [cards, setCards] = useState([]);
   const [cardsExtension, setCardsExtension] = useState([]);
-  let maxCards = 9; //100
-  let maxCardsExtension = 6;
+  let maxCards = 14; //100
+  let maxCardsExtension = 15;
   //
   //
   //
@@ -255,7 +255,7 @@ const Templetemercado = () => {
         { image: "", description: "", price: "" },
       ]);
     } else if (cardsExtension.length < maxCardsExtension) {
-      alert("Você atingiu o limite de cards na primeira pagina.");
+      // alert("Você atingiu o limite de cards na primeira pagina.");
       setCardsExtension([
         ...cardsExtension,
         `CardExtension ${cardsExtension.length + 10}`,
@@ -326,48 +326,43 @@ const Templetemercado = () => {
     image4f: "",
     positionlogofH: 0,
     positionlogofV: 0,
-    //
     positionimg1fH: 0,
     positionimg1fV: 0,
-    //
     positionimg2fH: 0,
     positionimg2fV: 0,
-    //
     positionimg3fH: 0,
     positionimg3fV: 0,
-    //
     positionimg4fH: 0,
     positionimg4fV: 0,
-    //
     positiontelfH: 10,
     positiontelfV: 0,
     telfont: "Arial",
     telfontSize: "16px",
-    //
     emailFfont: "",
     emailFfontSize: "",
     positionEmailFH: 10,
     positionEmailFV: 20,
-
     addressFfont: "",
     addressFfontSize: "",
     positionAddressFH: "",
     positionAddressFV: "",
-    //
     positionsocial1fH: 650,
     positionsocial1fV: 100,
     social1Ffont: "",
     social1FfontSize: "",
-    //
+    logoColor: "#000000",
+    textColor: "#000000",
+    socialIcon: "facebook",
+    userInput: "",
     positionsocial2fH: 650,
     positionsocial2fV: 150,
     social2Ffont: "",
     social2FfontSize: "",
-    //
-    socialText1: "",
-    socialText2: "",
-
-    footerHeight: 200, //define a altura padrao do footer
+    logoColor2: "#000000",
+    textColor2: "#000000",
+    socialIcon2: "instagram",
+    userInput2: "",
+    footerHeight: 200, // define a altura padrão do footer
   });
 
   //alterar cor do fundo do footer
@@ -439,60 +434,61 @@ const Templetemercado = () => {
   };
   //
 
-  const [logoColor, setLogoColor] = useState("#000000");
-  const [textColor, setTextColor] = useState("#000000");
-  const [socialIcon, setSocialIcon] = useState("faFacebook");
-  const [userInput, setUserInput] = useState("");
-  const [logoColor2, setLogoColor2] = useState("#000000");
-  const [textColor2, setTextColor2] = useState("#000000");
-  const [socialIcon2, setSocialIcon2] = useState("faInstagram");
-  const [userInput2, setUserInput2] = useState("");
-
-  // Função para mudar a cor da rede social
-  const handleLogoColorChange = (event) => {
-    setLogoColor(event.target.value);
-  };
-  const handleLogoColor2Change = (event) => {
-    setLogoColor2(event.target.value);
+  const handleFooterDataChange = (key, value) => {
+    setFooterData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
   };
 
-  // Função para mudar a cor do texto
-  const handleTextColorChange = (event) => {
-    setTextColor(event.target.value);
-  };
-  const handleTextColor2Change = (event) => {
-    setTextColor2(event.target.value);
-  };
-
+  // Função para atualizar o ícone do primeiro social
   const handleIconChange = (event) => {
-    setSocialIcon(event.target.value);
-  };
-  const handleIcon2Change = (event) => {
-    setSocialIcon2(event.target.value);
+    setFooterData((prevData) => ({
+      ...prevData,
+      socialIcon: event.target.value,
+    }));
   };
 
+  // Função para atualizar o texto do primeiro social
   const handleUserInputChange = (event) => {
-    setUserInput(event.target.value);
+    setFooterData((prevData) => ({
+      ...prevData,
+      userInput: event.target.value,
+    }));
   };
+
+  // Similarmente, para o segundo ícone
+  const handleLogoColor2Change = (event) => {
+    setFooterData((prevData) => ({
+      ...prevData,
+      logoColor2: event.target.value,
+    }));
+  };
+
+  const handleTextColor2Change = (event) => {
+    setFooterData((prevData) => ({
+      ...prevData,
+      textColor2: event.target.value,
+    }));
+  };
+
+  const handleIcon2Change = (event) => {
+    setFooterData((prevData) => ({
+      ...prevData,
+      socialIcon2: event.target.value,
+    }));
+  };
+
   const handleUserInput2Change = (event) => {
-    setUserInput2(event.target.value);
+    setFooterData((prevData) => ({
+      ...prevData,
+      userInput2: event.target.value,
+    }));
   };
 
-  const getSocialIcon = () => {
-    switch (socialIcon) {
-      case "facebook":
-        return faFacebook;
-      case "twitter":
-        return faTwitter;
-      case "instagram":
-        return faInstagram;
-      default:
-        return null;
-    }
-  };
-
-  const getSocialIcon2 = () => {
-    switch (socialIcon2) {
+  // Funções para selecionar o ícone correto
+  const getSocialIcon = (icon) => {
+    switch (icon) {
       case "facebook":
         return faFacebook;
       case "twitter":
@@ -1328,7 +1324,7 @@ const Templetemercado = () => {
             <br />
             <div className="sub-container-config">
               <label>
-                Cor de fundo:
+                Cor de fundo do footer:
                 <input
                   type="color"
                   name="page"
@@ -1347,6 +1343,70 @@ const Templetemercado = () => {
                 justifyContent: "center",
               }}
             >
+              <div className="sub-container-config">
+                <label>
+                  Número de Telefone:
+                  <input
+                    type="text"
+                    value={footerData.tel}
+                    onChange={handleTelChange} // Controle do número de telefone
+                    maxLength="16"
+                    placeholder="(00) 0 0000-0000"
+                  />
+                </label>
+                <label>
+                  <select
+                    id="telfont"
+                    value={telfont}
+                    onChange={handleTelFontChange}
+                  >
+                    <option value="Arial">Arial</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Lobster">Lobster</option>
+                    <option value="New Amsterdam">New Amsterdam</option>
+                  </select>
+
+                  <select
+                    id="telfontSize"
+                    value={telfontSize}
+                    onChange={handleTelFontSizeChange}
+                  >
+                    <option value="12px">12px</option>
+                    <option value="16px">16px</option>
+                    <option value="20px">20px</option>
+                    <option value="24px">24px</option>
+                    <option value="28px">28px</option>
+                    <option value="32px">32px</option>
+                    <option value="36px">36px</option>
+                  </select>
+
+                  <label>
+                    <input
+                      type="color"
+                      name="tituloColor"
+                      className="colorswitch"
+                      value={telColor} // Usa o valor de telColor no estado
+                      onChange={handletelColorChange} // Chama a função para mudar a cor
+                    />
+                  </label>
+                </label>
+              </div>
+            </div>
+
+            <br />
+
+            <div
+              style={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
+            >
               <div
                 style={{
                   display: "flex",
@@ -1358,158 +1418,108 @@ const Templetemercado = () => {
                   backgroundColor: "#bfdbfe",
                 }}
               >
-                <div>
-                  <label>
-                    Número de Telefone:
-                    <input
-                      type="text"
-                      value={footerData.tel}
-                      onChange={handleTelChange} // Controle do número de telefone
-                      maxLength="16"
-                    />
-                  </label>
+                {/*  */}
+                <br />
 
-                  <div className="estiloletra">
-                    <select
-                      id="telfont"
-                      value={telfont}
-                      onChange={handleTelFontChange}
-                    >
-                      <option value="Arial">Arial</option>
-                      <option value="Courier New">Courier New</option>
-                      <option value="Georgia">Georgia</option>
-                      <option value="Times New Roman">Times New Roman</option>
-                      <option value="Verdana">Verdana</option>
-                      <option value="Roboto">Roboto</option>
-                      <option value="Open Sans">Open Sans</option>
-                      <option value="Lobster">Lobster</option>
-                      <option value="New Amsterdam">New Amsterdam</option>
-                    </select>
+                <label>
+                  Escolha a rede social 1:
+                  <select
+                    name="socialIcon"
+                    value={footerData.socialIcon}
+                    onChange={(e) =>
+                      handleFooterDataChange("socialIcon", e.target.value)
+                    }
+                  >
+                    <option value="facebook">Facebook</option>
+                    <option value="twitter">Twitter</option>
+                    <option value="instagram">Instagram</option>
+                  </select>
+                </label>
+                <br />
+                <label>
+                  Escreva a rede social:
+                  <input
+                    type="text"
+                    placeholder="Digite o texto"
+                    value={footerData.userInput}
+                    onChange={(e) =>
+                      handleFooterDataChange("userInput", e.target.value)
+                    }
+                  />
+                </label>
+                <br />
+                <label>
+                  Escolha a cor do texto:
+                  <input
+                    type="color"
+                    value={footerData.textColor}
+                    onChange={(e) =>
+                      handleFooterDataChange("textColor", e.target.value)
+                    }
+                  />
+                </label>
+                <br />
+                <label>
+                  Escolha a cor da rede social 1:
+                  <input
+                    type="color"
+                    value={footerData.logoColor}
+                    onChange={(e) =>
+                      handleFooterDataChange("logoColor", e.target.value)
+                    }
+                  />
+                </label>
+                <br />
+                <label>
+                  Escolha a rede social 2:
+                  <select
+                    name="socialIcon2"
+                    value={footerData.socialIcon2}
+                    onChange={(e) =>
+                      handleFooterDataChange("socialIcon2", e.target.value)
+                    }
+                  >
+                    <option value="facebook">Facebook</option>
+                    <option value="twitter">Twitter</option>
+                    <option value="instagram">Instagram</option>
+                  </select>
+                </label>
+                <br />
+                <label>
+                  Escreva o nome da rede 2:
+                  <input
+                    type="text"
+                    placeholder="Digite o texto"
+                    value={footerData.userInput2}
+                    onChange={(e) =>
+                      handleFooterDataChange("userInput2", e.target.value)
+                    }
+                  />
+                </label>
+                <br />
+                <label>
+                  Escolha a cor do texto 2:
+                  <input
+                    type="color"
+                    value={footerData.textColor2}
+                    onChange={(e) =>
+                      handleFooterDataChange("textColor2", e.target.value)
+                    }
+                  />
+                </label>
+                <br />
+                <label>
+                  Escolha a cor da rede social 2:
+                  <input
+                    type="color"
+                    value={footerData.logoColor2}
+                    onChange={(e) =>
+                      handleFooterDataChange("logoColor2", e.target.value)
+                    }
+                  />
+                </label>
 
-                    <select
-                      id="telfontSize"
-                      value={telfontSize}
-                      onChange={handleTelFontSizeChange}
-                    >
-                      <option value="12px">12px</option>
-                      <option value="16px">16px</option>
-                      <option value="20px">20px</option>
-                      <option value="24px">24px</option>
-                      <option value="28px">28px</option>
-                      <option value="32px">32px</option>
-                      <option value="36px">36px</option>
-                    </select>
-
-                    <label>
-                      Escolha a cor do telefone:
-                      <input
-                        type="color"
-                        name="tituloColor"
-                        className="colorswitch"
-                        value={telColor} // Usa o valor de telColor no estado
-                        onChange={handletelColorChange} // Chama a função para mudar a cor
-                      />
-                    </label>
-                    {/*  */}
-                    <br />
-                    <label>
-                      Escolha a cor da rede social:
-                      <input
-                        type="color"
-                        name="socialColor"
-                        className="colorswitch"
-                        value={logoColor}
-                        onChange={handleLogoColorChange}
-                      />
-                    </label>
-                    <br />
-                    <label>
-                      Escolha a rede social:
-                      <select
-                        name="socialIcon"
-                        value={socialIcon}
-                        onChange={handleIconChange}
-                      >
-                        <option value="facebook">Selecione</option>
-                        <option value="facebook">Facebook</option>
-                        <option value="twitter">Twitter</option>
-                        <option value="instagram">Instagram</option>
-                      </select>
-                    </label>
-                    <br />
-                    <label>
-                      Escreva a rede social:
-                      <input
-                        type="text"
-                        name="userInput"
-                        placeholder="Digite o texto"
-                        value={userInput}
-                        onChange={handleUserInputChange}
-                      />
-                    </label>
-                    <br />
-                    <label>
-                      Escolha a cor do texto:
-                      <input
-                        type="color"
-                        name="textColor"
-                        className="colorswitch"
-                        value={textColor}
-                        onChange={handleTextColorChange}
-                      />
-                    </label>
-
-                    {/*  */}
-                    <br />
-                    <label>
-                      Escolha a cor da rede social:
-                      <input
-                        type="color"
-                        name="socialColor2"
-                        className="colorswitch"
-                        value={logoColor2}
-                        onChange={handleLogoColor2Change}
-                      />
-                    </label>
-                    <br />
-                    <label>
-                      Escolha a rede social2:
-                      <select
-                        name="socialIcon2"
-                        value={socialIcon2}
-                        onChange={handleIcon2Change}
-                      >
-                        <option value="facebook">Selecione</option>
-                        <option value="facebook">Facebook</option>
-                        <option value="twitter">Twitter</option>
-                        <option value="instagram">Instagram</option>
-                      </select>
-                    </label>
-                    <br />
-                    <label>
-                      Escreva o nome da rede:
-                      <input
-                        type="text"
-                        name="userInput2"
-                        placeholder="Digite o texto"
-                        value={userInput2}
-                        onChange={handleUserInput2Change}
-                      />
-                    </label>
-                    <br />
-                    <label>
-                      Escolha a cor do texto:
-                      <input
-                        type="color"
-                        name="textColor2"
-                        className="colorswitch"
-                        value={textColor2}
-                        onChange={handleTextColor2Change}
-                      />
-                    </label>
-                    {/* // */}
-                  </div>
-                </div>
+                {/* // */}
               </div>
             </div>
             {/* container botao  */}
@@ -2006,15 +2016,21 @@ const Templetemercado = () => {
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <FontAwesomeIcon
-                    icon={getSocialIcon()}
+                    icon={getSocialIcon(footerData.socialIcon)}
                     style={{
                       fontSize: "30px",
                       marginRight: "10px",
-                      color: "gray",
+                      color: footerData.logoColor,
                     }}
                   />
-                  <p style={{ fontSize: "16px", margin: 0, color: "black" }}>
-                    {footerData.socialText1}
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      margin: 0,
+                      color: footerData.textColor,
+                    }}
+                  >
+                    {footerData.userInput}
                   </p>
                 </div>
               </Rnd>
@@ -2031,15 +2047,21 @@ const Templetemercado = () => {
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <FontAwesomeIcon
-                    icon={getSocialIcon2()}
+                    icon={getSocialIcon(footerData.socialIcon2)}
                     style={{
                       fontSize: "30px",
                       marginRight: "10px",
-                      color: "gray",
+                      color: footerData.logoColor2,
                     }}
                   />
-                  <p style={{ fontSize: "16px", margin: 0, color: "black" }}>
-                    {footerData.socialText2}
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      margin: 0,
+                      color: footerData.textColor2,
+                    }}
+                  >
+                    {footerData.userInput2}
                   </p>
                 </div>
               </Rnd>
