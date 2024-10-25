@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Rnd } from "react-rnd";
 // import { SketchPicker } from "react-color";
@@ -13,8 +13,8 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 const Templetemercado = () => {
   /*-------------------- HEADER-------------------------*/
   {
@@ -588,111 +588,23 @@ const Templetemercado = () => {
     }
   }, []);
 
-  function generatePDF() {
-    try {
-      // Pegue a div do firstPage
-      const firstPage = document.getElementById("front-page"); // Altere para o ID correto do seu firstPage
-      const secondPage = document.getElementById("second-page"); // Altere para o ID da segunda div
+  const contentRefs = [useRef(null), useRef(null)]; // Array de refs, uma para cada div
 
-      if (!firstPage) {
-        alert("Elementos de preview não encontrados!");
-        return;
-      }
+  const generatePdf = async () => {
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgWidth = 190;
 
-      // Definindo as dimensões da página A4 em pixels a 96 DPI
-      const pageWidth = (210 / 25.4) * 96; // Largura em pixels
-      const pageHeight = (297 / 25.4) * 96; // Altura em pixels
+    for (let i = 0; i < contentRefs.length; i++) {
+      const canvas = await html2canvas(contentRefs[i].current);
+      const imgData = canvas.toDataURL("image/png");
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      // Capture o conteúdo da primeira página
-      html2canvas(preview, { scale: 2 })
-        .then((canvas1) => {
-          const imgData1 = canvas1.toDataURL("image/png");
-          const pdf = new jsPDF("p", "mm", "a4");
-
-          let position = 0; // Posição inicial da parte da imagem que será renderizada
-
-          // Renderiza a imagem da primeira página
-          while (position < canvas1.height) {
-            const canvasHeight = Math.min(
-              pageHeight * (canvas1.width / imgData1.width),
-              canvas1.height - position
-            );
-
-            // Adiciona a imagem da primeira página
-            pdf.addImage(
-              imgData1,
-              "PNG",
-              0,
-              position * (pageWidth / canvas1.width),
-              pageWidth,
-              canvasHeight
-            );
-
-            position += canvasHeight; // Atualiza a posição para a próxima parte
-
-            if (position < canvas1.height) {
-              pdf.addPage(); // Adiciona nova página se ainda houver conteúdo
-            }
-          }
-
-          // Capture o conteúdo da segunda página
-          html2canvas(secondPage, { scale: 2 })
-            .then((canvas2) => {
-              const imgData2 = canvas2.toDataURL("image/png");
-              position = 0; // Resetar a posição para a segunda página
-
-              // Renderiza a imagem da segunda página
-              while (position < canvas2.height) {
-                const canvasHeight = Math.min(
-                  pageHeight * (canvas2.width / imgData2.width),
-                  canvas2.height - position
-                );
-
-                // Adiciona a imagem da segunda página
-                pdf.addImage(
-                  imgData2,
-                  "PNG",
-                  0,
-                  position * (pageWidth / canvas2.width),
-                  pageWidth,
-                  canvasHeight
-                );
-
-                position += canvasHeight; // Atualiza a posição para a próxima parte
-
-                if (position < canvas2.height) {
-                  pdf.addPage(); // Adiciona nova página se ainda houver conteúdo
-                }
-              }
-
-              pdf.save("preview.pdf");
-            })
-            .catch((error) => {
-              console.error("Erro ao capturar a segunda página:", error);
-              retryGeneration();
-            });
-        })
-        .catch((error) => {
-          console.error("Erro ao capturar a primeira página:", error);
-          retryGeneration();
-        });
-    } catch (error) {
-      console.error("Erro ao tentar gerar o PDF:", error);
-      retryGeneration();
+      if (i > 0) pdf.addPage(); // Adiciona nova página para cada div
+      pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
     }
 
-    function retryGeneration() {
-      const retry = confirm(
-        "Houve um erro ao gerar o panfleto. Deseja tentar novamente?"
-      );
-      if (retry) {
-        generatePDF(); // Tenta gerar novamente
-      } else {
-        alert("A geração do panfleto foi cancelada.");
-      }
-    }
-  }
-
+    pdf.save("multi-div-content.pdf");
+  };
   return (
     <>
       <Header />
@@ -1708,7 +1620,8 @@ const Templetemercado = () => {
                     Salvar
                   </span>
                 </button>
-                <button onClick={generatePDF} className="btn">
+
+                <button onClick={generatePdf} className="btn">
                   Baixar PDF
                 </button>
               </div>
@@ -1740,7 +1653,8 @@ const Templetemercado = () => {
           >
             <h1>Preview</h1>
           </div>
-          <div id="front-page" className="page">
+
+          <div id="front-page" className="page" ref={contentRefs[0]}>
             {headerData && (
               <header
                 className=" "
@@ -2136,10 +2050,11 @@ const Templetemercado = () => {
 
           <br />
           {/*  */}
-          <div id="backpage">
+          <div id="back-page">
             <div
-              className="pageCards"
+              className="page"
               style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
+              ref={contentRefs[1]}
             >
               <div className="cards">
                 {cardsExtension.map((card, index) => (
