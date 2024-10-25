@@ -1416,7 +1416,7 @@ const Templetemercado = () => {
             <br />
             <div className="sub-container-config">
               <label>
-                Cor de fundo:
+                Cor de fundo do footer:
                 <input
                   type="color"
                   name="page"
@@ -1435,6 +1435,69 @@ const Templetemercado = () => {
                 justifyContent: "center",
               }}
             >
+              <div className="sub-container-config">
+                <label>
+                  Número de Telefone:
+                  <input
+                    type="text"
+                    value={footerData.tel}
+                    onChange={handleTelChange} // Controle do número de telefone
+                    maxLength="16"
+                  />
+                </label>
+
+                <select
+                  id="telfont"
+                  value={telfont}
+                  onChange={handleTelFontChange}
+                >
+                  <option value="Arial">Arial</option>
+                  <option value="Courier New">Courier New</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Verdana">Verdana</option>
+                  <option value="Roboto">Roboto</option>
+                  <option value="Open Sans">Open Sans</option>
+                  <option value="Lobster">Lobster</option>
+                  <option value="New Amsterdam">New Amsterdam</option>
+                </select>
+
+                <select
+                  id="telfontSize"
+                  value={telfontSize}
+                  onChange={handleTelFontSizeChange}
+                >
+                  <option value="12px">12px</option>
+                  <option value="16px">16px</option>
+                  <option value="20px">20px</option>
+                  <option value="24px">24px</option>
+                  <option value="28px">28px</option>
+                  <option value="32px">32px</option>
+                  <option value="36px">36px</option>
+                </select>
+
+                <label>
+                  Escolha a cor do telefone:
+                  <input
+                    type="color"
+                    name="tituloColor"
+                    className="colorswitch"
+                    value={telColor} // Usa o valor de telColor no estado
+                    onChange={handletelColorChange} // Chama a função para mudar a cor
+                  />
+                </label>
+              </div>
+            </div>
+
+            <br />
+
+            <div
+              style={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
+            >
               <div
                 style={{
                   display: "flex",
@@ -1446,158 +1509,104 @@ const Templetemercado = () => {
                   backgroundColor: "#bfdbfe",
                 }}
               >
-                <div>
-                  <label>
-                    Número de Telefone:
-                    <input
-                      type="text"
-                      value={footerData.tel}
-                      onChange={handleTelChange} // Controle do número de telefone
-                      maxLength="16"
-                    />
-                  </label>
+                {/*  */}
+                <br />
+                <label>
+                  Escolha a cor da rede social:
+                  <input
+                    type="color"
+                    name="socialColor"
+                    className="colorswitch"
+                    value={logoColor}
+                    onChange={handleLogoColorChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Escolha a rede social:
+                  <select
+                    name="socialIcon"
+                    value={socialIcon}
+                    onChange={handleIconChange}
+                  >
+                    <option value="facebook">Selecione</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="twitter">Twitter</option>
+                    <option value="instagram">Instagram</option>
+                  </select>
+                </label>
+                <br />
+                <label>
+                  Escreva a rede social:
+                  <input
+                    type="text"
+                    name="userInput"
+                    placeholder="Digite o texto"
+                    value={userInput}
+                    onChange={handleUserInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Escolha a cor do texto:
+                  <input
+                    type="color"
+                    name="textColor"
+                    className="colorswitch"
+                    value={textColor}
+                    onChange={handleTextColorChange}
+                  />
+                </label>
 
-                  <div className="estiloletra">
-                    <select
-                      id="telfont"
-                      value={telfont}
-                      onChange={handleTelFontChange}
-                    >
-                      <option value="Arial">Arial</option>
-                      <option value="Courier New">Courier New</option>
-                      <option value="Georgia">Georgia</option>
-                      <option value="Times New Roman">Times New Roman</option>
-                      <option value="Verdana">Verdana</option>
-                      <option value="Roboto">Roboto</option>
-                      <option value="Open Sans">Open Sans</option>
-                      <option value="Lobster">Lobster</option>
-                      <option value="New Amsterdam">New Amsterdam</option>
-                    </select>
-
-                    <select
-                      id="telfontSize"
-                      value={telfontSize}
-                      onChange={handleTelFontSizeChange}
-                    >
-                      <option value="12px">12px</option>
-                      <option value="16px">16px</option>
-                      <option value="20px">20px</option>
-                      <option value="24px">24px</option>
-                      <option value="28px">28px</option>
-                      <option value="32px">32px</option>
-                      <option value="36px">36px</option>
-                    </select>
-
-                    <label>
-                      Escolha a cor do telefone:
-                      <input
-                        type="color"
-                        name="tituloColor"
-                        className="colorswitch"
-                        value={telColor} // Usa o valor de telColor no estado
-                        onChange={handletelColorChange} // Chama a função para mudar a cor
-                      />
-                    </label>
-                    {/*  */}
-                    <br />
-                    <label>
-                      Escolha a cor da rede social:
-                      <input
-                        type="color"
-                        name="socialColor"
-                        className="colorswitch"
-                        value={logoColor}
-                        onChange={handleLogoColorChange}
-                      />
-                    </label>
-                    <br />
-                    <label>
-                      Escolha a rede social:
-                      <select
-                        name="socialIcon"
-                        value={socialIcon}
-                        onChange={handleIconChange}
-                      >
-                        <option value="facebook">Selecione</option>
-                        <option value="facebook">Facebook</option>
-                        <option value="twitter">Twitter</option>
-                        <option value="instagram">Instagram</option>
-                      </select>
-                    </label>
-                    <br />
-                    <label>
-                      Escreva a rede social:
-                      <input
-                        type="text"
-                        name="userInput"
-                        placeholder="Digite o texto"
-                        value={userInput}
-                        onChange={handleUserInputChange}
-                      />
-                    </label>
-                    <br />
-                    <label>
-                      Escolha a cor do texto:
-                      <input
-                        type="color"
-                        name="textColor"
-                        className="colorswitch"
-                        value={textColor}
-                        onChange={handleTextColorChange}
-                      />
-                    </label>
-
-                    {/*  */}
-                    <br />
-                    <label>
-                      Escolha a cor da rede social:
-                      <input
-                        type="color"
-                        name="socialColor2"
-                        className="colorswitch"
-                        value={logoColor2}
-                        onChange={handleLogoColor2Change}
-                      />
-                    </label>
-                    <br />
-                    <label>
-                      Escolha a rede social2:
-                      <select
-                        name="socialIcon2"
-                        value={socialIcon2}
-                        onChange={handleIcon2Change}
-                      >
-                        <option value="facebook">Selecione</option>
-                        <option value="facebook">Facebook</option>
-                        <option value="twitter">Twitter</option>
-                        <option value="instagram">Instagram</option>
-                      </select>
-                    </label>
-                    <br />
-                    <label>
-                      Escreva o nome da rede:
-                      <input
-                        type="text"
-                        name="userInput2"
-                        placeholder="Digite o texto"
-                        value={userInput2}
-                        onChange={handleUserInput2Change}
-                      />
-                    </label>
-                    <br />
-                    <label>
-                      Escolha a cor do texto:
-                      <input
-                        type="color"
-                        name="textColor2"
-                        className="colorswitch"
-                        value={textColor2}
-                        onChange={handleTextColor2Change}
-                      />
-                    </label>
-                    {/* // */}
-                  </div>
-                </div>
+                {/*  */}
+                <br />
+                <label>
+                  Escolha a cor da rede social:
+                  <input
+                    type="color"
+                    name="socialColor2"
+                    className="colorswitch"
+                    value={logoColor2}
+                    onChange={handleLogoColor2Change}
+                  />
+                </label>
+                <br />
+                <label>
+                  Escolha a rede social2:
+                  <select
+                    name="socialIcon2"
+                    value={socialIcon2}
+                    onChange={handleIcon2Change}
+                  >
+                    <option value="facebook">Selecione</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="twitter">Twitter</option>
+                    <option value="instagram">Instagram</option>
+                  </select>
+                </label>
+                <br />
+                <label>
+                  Escreva o nome da rede:
+                  <input
+                    type="text"
+                    name="userInput2"
+                    placeholder="Digite o texto"
+                    value={userInput2}
+                    onChange={handleUserInput2Change}
+                  />
+                </label>
+                <br />
+                <label>
+                  Escolha a cor do texto:
+                  <input
+                    type="color"
+                    name="textColor2"
+                    className="colorswitch"
+                    value={textColor2}
+                    onChange={handleTextColor2Change}
+                  />
+                </label>
+                {/* // */}
               </div>
             </div>
             {/* container botao  */}
