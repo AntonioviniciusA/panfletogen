@@ -589,9 +589,13 @@ const Templetemercado = () => {
   const generatePdf = async () => {
     const pdf = new jsPDF("p", "mm", "a4");
     const imgWidth = 190;
+    const currentDate = new Date().toLocaleDateString("pt-BR");
 
     for (let i = 0; i < contentRefs.length; i++) {
-      const canvas = await html2canvas(contentRefs[i].current);
+      const canvas = await html2canvas(contentRefs[i].current, {
+        scale: 4, // Ajuste para uma qualidade mais alta; valores entre 2 e 4 são comuns
+        useCORS: true,
+      });
       const imgData = canvas.toDataURL("image/png");
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
@@ -599,7 +603,7 @@ const Templetemercado = () => {
       pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
     }
 
-    pdf.save("multi-div-content.pdf");
+    pdf.save(`Panfleto_${currentDate}.pdf`);
   };
   return (
     <>
