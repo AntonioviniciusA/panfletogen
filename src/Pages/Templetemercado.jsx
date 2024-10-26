@@ -241,7 +241,7 @@ const Templetemercado = () => {
   };
   const [cards, setCards] = useState([]);
   const [cardsExtension, setCardsExtension] = useState([]);
-  let maxCards = 14; //100
+  let maxCards = 16; //100
   let maxCardsExtension = 16;
   //
   //
@@ -266,8 +266,8 @@ const Templetemercado = () => {
     }
   };
   //
-  //
-  //
+
+  //cria uma margem em volta do objeto
 
   // Altera a cor de fundo da página
   const backgroundcard = (e) => {
@@ -373,7 +373,7 @@ const Templetemercado = () => {
     textColor2: "#000000",
     socialIcon2: "instagram",
     userInput2: "",
-    footerHeight: 200, // define a altura padrão do footer
+    footerHeight: 250, // define a altura padrão do footer
   });
 
   //alterar cor do fundo do footer
@@ -523,6 +523,7 @@ const Templetemercado = () => {
       //Salva os dados no LocalStorage
       "frontContent",
       JSON.stringify({
+        //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
         bgtypeheader,
         headerData,
         cards,
@@ -532,7 +533,7 @@ const Templetemercado = () => {
         cardcolorData: {
           precocor: cardcolorData.precocor || "#000000", // Garante que há um valor padrão
         },
-      }) //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
+      })
     );
     alert("Panfleto salvo! Apertem em (ok) para continuar"); // Gera um aviso na tela do usuario avisando que o panfleto foi salvo :)
     if (headerData) {
@@ -668,32 +669,6 @@ const Templetemercado = () => {
                   onClick={() =>
                     setHeaderData((prevData) => ({
                       ...prevData,
-                      headerHeight: 100,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  100px
-                </button>
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
                       headerHeight: 150,
                     }))
                   }
@@ -741,32 +716,6 @@ const Templetemercado = () => {
                   } // Cor ao sair
                 >
                   200px
-                </button>
-                <button
-                  onClick={() =>
-                    setHeaderData((prevData) => ({
-                      ...prevData,
-                      headerHeight: 250,
-                    }))
-                  }
-                  style={{
-                    backgroundColor: "#007BFF", // Cor de fundo
-                    color: "#FFFFFF", // Cor do texto
-                    border: "none", // Sem borda
-                    borderRadius: "5px", // Cantos arredondados
-                    padding: "5px", // Espaçamento interno
-                    fontSize: "14px", // Tamanho da fonte
-                    cursor: "pointer", // Cursor de mão ao passar o mouse
-                    transition: "background-color 0.3s", // Transição suave
-                  }}
-                  onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0056b3")
-                  } // Cor ao passar o mouse
-                  onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#007BFF")
-                  } // Cor ao sair
-                >
-                  250px
                 </button>
               </div>
             </div>
@@ -1087,32 +1036,6 @@ const Templetemercado = () => {
                     gap: "20px",
                   }}
                 >
-                  <button
-                    onClick={() =>
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        footerHeight: 100,
-                      }))
-                    }
-                    style={{
-                      backgroundColor: "#007BFF", // Cor de fundo
-                      color: "#FFFFFF", // Cor do texto
-                      border: "none", // Sem borda
-                      borderRadius: "5px", // Cantos arredondados
-                      padding: "5px", // Espaçamento interno
-                      fontSize: "14px", // Tamanho da fonte
-                      cursor: "pointer", // Cursor de mão ao passar o mouse
-                      transition: "background-color 0.3s", // Transição suave
-                    }}
-                    onMouseOver={(e) =>
-                      (e.currentTarget.style.backgroundColor = "#0056b3")
-                    } // Cor ao passar o mouse
-                    onMouseOut={(e) =>
-                      (e.currentTarget.style.backgroundColor = "#007BFF")
-                    } // Cor ao sair
-                  >
-                    100px
-                  </button>
                   <button
                     onClick={() =>
                       setFooterData((prevData) => ({
@@ -2002,7 +1925,9 @@ const Templetemercado = () => {
                   maxHeight={25}
                   bounds="parent"
                   enableResizing={false}
-                  style={{ cursor: "move" }}
+                  style={{
+                    cursor: "move",
+                  }}
                 >
                   <p
                     style={{
