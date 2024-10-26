@@ -627,7 +627,7 @@ const Templetemercado = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#1e40af",
-          gap: "",
+          gap: "30px",
           padding: "35px",
         }}
       >
@@ -643,7 +643,7 @@ const Templetemercado = () => {
         >
           <div
             style={{
-              width: "75%",
+              width: "100%",
               // margin: "3%",
               padding: "3%",
               borderRadius: "25px",
