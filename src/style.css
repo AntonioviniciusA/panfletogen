@@ -47,26 +47,40 @@ input {
 
 .card {
   width: 142px;
-  height: 268px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin: 5px;
+  height: 235px;
+  margin: 10px;
   padding: 5px;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .card img {
   max-width: 100%;
   max-height: 200px;
   border-radius: 5px;
+  align-items: center;
+  justify-content: center;
 }
 
 .card p {
+  width: 90px;
   margin: 10px 0;
+}
+.card h1 {
+  width: fit-content;
+  height: fit-content;
+  padding: 20px;
+}
+.card #bgprice {
+  width: 100px;
+  height: 75px;
+  margin: -100px 80px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  background-size: cover;
+  background-image: url("./img/bgprice.png");
 }
 .button {
   border: 1px solid #eaf6fe;
@@ -92,9 +106,10 @@ input {
 }
 .pageCards {
   width: 794px;
-  max-height: 2046px;
+  max-height: 297mm;
   border: 3px black solid;
 }
+
 form {
   width: 800px;
 }

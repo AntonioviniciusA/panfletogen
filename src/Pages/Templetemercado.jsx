@@ -242,7 +242,7 @@ const Templetemercado = () => {
   const [cards, setCards] = useState([]);
   const [cardsExtension, setCardsExtension] = useState([]);
   let maxCards = 14; //100
-  let maxCardsExtension = 15;
+  let maxCardsExtension = 16;
   //
   //
   //
@@ -315,7 +315,18 @@ const Templetemercado = () => {
     setEditingCardIndex(null); // Fecha o modal
     setSelectedCardIndex(null);
   };
-
+  const f1 = document.getElementById("f1");
+  const f2 = document.getElementById("f2");
+  if (f1 && f2) {
+    if (cards.length === maxCards) {
+      f2.style.display = "flex";
+      f1.style.display = "none";
+      f1.style.height = "0";
+    } else {
+      f2.style.display = "none";
+      f1.style.display = "flex";
+    }
+  }
   /*-------------------- CONFIG DO FOOTERS -------------------------*/
   const [footerData, setFooterData] = useState({
     logo: "",
@@ -1001,30 +1012,6 @@ const Templetemercado = () => {
                     </div>
 
                     <br />
-                    <label>
-                      localização horizontal da validade:
-                      <input
-                        type="range"
-                        id="positionduracao"
-                        min="0"
-                        max="100"
-                        value={positionduracao}
-                        onChange={handleDuracaoPositionChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
-                    <label>
-                      localização vertical da validade:
-                      <input
-                        type="range"
-                        id="positionduracaoV"
-                        min="0"
-                        max="100"
-                        value={positionduracaoV}
-                        onChange={handleDuracaoPositionVChange}
-                        style={{ width: "100%" }}
-                      />
-                    </label>
                   </div>
                 </div>
               </div>
@@ -1689,7 +1676,7 @@ const Templetemercado = () => {
                     height: "auto",
                   }}
                   minWidth={50}
-                  minHeight={50}
+                  minHeight={0}
                   bounds="parent"
                   enableResizing={true}
                   onDragStop={(e, d) => {
@@ -1742,20 +1729,38 @@ const Templetemercado = () => {
                     {headerData.titulo}
                   </h1>
                 </Rnd>
-
-                <p
-                  style={{
-                    color: headerData.duracaoColor,
-                    fontFamily: headerData.duracaofont,
-                    fontSize: headerData.duracaofontSize,
-                    position: "relative",
-                    left: headerData.positionduracao + "%",
-                    top: headerData.positionduracaoV + "px",
-                    transition: "left 0.3s ease",
+                <Rnd
+                  default={{
+                    x: headerData.positionduracao, // Posição inicial X do título
+                    y: headerData.positionduracaoV, // Posição inicial Y do título
+                    height: "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={0}
+                  bounds="parent" // Garante que o título não seja arrastado para fora do elemento pai
+                  enableResizing={false} // Desativa o redimensionamento
+                  style={{ cursor: "move" }} // Força o cursor a ser "move"
+                  onDragStop={(e, d) => {
+                    // Atualiza a posição do título no estado quando o arrasto parar
+                    setHeaderData((prevData) => ({
+                      ...prevData,
+                      positionduracao: d.x, // Atualiza a posição X do título
+                      positionduracaoV: d.y, // Atualiza a posição Y do título
+                    }));
                   }}
                 >
-                  {headerData.duracao}
-                </p>
+                  <p
+                    style={{
+                      color: headerData.duracaoColor,
+                      fontFamily: headerData.duracaofont,
+                      fontSize: headerData.duracaofontSize,
+                      position: "relative",
+                      transition: "left 0.3s ease",
+                    }}
+                  >
+                    {headerData.duracao}
+                  </p>
+                </Rnd>
               </header>
             )}
 
@@ -1781,15 +1786,19 @@ const Templetemercado = () => {
                         border:
                           selectedCardIndex === index
                             ? "3px solid blue" // add a cor
-                            : "1px solid #ccc",
+                            : "0px solid #ccc",
                         cursor: "pointer",
                       }}
                     >
                       <img src={card.image} alt={`Product ${index}`} />
                       <p>{card.description}</p>
-                      <h1 style={{ color: cardcolorData.precocor || "white" }}>
-                        R${card.price}
-                      </h1>
+                      <div id="bgprice">
+                        <h1
+                          style={{ color: cardcolorData.precocor || "white" }}
+                        >
+                          R${card.price}
+                        </h1>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -1904,6 +1913,7 @@ const Templetemercado = () => {
                 backgroundColor: footerBgColor, // Aplica a cor de fundo ao "footer"
                 border: "1px solid black",
               }}
+              id="f1"
             >
               {footerData.logo && (
                 <Rnd
@@ -2092,15 +2102,17 @@ const Templetemercado = () => {
                       border:
                         selectedCardIndexb === index
                           ? "3px solid blue" // add a cor
-                          : "1px solid #ccc",
+                          : "0px solid #ccc",
                       cursor: "pointer",
                     }}
                   >
                     <img src={card.image} alt={`Product ${index}`} />
                     <p>{card.description}</p>
-                    <h1 style={{ color: cardcolorData.precocor || "white" }}>
-                      R${card.price}
-                    </h1>
+                    <div id="bgprice">
+                      <h1 style={{ color: cardcolorData.precocor || "white" }}>
+                        R${card.price}
+                      </h1>
+                    </div>
                   </div>
                 ))}
                 {editingCardIndexb !== null && (
@@ -2207,6 +2219,180 @@ const Templetemercado = () => {
                   </div>
                 )}
               </div>
+              <footer
+                style={{
+                  position: "relative",
+                  height: `${footerData.footerHeight}px`, //altura definida pelo usuaruio no input
+                  backgroundColor: footerBgColor, // Aplica a cor de fundo ao "footer"
+                  border: "1px solid black",
+                }}
+                id="f2"
+              >
+                {footerData.logo && (
+                  <Rnd
+                    default={{
+                      x: footerData.positionlogofH,
+                      y: footerData.positionlogofV,
+                      width: 100,
+                      height: "auto",
+                    }}
+                    minWidth={50}
+                    minHeight={50}
+                    bounds="parent"
+                  >
+                    <img src={footerData.logo} alt="logo-footer" />
+                  </Rnd>
+                )}
+                {footerData.image1f && (
+                  <Rnd
+                    default={{
+                      x: footerData.positionimg1fH,
+                      y: footerData.positionimg1fV,
+                      width: 100,
+                      height: "auto",
+                    }}
+                    minWidth={50}
+                    minHeight={50}
+                    bounds="parent"
+                  >
+                    <img src={footerData.image1f} alt="image-footer-1" />
+                  </Rnd>
+                )}
+                {footerData.image2f && (
+                  <Rnd
+                    default={{
+                      x: footerData.positionimg2fH,
+                      y: footerData.positionimg2fV,
+                      width: 100,
+                      height: "auto",
+                    }}
+                    minWidth={50}
+                    minHeight={50}
+                    bounds="parent"
+                  >
+                    <img src={footerData.image2f} alt="image-footer-2" />
+                  </Rnd>
+                )}
+                {footerData.image3f && (
+                  <Rnd
+                    default={{
+                      x: footerData.positionimg3fH,
+                      y: footerData.positionimg3fV,
+                      width: 100,
+                      height: "auto",
+                    }}
+                    minWidth={50}
+                    minHeight={50}
+                    bounds="parent"
+                  >
+                    <img src={footerData.image3f} alt="image-footer-3" />
+                  </Rnd>
+                )}
+                {footerData.image4f && (
+                  <Rnd
+                    default={{
+                      x: footerData.positionimg4fH,
+                      y: footerData.positionimg4fV,
+                      width: 100,
+                      height: "auto",
+                    }}
+                    minWidth={50}
+                    minHeight={50}
+                    bounds="parent"
+                  >
+                    <img src={footerData.image4f} alt="image-footer-4" />
+                  </Rnd>
+                )}
+
+                {footerData.tel && (
+                  <Rnd
+                    default={{
+                      x: footerData.positiontelfH,
+                      y: footerData.positiontelfV,
+                      height: "auto",
+                    }}
+                    minWidth={160}
+                    maxHeight={25}
+                    bounds="parent"
+                    enableResizing={false}
+                    style={{ cursor: "move" }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        fontFamily: footerData?.telfont || "Arial",
+                        fontSize: footerData?.telfontSize || "16px",
+                        width: "auto",
+                        color: footerData?.telColor || "black",
+                      }}
+                    >
+                      {footerData.tel}
+                    </p>
+                  </Rnd>
+                )}
+
+                <Rnd
+                  default={{
+                    x: footerData.positionsocial1fH,
+                    y: footerData.positionsocial1fV,
+                    height: "auto",
+                  }}
+                  bounds="parent"
+                  enableResizing={false}
+                  style={{ cursor: "move" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FontAwesomeIcon
+                      icon={getSocialIcon(footerData.socialIcon)}
+                      style={{
+                        fontSize: "30px",
+                        marginRight: "10px",
+                        color: footerData.logoColor,
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        margin: 0,
+                        color: footerData.textColor,
+                      }}
+                    >
+                      {footerData.userInput}
+                    </p>
+                  </div>
+                </Rnd>
+
+                <Rnd
+                  default={{
+                    x: footerData.positionsocial2fH,
+                    y: footerData.positionsocial2fV,
+                    height: "auto",
+                  }}
+                  bounds="parent"
+                  enableResizing={false}
+                  style={{ cursor: "move" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FontAwesomeIcon
+                      icon={getSocialIcon(footerData.socialIcon2)}
+                      style={{
+                        fontSize: "30px",
+                        marginRight: "10px",
+                        color: footerData.logoColor2,
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        margin: 0,
+                        color: footerData.textColor2,
+                      }}
+                    >
+                      {footerData.userInput2}
+                    </p>
+                  </div>
+                </Rnd>
+              </footer>
             </div>
           </div>
           {/*  */}
