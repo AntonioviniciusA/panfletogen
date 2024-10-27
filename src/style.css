@@ -47,7 +47,7 @@ input {
 
 .card {
   width: 142px;
-  height: 235px;
+  height: 210px; /*  335 */
   margin: 10px;
   padding: 5px;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
@@ -148,6 +148,7 @@ input[type="text"] {
   align-items: center;
   justify-content: center;
   padding: 25px 0px 25px 0px;
+
   gap: 10px;
 }
 
