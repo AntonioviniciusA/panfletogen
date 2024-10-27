@@ -400,42 +400,6 @@ const Templetemercado = () => {
 
   //input alterar posicao na horinzontal da logo do footer
 
-  const handlelogoPositionfHChange = (e) => {
-    const value = e.target.value;
-    setFooterData((prevData) => ({
-      ...prevData,
-      positionlogofH: value,
-    }));
-  };
-
-  // alterar a posicao na vertical da logo do footer
-
-  const handlelogoPositionfVChange = (e) => {
-    const value = e.target.value;
-    setFooterData((prevData) => ({
-      ...prevData,
-      positionlogofV: value,
-    }));
-  };
-
-  // posição horizontal do telefone
-  const handleTelPositionHChange = (e) => {
-    const newValue = Number(e.target.value);
-    setFooterData((prevData) => ({
-      ...prevData,
-      positiontelfH: newValue,
-    }));
-  };
-
-  // posição vertical do telefone
-  const handleTelPositionVChange = (e) => {
-    const newValue = Number(e.target.value);
-    setFooterData((prevData) => ({
-      ...prevData,
-      positiontelfV: newValue,
-    }));
-  };
-
   const handleTelChange = (e) => {
     const { value } = e.target;
     setFooterData((prevData) => ({
@@ -521,7 +485,7 @@ const Templetemercado = () => {
     saveFormData(); // Captura os dados do form antes de salvar
     localStorage.setItem(
       //Salva os dados no LocalStorage
-      "frontContent",
+      "appData",
       JSON.stringify({
         bgtypeheader,
         headerData,
@@ -583,7 +547,7 @@ const Templetemercado = () => {
   }
   // Carrega os dados salvos do localStorage ao montar o componente
   useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem("formData"));
+    const savedData = JSON.parse(localStorage.getItem("appData"));
     if (savedData) {
       setBgTypeHeader(savedData.bgtypeheader || "defaultHeader");
       setHeaderData(savedData.headerData);
@@ -1660,9 +1624,9 @@ const Templetemercado = () => {
               <header
                 className=" "
                 style={{
-                  backgroundColor: headerData.bgColor,
-                  backgroundImage: headerData.bgImage,
-                  height: `${headerData.headerHeight}px`, //altura definida pelo usuaruio no input
+                  backgroundColor: appData.headerData.bgColor,
+                  backgroundImage: appData.headerData.bgImage,
+                  height: `${appData.headerData.headerHeight}px`, //altura definida pelo usuaruio no input
                   position: "relative",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
