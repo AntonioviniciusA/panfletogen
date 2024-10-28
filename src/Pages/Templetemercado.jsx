@@ -282,6 +282,8 @@ const Templetemercado = () => {
     image2f: "",
     image3f: "",
     image4f: "",
+    logoWidth: "",
+    logoHeight: "",
     positionlogofH: 0,
     positionlogofV: 0,
     positionimg1fH: 0,
@@ -340,33 +342,15 @@ const Templetemercado = () => {
     setFooterBgColor(value); // altera a cor de fundo do "footer"
   };
 
+  //troca de cores textos do footer
   const logoTelWtCheckbox = document.getElementById("logotelwt");
-  const logotels = document.getElementById("logotels");
+  const logoTelstyle = document.getElementById("logotel");
 
   if (logoTelWtCheckbox && logoTelWtCheckbox.checked) {
     console.log("O checkbox está marcado.");
-    if (logotels) {
-      logotels.style.display = "flex";
-    } else {
-      console.error("Elemento logotels não encontrado no DOM.");
-    }
   } else {
-    if (logotels) {
-      logotels.style.display = "none";
-    } else {
-      console.error("Elemento logotels não encontrado no DOM.");
-    }
     console.log("O checkbox não está marcado.");
   }
-  const formatPhoneNumber = (input) => {
-    const cleaned = input.replace(/\D/g, "");
-    const match = cleaned.match(/^(\d{2})(\d{1})(\d{4})(\d{4})$/);
-    if (match) {
-      return `(${match[1]}) ${match[2]} ${match[3]}-${match[4]}`;
-    }
-    return input;
-  };
-
   //troca de cor tel
 
   const [telColor, setTelColor] = useState("#000000");
@@ -382,10 +366,10 @@ const Templetemercado = () => {
   //input alterar posicao na horinzontal da logo do footer
 
   const handleTelChange = (e) => {
-    const {} = e.target;
+    const { value } = e.target;
     setFooterData((prevData) => ({
       ...prevData,
-      tel: formatPhoneNumber(e.target.value),
+      tel: value,
     }));
   };
   //
@@ -1213,21 +1197,19 @@ const Templetemercado = () => {
               }}
             >
               <div className="sub-container-config">
-                <div>
+                <label>
                   <input
                     type="checkbox"
                     name="logoTelWt"
                     id="logotelwt"
                     placeholder="LOGO Whatsapp"
-                    style={{ width: "fit-content" }}
                   />
-                  <label htmlFor="logoTelWt"> LOGO</label>
-                </div>
+                  LOGO
+                </label>
                 <label>
                   Número de Telefone:
                   <input
                     type="text"
-                    id="phoneInput"
                     value={footerData.tel}
                     onChange={handleTelChange} // Controle do número de telefone
                     maxLength="16"
@@ -1817,7 +1799,10 @@ const Templetemercado = () => {
                     x: footerData.positionlogofH,
                     y: footerData.positionlogofV,
                   }}
-                  size={{ width: 100, height: "auto" }}
+                  size={{
+                    width: footerData.logoWidth || 100,
+                    height: footerData.logoHeight || "auto",
+                  }}
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
@@ -1847,10 +1832,30 @@ const Templetemercado = () => {
                     x: footerData.positionimg1fH,
                     y: footerData.positionimg1fV,
                   }}
-                  size={{ width: 100, height: "auto" }}
+                  size={{
+                    width: footerData.widthimg1 || 100,
+                    height: footerData.heightimg1 || "auto",
+                  }}
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
+                  enableResizing="true"
+                  onDragStop={(e, d) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      positionimg1fH: d.x, // Atualiza a posição X no estado
+                      positionimg1fV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      widthimg1: ref.style.width, // Atualiza a largura no estado
+                      heightimg1: ref.style.height, // Atualiza a altura no estado
+                      positionimg1fH: position.x, // Atualiza a posição X no estado
+                      positionimg1fV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
                 >
                   <img src={footerData.image1f} alt="image-footer-1" />
                 </Rnd>
@@ -1861,10 +1866,30 @@ const Templetemercado = () => {
                     x: footerData.positionimg2fH,
                     y: footerData.positionimg2fV,
                   }}
-                  size={{ width: 100, height: "auto" }}
+                  size={{
+                    width: footerData.widthimg2 || 100,
+                    height: footerData.heightimg2 || "auto",
+                  }}
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
+                  enableResizing="true"
+                  onDragStop={(e, d) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      positionimg2fH: d.x, // Atualiza a posição X no estado
+                      positionimg2fV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      widthimg2: ref.style.width, // Atualiza a largura no estado
+                      heightimg2: ref.style.height, // Atualiza a altura no estado
+                      positionimg2fH: position.x, // Atualiza a posição X no estado
+                      positionimg2fV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
                 >
                   <img src={footerData.image2f} alt="image-footer-2" />
                 </Rnd>
@@ -1874,12 +1899,31 @@ const Templetemercado = () => {
                   position={{
                     x: footerData.positionimg3fH,
                     y: footerData.positionimg3fV,
-                    width: 100,
-                    height: "auto",
+                  }}
+                  size={{
+                    width: footerData.widthimg3 || 100,
+                    height: footerData.heightimg3 || "auto",
                   }}
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
+                  enableResizing="true"
+                  onDragStop={(e, d) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      positionimg3fH: d.x, // Atualiza a posição X no estado
+                      positionimg3fV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      widthimg3: ref.style.width, // Atualiza a largura no estado
+                      heightimg3: ref.style.height, // Atualiza a altura no estado
+                      positionimg3fH: position.x, // Atualiza a posição X no estado
+                      positionimg3fV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
                 >
                   <img src={footerData.image3f} alt="image-footer-3" />
                 </Rnd>
@@ -1889,12 +1933,31 @@ const Templetemercado = () => {
                   position={{
                     x: footerData.positionimg4fH,
                     y: footerData.positionimg4fV,
-                    width: 100,
-                    height: "auto",
+                  }}
+                  size={{
+                    width: footerData.widthimg4 || 100,
+                    height: footerData.heightimg4 || "auto",
                   }}
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
+                  enableResizing="true"
+                  onDragStop={(e, d) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      positionimg4fH: d.x, // Atualiza a posição X no estado
+                      positionimg4fV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      widthimg4: ref.style.width, // Atualiza a largura no estado
+                      heightimg4: ref.style.height, // Atualiza a altura no estado
+                      positionimg4fH: position.x, // Atualiza a posição X no estado
+                      positionimg4fV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
                 >
                   <img src={footerData.image4f} alt="image-footer-4" />
                 </Rnd>
@@ -1925,9 +1988,8 @@ const Templetemercado = () => {
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <FontAwesomeIcon
                       icon={getSocialIcon(footerData.logotel)}
-                      id="logotels"
+                      id="logotel"
                       style={{
-                        display: "flex",
                         fontSize: "30px",
                         marginRight: "10px",
                         color: footerData.logoTelColor || "green",
@@ -2179,9 +2241,8 @@ const Templetemercado = () => {
                       y: footerData.positionlogofV,
                     }}
                     size={{
-                      width: footerData.logo.width || 100,
-
-                      height: footerData.logo.height || "auto",
+                      width: footerData.logoWidth || 100,
+                      height: footerData.logoHeight || "auto",
                     }}
                     minWidth={50}
                     minHeight={50}
@@ -2213,12 +2274,29 @@ const Templetemercado = () => {
                       y: footerData.positionimg1fV,
                     }}
                     size={{
-                      width: footerData.widthimg1fh || 100,
-                      height: footerData.heightimg1fv || "auto",
+                      width: footerData.widthimg1 || 100,
+                      height: footerData.heightimg1 || "auto",
                     }}
                     minWidth={50}
                     minHeight={50}
                     bounds="parent"
+                    enableResizing="true"
+                    onDragStop={(e, d) => {
+                      setFooterData((prevData) => ({
+                        ...prevData,
+                        positionimg1fH: d.x, // Atualiza a posição X no estado
+                        positionimg1fV: d.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
+                    onResizeStop={(e, direction, ref, delta, position) => {
+                      setFooterData((prevData) => ({
+                        ...prevData,
+                        widthimg1: ref.style.width, // Atualiza a largura no estado
+                        heightimg1: ref.style.height, // Atualiza a altura no estado
+                        positionimg1fH: position.x, // Atualiza a posição X no estado
+                        positionimg1fV: position.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
                   >
                     <img src={footerData.image1f} alt="image-footer-1" />
                   </Rnd>
@@ -2229,10 +2307,30 @@ const Templetemercado = () => {
                       x: footerData.positionimg2fH,
                       y: footerData.positionimg2fV,
                     }}
-                    size={{ width: 100, height: "auto" }}
+                    size={{
+                      width: footerData.widthimg2 || 100,
+                      height: footerData.heightimg2 || "auto",
+                    }}
                     minWidth={50}
                     minHeight={50}
                     bounds="parent"
+                    enableResizing="true"
+                    onDragStop={(e, d) => {
+                      setFooterData((prevData) => ({
+                        ...prevData,
+                        positionimg2fH: d.x, // Atualiza a posição X no estado
+                        positionimg2fV: d.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
+                    onResizeStop={(e, direction, ref, delta, position) => {
+                      setFooterData((prevData) => ({
+                        ...prevData,
+                        widthimg2: ref.style.width, // Atualiza a largura no estado
+                        heightimg2: ref.style.height, // Atualiza a altura no estado
+                        positionimg2fH: position.x, // Atualiza a posição X no estado
+                        positionimg2fV: position.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
                   >
                     <img src={footerData.image2f} alt="image-footer-2" />
                   </Rnd>
@@ -2243,10 +2341,30 @@ const Templetemercado = () => {
                       x: footerData.positionimg3fH,
                       y: footerData.positionimg3fV,
                     }}
-                    size={{ width: 100, height: "auto" }}
+                    size={{
+                      width: footerData.widthimg3 || 100,
+                      height: footerData.heightimg3 || "auto",
+                    }}
                     minWidth={50}
                     minHeight={50}
                     bounds="parent"
+                    enableResizing="true"
+                    onDragStop={(e, d) => {
+                      setFooterData((prevData) => ({
+                        ...prevData,
+                        positionimg3fH: d.x, // Atualiza a posição X no estado
+                        positionimg3fV: d.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
+                    onResizeStop={(e, direction, ref, delta, position) => {
+                      setFooterData((prevData) => ({
+                        ...prevData,
+                        widthimg3: ref.style.width, // Atualiza a largura no estado
+                        heightimg3: ref.style.height, // Atualiza a altura no estado
+                        positionimg3fH: position.x, // Atualiza a posição X no estado
+                        positionimg3fV: position.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
                   >
                     <img src={footerData.image3f} alt="image-footer-3" />
                   </Rnd>
@@ -2257,10 +2375,30 @@ const Templetemercado = () => {
                       x: footerData.positionimg4fH,
                       y: footerData.positionimg4fV,
                     }}
-                    size={{ width: 100, height: "auto" }}
+                    size={{
+                      width: footerData.widthimg4 || 100,
+                      height: footerData.heightimg4 || "auto",
+                    }}
                     minWidth={50}
                     minHeight={50}
                     bounds="parent"
+                    enableResizing="true"
+                    onDragStop={(e, d) => {
+                      setFooterData((prevData) => ({
+                        ...prevData,
+                        positionimg4fH: d.x, // Atualiza a posição X no estado
+                        positionimg4fV: d.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
+                    onResizeStop={(e, direction, ref, delta, position) => {
+                      setFooterData((prevData) => ({
+                        ...prevData,
+                        widthimg4: ref.style.width, // Atualiza a largura no estado
+                        heightimg4: ref.style.height, // Atualiza a altura no estado
+                        positionimg4fH: position.x, // Atualiza a posição X no estado
+                        positionimg4fV: position.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
                   >
                     <img src={footerData.image4f} alt="image-footer-4" />
                   </Rnd>
