@@ -281,6 +281,8 @@ const Templetemercado = () => {
     image2f: "",
     image3f: "",
     image4f: "",
+    logoWidth: "",
+    logoHeight: "",
     positionlogofH: 0,
     positionlogofV: 0,
     positionimg1fH: 0,
@@ -1768,9 +1770,8 @@ const Templetemercado = () => {
                   position={{
                     x: footerData.positionlogofH,
                     y: footerData.positionlogofV,
-                    width: 100,
-                    height: "auto",
                   }}
+                  size={{ width: 100, height: "auto" }}
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
@@ -1799,9 +1800,8 @@ const Templetemercado = () => {
                   position={{
                     x: footerData.positionimg1fH,
                     y: footerData.positionimg1fV,
-                    width: 100,
-                    height: "auto",
                   }}
+                  size={{ width: 100, height: "auto" }}
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
@@ -1814,9 +1814,8 @@ const Templetemercado = () => {
                   position={{
                     x: footerData.positionimg2fH,
                     y: footerData.positionimg2fV,
-                    width: 100,
-                    height: "auto",
                   }}
+                  size={{ width: 100, height: "auto" }}
                   minWidth={50}
                   minHeight={50}
                   bounds="parent"
@@ -2100,10 +2099,30 @@ const Templetemercado = () => {
                       x: footerData.positionlogofH,
                       y: footerData.positionlogofV,
                     }}
-                    size={{ width: 100, height: "auto" }}
+                    size={{
+                      width: footerData.logoWidth || 100,
+                      height: footerData.logoHeight || "auto",
+                    }}
                     minWidth={50}
                     minHeight={50}
                     bounds="parent"
+                    enableResizing={true}
+                    onDragStop={(e, d) => {
+                      setHeaderData((prevData) => ({
+                        ...prevData,
+                        positionlogo: d.x, // Atualiza a posição X no estado
+                        positionlogoV: d.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
+                    onResizeStop={(e, direction, ref, delta, position) => {
+                      setHeaderData((prevData) => ({
+                        ...prevData,
+                        logoWidth: ref.style.width, // Atualiza a largura no estado
+                        logoHeight: ref.style.height, // Atualiza a altura no estado
+                        positionlogo: position.x, // Atualiza a posição X no estado
+                        positionlogoV: position.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
                   >
                     <img src={footerData.logo} alt="logo-footer" />
                   </Rnd>
@@ -2114,7 +2133,10 @@ const Templetemercado = () => {
                       x: footerData.positionimg1fH,
                       y: footerData.positionimg1fV,
                     }}
-                    size={{ width: 100, height: "auto" }}
+                    size={{
+                      width: footerData.widthimg1fh || 100,
+                      height: footerData.heightimg1fv || "auto",
+                    }}
                     minWidth={50}
                     minHeight={50}
                     bounds="parent"
