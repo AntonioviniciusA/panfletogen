@@ -1776,19 +1776,19 @@ const Templetemercado = () => {
                   minHeight={50}
                   bounds="parent"
                   onDragStop={(e, d) => {
-                    setHeaderData((prevData) => ({
+                    setFooterData((prevData) => ({
                       ...prevData,
-                      positionlogo: d.x, // Atualiza a posição X no estado
-                      positionlogoV: d.y, // Atualiza a posição Y no estado
+                      positionlogofH: d.x, // Atualiza a posição X no estado
+                      positionlogofV: d.y, // Atualiza a posição Y no estado
                     }));
                   }}
                   onResizeStop={(e, direction, ref, delta, position) => {
-                    setHeaderData((prevData) => ({
+                    setFooterData((prevData) => ({
                       ...prevData,
                       logoWidth: ref.style.width, // Atualiza a largura no estado
                       logoHeight: ref.style.height, // Atualiza a altura no estado
-                      positionlogo: position.x, // Atualiza a posição X no estado
-                      positionlogoV: position.y, // Atualiza a posição Y no estado
+                      positionlogofH: position.x, // Atualiza a posição X no estado
+                      positionlogofV: position.y, // Atualiza a posição Y no estado
                     }));
                   }}
                 >
