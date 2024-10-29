@@ -16,7 +16,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { height, width } from "@fortawesome/free-brands-svg-icons/fa42Group";
+
 const Templetemercado = () => {
   /*-------------------- HEADER-------------------------*/
   {
@@ -24,6 +24,9 @@ const Templetemercado = () => {
   }
 
   const [bgtypeheader, setBgTypeHeader] = useState({
+    value: "",
+  });
+  const [bgtypeFooter, setBgTypeFooter] = useState({
     value: "",
   });
   const [headerData, setHeaderData] = useState({
@@ -276,6 +279,8 @@ const Templetemercado = () => {
   }
   /*-------------------- CONFIG DO FOOTERS -------------------------*/
   const [footerData, setFooterData] = useState({
+    bgImageF: "",
+    bgColorF: "",
     logo: "",
     tel: "",
     image1f: "",
@@ -333,13 +338,46 @@ const Templetemercado = () => {
     userInput2: "",
     footerHeight: 250, // define a altura padrão do footer
   });
+  const [bgImageF, setBgImageF] = useState("");
+  const [bgColorF, setBgColorF] = useState("transparent");
+  const handleClearChangeF = (e) => {
+    setBgTypeFooter(e.target.value);
+    setBgImageF(``);
+    setBgColorF(``);
+    setFooterData((prevData) => ({
+      ...prevData,
+      bgImageF: ``,
+      bgColorF: ``,
+    }));
+  };
+  const handleUrlChangeF = (e) => {
+    const url = e.clipboardData.getData("text"); // Captura a URL colada como texto
+    setBgImageF(`url(${url})`);
+    setFooterData((prevData) => ({
+      ...prevData,
+      bgImageF: `url(${url})`,
+    }));
+  };
 
-  //alterar cor do fundo do footer
+  const handleFileChangeF = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const fileUrl = URL.createObjectURL(file);
+      setBgImageF(`url(${fileUrl})`);
+      setFooterData((prevData) => ({
+        ...prevData,
+        bgImageF: `url(${fileUrl})`,
+      }));
+    }
+  };
 
-  const [footerBgColor, setFooterBgColor] = useState(); // cor padrão do fundo da página
-  const backgroundfooter = (e) => {
-    const { value } = e.target;
-    setFooterBgColor(value); // altera a cor de fundo do "footer"
+  const handleFooterChange = (e) => {
+    const { name, value } = e.target;
+    setFooterData({ ...footerData, bgImageF, [name]: value });
+    setFooterData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   //troca de cores textos do footer
@@ -457,11 +495,11 @@ const Templetemercado = () => {
       JSON.stringify({
         //Armazena as variaveis e e converte para JSON utilizando JSON.stringify()
         bgtypeheader,
+        bgtypeFooter,
         headerData,
         cards,
         cardsExtension,
         pageBgColorData,
-        footerBgColor,
         footerData,
         cardcolorData: {
           precocor: cardcolorData.precocor || "#000000", // Garante que há um valor padrão
@@ -505,11 +543,11 @@ const Templetemercado = () => {
       "formData",
       JSON.stringify({
         bgtypeheader,
+        bgtypeFooter,
         headerData,
         cards,
         cardsExtension,
         pageBgColorData,
-        footerBgColor,
         footerData,
         cardcolorData,
       })
@@ -525,9 +563,9 @@ const Templetemercado = () => {
     const savedData = JSON.parse(localStorage.getItem("appData"));
     if (savedData) {
       setBgTypeHeader(savedData.bgtypeheader || "defaultHeader");
+      setBgTypeHeader(savedData.bgtypeFooter || "defaultFooter");
       setHeaderData(savedData.headerData);
       setPageBgColorData(savedData.pageBgColorData);
-      setFooterBgColor(savedData.footerBgColor);
       setFooterData(savedData.footerData || "defaultFooter");
       setCards(savedData.cards || []);
       setCardsExtension(savedData.cardsExtension || []);
@@ -1176,16 +1214,56 @@ const Templetemercado = () => {
             </div>
             <br />
             <div className="sub-container-config">
-              <label>
-                Cor de fundo do footer:
-                <input
-                  type="color"
-                  name="page"
-                  className="colorswitch"
-                  value={footerBgColor}
-                  onChange={backgroundfooter}
-                />
-              </label>
+              <div className="">
+                <select
+                  value={bgtypeFooter}
+                  name="bgtypeFooter"
+                  id="bgtypeFooter"
+                  onChange={handleClearChangeF}
+                >
+                  <option value="" placeholder="Selecione um tipo de fundo">
+                    Selecione um tipo de fundo
+                  </option>
+                  <option value="url" placeholder="https://exemplo.webp">
+                    Link de uma imagem
+                  </option>
+                  <option value="file">Imagem</option>
+                  <option value="color">Cor</option>
+                </select>
+                <br />
+
+                {bgtypeFooter === "url" && (
+                  <input
+                    type="text"
+                    placeholder="Insira o URL da imagem"
+                    onPaste={handleUrlChangeF}
+                  />
+                )}
+
+                {bgtypeFooter === "file" && (
+                  <span class="tooltiptext">
+                    <label className="custom-file-upload">
+                      <input
+                        type="file"
+                        name="bgImage"
+                        onChange={handleFileChangeF}
+                      />
+                      <span>+</span> {/* Logo ou ícone */}
+                    </label>
+                    Fundo Header
+                  </span>
+                )}
+
+                {bgtypeFooter === "color" && (
+                  <input
+                    type="color"
+                    name="bgColorF"
+                    className="colorswitch"
+                    value={footerData.bgColorF}
+                    onChange={handleFooterChange}
+                  />
+                )}
+              </div>
             </div>
 
             <br />
@@ -1788,7 +1866,9 @@ const Templetemercado = () => {
               style={{
                 position: "relative",
                 height: `${footerData.footerHeight}px`, //altura definida pelo usuaruio no input
-                backgroundColor: footerBgColor, // Aplica a cor de fundo ao "footer"
+                backgroundColor: footerData.bgColorF,
+                backgroundImage: footerData.bgImageF,
+
                 border: "1px solid black",
               }}
               id="f1"
@@ -2229,7 +2309,8 @@ const Templetemercado = () => {
                 style={{
                   position: "relative",
                   height: `${footerData.footerHeight}px`, //altura definida pelo usuaruio no input
-                  backgroundColor: footerBgColor, // Aplica a cor de fundo ao "footer"
+                  backgroundColor: footerData.bgColorF, // Aplica a cor de fundo ao "footer"
+                  backgroundImage: footerData.bgImageF,
                   border: "1px solid black",
                 }}
                 id="f2"
