@@ -5,7 +5,6 @@ import "./style.css";
 import "./tailwind.config";
 import Menu from "./Pages/Menu";
 import Templetemercado from "./Pages/Templetemercado";
-import Panfletomercado from "./Pages/Panfletomercado";
 import DragHandler from "./components/testedrag";
 import TemplateDashBoard from "./Pages/templete-dashboard";
 import SQLDashBoard from "./Pages/SQLDashBoard";
@@ -16,7 +15,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Menu />} />
         <Route path="/mercado-templete" element={<Templetemercado />} />
-        <Route path="/panfleto-mercado" element={<Panfletomercado />} />
         <Route path="/teste" element={<DragHandler />} />
         <Route path="/TemplateDashBoard" element={<TemplateDashBoard />} />
         <Route path="/SQLDashBoard" element={<SQLDashBoard />} />
