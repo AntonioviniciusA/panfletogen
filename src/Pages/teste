@@ -1,101 +1,170 @@
-{editingCardIndex !== null && (
-                <div
-                  style={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "30%",
-                    width: "30%",
-                    transform: "translate(-50%, -50%)",
-                    backgroundColor: "#bfdbfe",
-                    padding: "20px",
-                    boxShadow:
-                      "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-                    borderRadius: "20px",
-                    zIndex: 5000,
+ {footerData.logo && (
+                <Rnd
+                  position={{
+                    x: footerData.positionlogofH,
+                    y: footerData.positionlogofV,
+                  }}
+                  size={{
+                    width: footerData.logo.width || 100,
+
+                    height: footerData.logo.height || "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                  onDragStop={(e, d) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      positionlogofH: d.x, // Atualiza a posição X no estado
+                      positionlogofV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      logoWidth: ref.style.width, // Atualiza a largura no estado
+                      logoHeight: ref.style.height, // Atualiza a altura no estado
+                      positionlogofH: position.x, // Atualiza a posição X no estado
+                      positionlogofV: position.y, // Atualiza a posição Y no estado
+                    }));
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <h3>Editar Card</h3>
-                    <form
-                      style={{
-                        width: "100%",
-                        borderRadius: "20px",
-                      }}
-                    >
-                      <div class="tooltip">
-                        <input
-                          type="file"
-                          name="image"
-                          id="file-upload-imgcard"
-                          onChange={(e) =>
-                            handleCardChange(editingCardIndex, {
-                              target: {
-                                name: "image",
-                                value: URL.createObjectURL(e.target.files[0]),
-                              },
-                            })
-                          }
-                        />
+                  <img src={footerData.logo} alt="logo-footer" />
+                </Rnd>
+              )}
+              {footerData.image1f && (
+                <Rnd
+                  position={{
+                    x: footerData.positionimg1fH,
+                    y: footerData.positionimg1fV,
+                  }}
+                  size={{
+                    width: footerData.image1f.width || 100,
 
-                        <span class="tooltiptext">Imagem card</span>
+                    height: footerData.image1f.height || "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                  onDragStop={(e, d) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      positionimg1fH: d.x, // Atualiza a posição X no estado
+                      positionimg1fV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      image1fWidth: ref.style.width, // Atualiza a largura no estado
+                      image1fHeight: ref.style.height, // Atualiza a altura no estado
+                      positionimg1fH: position.x, // Atualiza a posição X no estado
+                      positionimg1fV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                >
+                  <img src={footerData.image1f} alt="image-footer-1" />
+                </Rnd>
+              )}
+              {footerData.image2f && (
+                <Rnd
+                  position={{
+                    x: footerData.positionimg2fH,
+                    y: footerData.positionimg2fV,
+                  }}
+                  size={{
+                    width: footerData.image2f.width || 100,
 
-                        <label
-                          htmlFor="file-upload-imgcard"
-                          className="custom-file-upload"
-                        >
-                          <span>+</span> {/* Logo ou ícone */}
-                        </label>
-                        <span class="tooltiptext">Imagem 3</span>
-                      </div>
-                      <br />
-                      <label>
-                        Descrição do Produto:
-                        <input
-                          type="text"
-                          name="description"
-                          value={cards[editingCardIndex].description}
-                          onChange={(e) =>
-                            handleCardChange(editingCardIndex, e)
-                          }
-                          placeholder="Descrição do Produto"
-                        />
-                      </label>
-                      <label>
-                        Preço:
-                        <input
-                          type="text"
-                          name="price"
-                          value={cards[editingCardIndex].price}
-                          onChange={(e) =>
-                            handleCardChange(editingCardIndex, e)
-                          }
-                          placeholder="9,99"
-                        />
-                      </label>
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveCard(editingCardIndex)}
-                      >
-                        Remover
-                      </button>
-                    </form>
-                    <button
-                      onClick={closeEditModal}
-                      style={{
-                        backgroundColor: "red",
-                        padding: "5px",
-                        borderRadius: "5px",
-                        color: "white",
-                      }}
-                    >
-                      Fechar
-                    </button>
-                  </div>
-                </div>
+                    height: footerData.image2f.height || "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                  onDragStop={(e, d) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      positionimg2fH: d.x, // Atualiza a posição X no estado
+                      positionimg2fV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      image2ffWidth: ref.style.width, // Atualiza a largura no estado
+                      image2ffHeight: ref.style.height, // Atualiza a altura no estado
+                      positionimg2fH: position.x, // Atualiza a posição X no estado
+                      positionimg2fV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                >
+                  <img src={footerData.image2f} alt="image-footer-2" />
+                </Rnd>
+              )}
+              {footerData.image3f && (
+                <Rnd
+                  position={{
+                    x: footerData.positionimg3fH,
+                    y: footerData.positionimg3fV,
+                  }}
+                  size={{
+                    width: footerData.image3f.width || 100,
+
+                    height: footerData.image3f.height || "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                  onDragStop={(e, d) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      positionimg3fH: d.x, // Atualiza a posição X no estado
+                      positionimg3fV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      image2ffWidth: ref.style.width, // Atualiza a largura no estado
+                      image2ffHeight: ref.style.height, // Atualiza a altura no estado
+                      positionimg3fH: position.x, // Atualiza a posição X no estado
+                      positionimg3fV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                >
+                  <img src={footerData.image3f} alt="image-footer-3" />
+                </Rnd>
+              )}
+              {footerData.image4f && (
+                <Rnd
+                  position={{
+                    x: footerData.positionimg4fH,
+                    y: footerData.positionimg4fV,
+                  }}
+                  size={{
+                    width: footerData.image4f.width || 100,
+
+                    height: footerData.image4f.height || "auto",
+                  }}
+                  minWidth={50}
+                  minHeight={50}
+                  bounds="parent"
+                  onDragStop={(e, d) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      positionimg4fH: d.x, // Atualiza a posição X no estado
+                      positionimg4fV: d.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setFooterData((prevData) => ({
+                      ...prevData,
+                      image2ffWidth: ref.style.width, // Atualiza a largura no estado
+                      image2ffHeight: ref.style.height, // Atualiza a altura no estado
+                      positionimg4fH: position.x, // Atualiza a posição X no estado
+                      positionimg4fV: position.y, // Atualiza a posição Y no estado
+                    }));
+                  }}
+                >
+                  <img src={footerData.image4f} alt="image-footer-4" />
+                </Rnd>
               )}

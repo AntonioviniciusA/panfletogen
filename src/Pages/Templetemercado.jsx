@@ -215,6 +215,8 @@ const Templetemercado = () => {
       alert("Você atingiu o limite de cards em ambas paginas.");
     }
   };
+  //add o padding nos cards
+  const isMaxCardsReached = cards.length >= maxCards;
   //
 
   //cria uma margem em volta do objeto
@@ -1730,7 +1732,11 @@ const Templetemercado = () => {
             >
               <div
                 className="pageCards"
-                style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
+                style={{
+                  backgroundColor: pageBgColorData,
+                  paddingTop: isMaxCardsReached ? "2%" : "0",
+                  paddingBottom: isMaxCardsReached ? "4%" : "0",
+                }}
               >
                 <div className="cards">
                   {cards.map((card, index) => (
