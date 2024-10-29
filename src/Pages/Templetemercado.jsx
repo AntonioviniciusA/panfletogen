@@ -126,7 +126,7 @@ const Templetemercado = () => {
     }));
   };
   const handleUrlChange = (e) => {
-    const url = e.target.files[0];
+    const url = e.clipboardData.getData("text"); // Captura a URL colada como texto
     setBgImage(`url(${url})`);
     setHeaderData((prevData) => ({
       ...prevData,
@@ -705,7 +705,7 @@ const Templetemercado = () => {
                         <input
                           type="text"
                           placeholder="Insira o URL da imagem"
-                          onChange={handleUrlChange}
+                          onPaste={handleUrlChange}
                         />
                       )}
 
