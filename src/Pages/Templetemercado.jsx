@@ -51,6 +51,9 @@ const Templetemercado = () => {
 
     headerHeight: 150,
   });
+
+  const [isSelected, setIsSelected] = useState(false);
+
   const [titulo, setTitulo] = useState("");
   const handleTituloChange = (e) => {
     setTitulo(e.target.value);
@@ -1648,6 +1651,11 @@ const Templetemercado = () => {
                       positionlogoV: position.y, // Atualiza a posição Y no estado
                     }));
                   }}
+                  onClick={() => setIsSelected(!isSelected)} // Alterna a seleção ao clicar
+                  style={{
+                    border: isSelected ? "5px solid red" : "none", // Aplica a borda vermelha quando selecionado
+                    overflow: "hidden", // Impede que a imagem ultrapasse a borda
+                  }}
                 >
                   <img
                     src={data?.headerData.logo || headerData.logo || null}
@@ -1734,8 +1742,8 @@ const Templetemercado = () => {
                 className="pageCards"
                 style={{
                   backgroundColor: pageBgColorData,
-                  paddingTop: isMaxCardsReached ? "2%" : "0",
-                  paddingBottom: isMaxCardsReached ? "4%" : "0",
+                  paddingTop: headerData.headerHeight === 150 ? "2%" : "0%",
+                  paddingBottom: headerData.headerHeight === 150 ? "4%" : "0%",
                 }}
               >
                 <div className="cards">
