@@ -1492,7 +1492,6 @@ const Templetemercado = () => {
               >
                 {/*  */}
                 <br />
-
                 <label>
                   Escolha a rede social 1:
                   <select
@@ -1506,6 +1505,17 @@ const Templetemercado = () => {
                     <option value="twitter">Twitter</option>
                     <option value="instagram">Instagram</option>
                   </select>
+                </label>
+                <label>
+                  Escolha a cor da rede social 1:
+                  <input
+                    type="color"
+                    className="colorswitch"
+                    value={footerData.logoColor}
+                    onChange={(e) =>
+                      handleFooterDataChange("logoColor", e.target.value)
+                    }
+                  />
                 </label>
                 <br />
                 <label>
@@ -1532,17 +1542,6 @@ const Templetemercado = () => {
                   />
                 </label>
                 <br />
-                <label>
-                  Escolha a cor da rede social 1:
-                  <input
-                    type="color"
-                    className="colorswitch"
-                    value={footerData.logoColor}
-                    onChange={(e) =>
-                      handleFooterDataChange("logoColor", e.target.value)
-                    }
-                  />
-                </label>
                 <br />
                 <label>
                   Escolha a rede social 2:
@@ -1557,7 +1556,15 @@ const Templetemercado = () => {
                     <option value="twitter">Twitter</option>
                     <option value="instagram">Instagram</option>
                   </select>
-                </label>
+                </label>{" "}
+                <input
+                  type="color"
+                  className="colorswitch"
+                  value={footerData.logoColor2}
+                  onChange={(e) =>
+                    handleFooterDataChange("logoColor2", e.target.value)
+                  }
+                />
                 <br />
                 <label>
                   Escreva o nome da rede 2:
@@ -1570,7 +1577,6 @@ const Templetemercado = () => {
                     }
                   />
                 </label>
-                <br />
                 <label>
                   Escolha a cor do texto 2:
                   <input
@@ -1583,18 +1589,6 @@ const Templetemercado = () => {
                   />
                 </label>
                 <br />
-                <label>
-                  Escolha a cor da rede social 2:
-                  <input
-                    type="color"
-                    className="colorswitch"
-                    value={footerData.logoColor2}
-                    onChange={(e) =>
-                      handleFooterDataChange("logoColor2", e.target.value)
-                    }
-                  />
-                </label>
-
                 {/* // */}
               </div>
             </div>
