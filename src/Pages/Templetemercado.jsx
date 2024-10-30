@@ -232,17 +232,25 @@ const Templetemercado = () => {
   // Adiciona um novo card
   const handleAddCard = () => {
     if (cards.length < maxCards) {
-      setCards([
-        ...cards,
-        `Card ${cards.length + 1}`,
-        { image: "", description: "", price: "" },
+      setCards((prevCards) => [
+        ...prevCards,
+        {
+          title: `Card ${prevCards.length + 1}`,
+          image: "",
+          description: "",
+          price: "",
+        },
       ]);
     } else if (cardsExtension.length < maxCardsExtension) {
       // alert("Você atingiu o limite de cards na primeira pagina.");
-      setCardsExtension([
-        ...cardsExtension,
-        `CardExtension ${cardsExtension.length + 10}`,
-        { image: "", description: "", price: "" },
+      setCardsExtension((prevCardsExtension) => [
+        ...prevCardsExtension,
+        {
+          title: `CardExtension ${prevCardsExtension.length + 15}`,
+          image: "",
+          description: "",
+          price: "",
+        },
       ]);
     } else {
       alert("Você atingiu o limite de cards em ambas paginas.");
