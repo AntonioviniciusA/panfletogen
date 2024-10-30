@@ -51,6 +51,7 @@ const Templetemercado = () => {
 
     headerHeight: 150,
   });
+
   const [titulo, setTitulo] = useState("");
   const handleTituloChange = (e) => {
     setTitulo(e.target.value);
@@ -96,6 +97,38 @@ const Templetemercado = () => {
     setFooterData((prevData) => ({
       ...prevData,
       telfont: newFont,
+    }));
+  };
+
+  const handleRightChange = (e) => {
+    const newRight = e.target.value;
+    setFooterData((prevData) => ({
+      ...prevData,
+      right: newRight,
+    }));
+  };
+
+  const handleRightFontSizeChange = (e) => {
+    const newSize = e.target.value;
+    setFooterData((prevData) => ({
+      ...prevData,
+      rightFontSize: newSize,
+    }));
+  };
+
+  const handleRightFontChange = (e) => {
+    const newFont = e.target.value;
+    setFooterData((prevData) => ({
+      ...prevData,
+      rightFont: newFont,
+    }));
+  };
+
+  const handleRightColorChange = (e) => {
+    const newColor = e.target.value;
+    setFooterData((prevData) => ({
+      ...prevData,
+      rightColor: newColor,
     }));
   };
 
@@ -215,6 +248,8 @@ const Templetemercado = () => {
       alert("Você atingiu o limite de cards em ambas paginas.");
     }
   };
+  //add o padding nos cards
+  const isMaxCardsReached = cards.length >= maxCards;
   //
 
   //cria uma margem em volta do objeto
@@ -289,6 +324,12 @@ const Templetemercado = () => {
     image4f: "",
     logoWidth: "",
     logoHeight: "",
+    right: "",
+    positionRightH: 10,
+    positionRightV: 0,
+    rightFont: "Arial",
+    rightFontSize: "16px",
+    rightColor: "#000000",
     positionlogofH: 0,
     positionlogofV: 0,
     positionimg1fH: 0,
@@ -1339,6 +1380,65 @@ const Templetemercado = () => {
             </div>
 
             <br />
+            <div
+              style={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div className="sub-container-config">
+                <label>
+                  Direitos:
+                  <input
+                    type="text"
+                    value={footerData.right}
+                    onChange={handleRightChange}
+                    maxLength="50"
+                    placeholder="Digite o nome de direito"
+                  />
+                </label>
+                <label>
+                  <select
+                    id="rightFont"
+                    value={footerData.rightFont}
+                    onChange={handleRightFontChange}
+                  >
+                    <option value="Arial">Arial</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Open Sans">Open Sans</option>
+                    <option value="Lobster">Lobster</option>
+                    <option value="New Amsterdam">New Amsterdam</option>
+                  </select>
+
+                  <select
+                    id="rightFontSize"
+                    value={footerData.rightFontSize}
+                    onChange={handleRightFontSizeChange}
+                  >
+                    <option value="12px">12px</option>
+                    <option value="16px">16px</option>
+                    <option value="20px">20px</option>
+                    <option value="24px">24px</option>
+                    <option value="28px">28px</option>
+                    <option value="32px">32px</option>
+                    <option value="36px">36px</option>
+                  </select>
+
+                  <label>
+                    <input
+                      type="color"
+                      value={footerData.rightColor}
+                      onChange={handleRightColorChange}
+                    />
+                  </label>
+                </label>
+              </div>
+            </div>
 
             <div
               style={{
@@ -1646,6 +1746,9 @@ const Templetemercado = () => {
                       positionlogoV: position.y, // Atualiza a posição Y no estado
                     }));
                   }}
+                  style={{
+                    overflow: "hidden", // Impede que a imagem ultrapasse a borda
+                  }}
                 >
                   <img
                     src={data?.headerData.logo || headerData.logo || null}
@@ -1730,7 +1833,11 @@ const Templetemercado = () => {
             >
               <div
                 className="pageCards"
-                style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
+                style={{
+                  backgroundColor: pageBgColorData,
+                  paddingTop: headerData.headerHeight === 150 ? "2%" : "0%",
+                  paddingBottom: headerData.headerHeight === 150 ? "4%" : "0%",
+                }}
               >
                 <div className="cards">
                   {cards.map((card, index) => (
@@ -2527,6 +2634,42 @@ const Templetemercado = () => {
                         }}
                       >
                         {footerData.tel}
+                      </p>
+                    </div>
+                  </Rnd>
+                )}
+                {footerData.right && (
+                  <Rnd
+                    position={{
+                      x: footerData.positionRightH,
+                      y: footerData.positionRightV,
+                    }}
+                    size={{ height: "auto" }}
+                    minWidth={160}
+                    maxHeight={25}
+                    bounds="parent"
+                    enableResizing={false}
+                    onDragStop={(e, d) => {
+                      setFooterData((prevData) => ({
+                        ...prevData,
+                        positionRightH: d.x, // Atualiza a posição X no estado
+                        positionRightV: d.y, // Atualiza a posição Y no estado
+                      }));
+                    }}
+                    style={{
+                      cursor: "move",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <p
+                        style={{
+                          position: "relative",
+                          fontFamily: footerData.rightFont,
+                          fontSize: footerData.rightFontSize,
+                          color: footerData.rightColor,
+                        }}
+                      >
+                        {footerData.right}
                       </p>
                     </div>
                   </Rnd>
