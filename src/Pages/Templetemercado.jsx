@@ -883,49 +883,54 @@ const Templetemercado = () => {
                         placeholder="Economia Garantida Toda Semana! Descubra as Ofertas Imperdíveis do Supermercado XYZ!"
                       />
                     </label>
+
                     <div className="estiloletra">
-                      <select
-                        id="titulofont"
-                        value={titulofont}
-                        onChange={handleTituloFontChange}
-                      >
-                        <option value="Arial">Arial</option>
-                        <option value="Courier New">Courier New</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                        <option value="Verdana">Verdana</option>
-                        <option value="Roboto">Roboto</option>
-                        <option value="Open Sans">Open Sans</option>
-                        <option value="Lobster">Lobster</option>
-                        <option value="New Amsterdam">New Amsterdam</option>
-                      </select>
+                      <div className="format">
+                        <select
+                          id="titulofont"
+                          value={titulofont}
+                          onChange={handleTituloFontChange}
+                        >
+                          <option value="Arial">Arial</option>
+                          <option value="Courier New">Courier New</option>
+                          <option value="Georgia">Georgia</option>
+                          <option value="Times New Roman">
+                            Times New Roman
+                          </option>
+                          <option value="Verdana">Verdana</option>
+                          <option value="Roboto">Roboto</option>
+                          <option value="Open Sans">Open Sans</option>
+                          <option value="Lobster">Lobster</option>
+                          <option value="New Amsterdam">New Amsterdam</option>
+                        </select>
 
-                      <select
-                        id="titulofontSize"
-                        value={titulofontSize}
-                        onChange={handleTituloFontSizeChange}
-                      >
-                        <option value="12px">12px</option>
-                        <option value="16px">16px</option>
-                        <option value="20px">20px</option>
-                        <option value="24px">24px</option>
-                        <option value="28px">28px</option>
-                        <option value="32px">32px</option>
-                        <option value="40px">40px</option>
-                        <option value="42px">42px</option>
-                        <option value="44px">44px</option>
-                        <option value="48px">48px</option>
-                        <option value="52px">52px</option>
-                        <option value="56px">56px</option>
-                      </select>
+                        <select
+                          id="titulofontSize"
+                          value={titulofontSize}
+                          onChange={handleTituloFontSizeChange}
+                        >
+                          <option value="12px">12px</option>
+                          <option value="16px">16px</option>
+                          <option value="20px">20px</option>
+                          <option value="24px">24px</option>
+                          <option value="28px">28px</option>
+                          <option value="32px">32px</option>
+                          <option value="40px">40px</option>
+                          <option value="42px">42px</option>
+                          <option value="44px">44px</option>
+                          <option value="48px">48px</option>
+                          <option value="52px">52px</option>
+                          <option value="56px">56px</option>
+                        </select>
 
-                      <input
-                        type="color"
-                        name="tituloColor"
-                        className="colorswitch"
-                        value={headerData.tituloColor}
-                        onChange={handleHeaderChange}
-                      />
+                        <input
+                          type="color"
+                          name="tituloColor"
+                          className="colorswitch"
+                          value={headerData.tituloColor}
+                          onChange={handleHeaderChange}
+                        />
+                      </div>
                     </div>
                     <br />
                   </div>
@@ -958,7 +963,7 @@ const Templetemercado = () => {
                         placeholder="Valido do dia 99 ao dia 99 de ago"
                       />
                     </label>
-                    <div className="estiloletra">
+                    <div className="estiloletra format">
                       <select
                         id="duracaofont"
                         value={duracaofont}
@@ -1355,37 +1360,36 @@ const Templetemercado = () => {
                   />
                 </label>
                 <label>
-                  <select
-                    id="telfont"
-                    value={telfont}
-                    onChange={handleTelFontChange}
-                  >
-                    <option value="Arial">Arial</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Open Sans">Open Sans</option>
-                    <option value="Lobster">Lobster</option>
-                    <option value="New Amsterdam">New Amsterdam</option>
-                  </select>
+                  <div className="format">
+                    <select
+                      id="telfont"
+                      value={telfont}
+                      onChange={handleTelFontChange}
+                    >
+                      <option value="Arial">Arial</option>
+                      <option value="Courier New">Courier New</option>
+                      <option value="Georgia">Georgia</option>
+                      <option value="Times New Roman">Times New Roman</option>
+                      <option value="Verdana">Verdana</option>
+                      <option value="Roboto">Roboto</option>
+                      <option value="Open Sans">Open Sans</option>
+                      <option value="Lobster">Lobster</option>
+                      <option value="New Amsterdam">New Amsterdam</option>
+                    </select>
 
-                  <select
-                    id="telfontSize"
-                    value={telfontSize}
-                    onChange={handleTelFontSizeChange}
-                  >
-                    <option value="12px">12px</option>
-                    <option value="16px">16px</option>
-                    <option value="20px">20px</option>
-                    <option value="24px">24px</option>
-                    <option value="28px">28px</option>
-                    <option value="32px">32px</option>
-                    <option value="36px">36px</option>
-                  </select>
-
-                  <label>
+                    <select
+                      id="telfontSize"
+                      value={telfontSize}
+                      onChange={handleTelFontSizeChange}
+                    >
+                      <option value="12px">12px</option>
+                      <option value="16px">16px</option>
+                      <option value="20px">20px</option>
+                      <option value="24px">24px</option>
+                      <option value="28px">28px</option>
+                      <option value="32px">32px</option>
+                      <option value="36px">36px</option>
+                    </select>
                     <input
                       type="color"
                       name="tituloColor"
@@ -1393,7 +1397,7 @@ const Templetemercado = () => {
                       value={telColor} // Usa o valor de telColor no estado
                       onChange={handletelColorChange} // Chama a função para mudar a cor
                     />
-                  </label>
+                  </div>
                 </label>
               </div>
             </div>
@@ -1418,47 +1422,48 @@ const Templetemercado = () => {
                   />
                 </label>
                 <label>
-                  <select
-                    id="rightFont"
-                    value={footerData.rightFont}
-                    onChange={handleRightFontChange}
-                  >
-                    <option value="Arial">Arial</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Open Sans">Open Sans</option>
-                    <option value="Lobster">Lobster</option>
-                    <option value="New Amsterdam">New Amsterdam</option>
-                  </select>
+                  <div className="format">
+                    <select
+                      id="rightFont"
+                      value={footerData.rightFont}
+                      onChange={handleRightFontChange}
+                    >
+                      <option value="Arial">Arial</option>
+                      <option value="Courier New">Courier New</option>
+                      <option value="Georgia">Georgia</option>
+                      <option value="Times New Roman">Times New Roman</option>
+                      <option value="Verdana">Verdana</option>
+                      <option value="Roboto">Roboto</option>
+                      <option value="Open Sans">Open Sans</option>
+                      <option value="Lobster">Lobster</option>
+                      <option value="New Amsterdam">New Amsterdam</option>
+                    </select>
 
-                  <select
-                    id="rightFontSize"
-                    value={footerData.rightFontSize}
-                    onChange={handleRightFontSizeChange}
-                  >
-                    <option value="12px">12px</option>
-                    <option value="16px">16px</option>
-                    <option value="20px">20px</option>
-                    <option value="24px">24px</option>
-                    <option value="28px">28px</option>
-                    <option value="32px">32px</option>
-                    <option value="36px">36px</option>
-                  </select>
+                    <select
+                      id="rightFontSize"
+                      value={footerData.rightFontSize}
+                      onChange={handleRightFontSizeChange}
+                    >
+                      <option value="12px">12px</option>
+                      <option value="16px">16px</option>
+                      <option value="20px">20px</option>
+                      <option value="24px">24px</option>
+                      <option value="28px">28px</option>
+                      <option value="32px">32px</option>
+                      <option value="36px">36px</option>
+                    </select>
 
-                  <label>
                     <input
                       type="color"
+                      className="colorswitch"
                       value={footerData.rightColor}
                       onChange={handleRightColorChange}
                     />
-                  </label>
+                  </div>
                 </label>
               </div>
             </div>
-
+            <br />
             <div
               style={{
                 display: "flex",
@@ -1511,6 +1516,7 @@ const Templetemercado = () => {
                   Escolha a cor do texto:
                   <input
                     type="color"
+                    className="colorswitch"
                     value={footerData.textColor}
                     onChange={(e) =>
                       handleFooterDataChange("textColor", e.target.value)
@@ -1522,6 +1528,7 @@ const Templetemercado = () => {
                   Escolha a cor da rede social 1:
                   <input
                     type="color"
+                    className="colorswitch"
                     value={footerData.logoColor}
                     onChange={(e) =>
                       handleFooterDataChange("logoColor", e.target.value)
@@ -1560,6 +1567,7 @@ const Templetemercado = () => {
                   Escolha a cor do texto 2:
                   <input
                     type="color"
+                    className="colorswitch"
                     value={footerData.textColor2}
                     onChange={(e) =>
                       handleFooterDataChange("textColor2", e.target.value)
@@ -1571,6 +1579,7 @@ const Templetemercado = () => {
                   Escolha a cor da rede social 2:
                   <input
                     type="color"
+                    className="colorswitch"
                     value={footerData.logoColor2}
                     onChange={(e) =>
                       handleFooterDataChange("logoColor2", e.target.value)

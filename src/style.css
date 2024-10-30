@@ -21,6 +21,11 @@
   font-size: 18px;
   color: #888;
 }
+.format {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 html,
 body {
