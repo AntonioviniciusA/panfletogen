@@ -1391,7 +1391,7 @@ const Templetemercado = () => {
             >
               <div className="sub-container-config">
                 <label>
-                  Nome de Direito:
+                  Direitos:
                   <input
                     type="text"
                     value={footerData.right}
@@ -1401,7 +1401,6 @@ const Templetemercado = () => {
                   />
                 </label>
                 <label>
-                  Fonte:
                   <select
                     id="rightFont"
                     value={footerData.rightFont}
@@ -1417,9 +1416,7 @@ const Templetemercado = () => {
                     <option value="Lobster">Lobster</option>
                     <option value="New Amsterdam">New Amsterdam</option>
                   </select>
-                </label>
-                <label>
-                  Tamanho da Fonte:
+
                   <select
                     id="rightFontSize"
                     value={footerData.rightFontSize}
@@ -1433,14 +1430,14 @@ const Templetemercado = () => {
                     <option value="32px">32px</option>
                     <option value="36px">36px</option>
                   </select>
-                </label>
-                <label>
-                  Cor do Texto:
-                  <input
-                    type="color"
-                    value={footerData.rightColor}
-                    onChange={handleRightColorChange}
-                  />
+
+                  <label>
+                    <input
+                      type="color"
+                      value={footerData.rightColor}
+                      onChange={handleRightColorChange}
+                    />
+                  </label>
                 </label>
               </div>
             </div>
