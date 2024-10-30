@@ -421,15 +421,33 @@ const Templetemercado = () => {
     }));
   };
 
-  //troca de cores textos do footer
   const logoTelWtCheckbox = document.getElementById("logotelwt");
-  const logoTelstyle = document.getElementById("logotel");
+  const logotels = document.getElementById("logotels");
 
   if (logoTelWtCheckbox && logoTelWtCheckbox.checked) {
     console.log("O checkbox está marcado.");
+    if (logotels) {
+      logotels.style.display = "flex";
+    } else {
+      console.error("Elemento logotels não encontrado no DOM.");
+    }
   } else {
+    if (logotels) {
+      logotels.style.display = "none";
+    } else {
+      console.error("Elemento logotels não encontrado no DOM.");
+    }
     console.log("O checkbox não está marcado.");
   }
+  const formatPhoneNumber = (input) => {
+    const cleaned = input.replace(/\D/g, "");
+    const match = cleaned.match(/^(\d{2})(\d{1})(\d{4})(\d{4})$/);
+    if (match) {
+      return `(${match[1]}) ${match[2]} ${match[3]}-${match[4]}`;
+    }
+    return input;
+  };
+
   //troca de cor tel
 
   const [telColor, setTelColor] = useState("#000000");
@@ -445,10 +463,10 @@ const Templetemercado = () => {
   //input alterar posicao na horinzontal da logo do footer
 
   const handleTelChange = (e) => {
-    const { value } = e.target;
+    const {} = e.target;
     setFooterData((prevData) => ({
       ...prevData,
-      tel: value,
+      tel: formatPhoneNumber(e.target.value),
     }));
   };
   //
@@ -1316,15 +1334,16 @@ const Templetemercado = () => {
               }}
             >
               <div className="sub-container-config">
-                <label>
+                <div>
                   <input
                     type="checkbox"
                     name="logoTelWt"
                     id="logotelwt"
                     placeholder="LOGO Whatsapp"
+                    style={{ width: "fit-content" }}
                   />
-                  LOGO
-                </label>
+                  <label htmlFor="logoTelWt"> LOGO</label>
+                </div>
                 <label>
                   Número de Telefone:
                   <input
