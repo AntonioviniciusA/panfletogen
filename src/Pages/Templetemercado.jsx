@@ -1422,10 +1422,9 @@ const Templetemercado = () => {
                 <label>
                   Direitos:
                   <input
-                    type="text"
+                    type="textarea"
                     value={footerData.right}
                     onChange={handleRightChange}
-                    maxLength="50"
                     placeholder="Digite o nome de direito"
                   />
                 </label>
