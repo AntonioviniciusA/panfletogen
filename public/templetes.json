@@ -4,17 +4,5 @@
     "name": "Mercado templente",
     "image": "",
     "link": "/mercado-templete"
-  },
-  {
-    "id": "23214",
-    "name": "DashBoard",
-    "image": "",
-    "link": "/TemplateDashBoard"
-  },
-  {
-    "id": "53214",
-    "name": "DashBoardSQL",
-    "image": "",
-    "link": "/SQLDashBoard"
   }
 ]
