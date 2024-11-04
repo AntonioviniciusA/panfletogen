@@ -16,13 +16,13 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-
+import "../style.css";
 const Templetemercado = () => {
   /*-------------------- HEADER-------------------------*/
   {
     /* header*/
   }
-
+  const [isLoading, setIsLoading] = useState(false);
   const [bgtypeheader, setBgTypeHeader] = useState({
     value: "",
   });
@@ -358,6 +358,8 @@ const Templetemercado = () => {
     heightimg3: 0,
     widthimg4: 0,
     heightimg4: 0,
+    widthright: 0,
+    heightright: 0,
     logotel: "whatsapp",
     telfont: "Arial",
     telfontSize: "16px",
@@ -433,19 +435,13 @@ const Templetemercado = () => {
   const logotels = document.getElementById("logotels");
 
   if (logoTelWtCheckbox && logoTelWtCheckbox.checked) {
-    console.log("O checkbox está marcado.");
     if (logotels) {
       logotels.style.display = "flex";
-    } else {
-      console.error("Elemento logotels não encontrado no DOM.");
     }
   } else {
     if (logotels) {
       logotels.style.display = "none";
-    } else {
-      console.error("Elemento logotels não encontrado no DOM.");
     }
-    console.log("O checkbox não está marcado.");
   }
   const formatPhoneNumber = (input) => {
     const cleaned = input.replace(/\D/g, "");
@@ -546,8 +542,6 @@ const Templetemercado = () => {
         return null;
     }
   };
-
-  console.log(`O número máximo de cards é: ${maxCards}`);
   /*-------------------- CONFIG DE SAVE -------------------------*/
   const [data, setData] = useState(null);
   {
@@ -623,7 +617,8 @@ const Templetemercado = () => {
   function clear() {
     localStorage.removeItem("formData");
     localStorage.removeItem("appData");
-    console.log("LocalStorage limpo!");
+    alert("LocalStorage limpo!");
+    window.location.reload();
   }
   // Carrega os dados salvos do localStorage ao montar o componente
   useEffect(() => {
@@ -646,6 +641,7 @@ const Templetemercado = () => {
     const pdf = new jsPDF("p", "mm", "a4");
     const imgWidth = 190;
     const currentDate = new Date().toLocaleDateString("pt-BR");
+    setIsLoading(true);
 
     for (let i = 0; i < contentRefs.length; i++) {
       const canvas = await html2canvas(contentRefs[i].current, {
@@ -660,10 +656,12 @@ const Templetemercado = () => {
     }
 
     pdf.save(`Panfleto_${currentDate}.pdf`);
+    setIsLoading(false);
   };
   return (
     <>
       <Header />
+
       <div
         //fundo, container pai
         style={{
@@ -1493,7 +1491,7 @@ const Templetemercado = () => {
                 {/*  */}
                 <br />
                 <label>
-                  Escolha a rede social 1:
+                  Rede social 1:
                   <select
                     name="socialIcon"
                     value={footerData.socialIcon}
@@ -1505,9 +1503,6 @@ const Templetemercado = () => {
                     <option value="twitter">Twitter</option>
                     <option value="instagram">Instagram</option>
                   </select>
-                </label>
-                <label>
-                  Escolha a cor da rede social 1:
                   <input
                     type="color"
                     className="colorswitch"
@@ -1517,7 +1512,6 @@ const Templetemercado = () => {
                     }
                   />
                 </label>
-                <br />
                 <label>
                   Escreva a rede social:
                   <input
@@ -1529,22 +1523,18 @@ const Templetemercado = () => {
                     }
                   />
                 </label>
-                <br />
-                <label>
-                  Escolha a cor do texto:
-                  <input
-                    type="color"
-                    className="colorswitch"
-                    value={footerData.textColor}
-                    onChange={(e) =>
-                      handleFooterDataChange("textColor", e.target.value)
-                    }
-                  />
-                </label>
+                <input
+                  type="color"
+                  className="colorswitch"
+                  value={footerData.textColor}
+                  onChange={(e) =>
+                    handleFooterDataChange("textColor", e.target.value)
+                  }
+                />
                 <br />
                 <br />
                 <label>
-                  Escolha a rede social 2:
+                  Rede social 2:
                   <select
                     name="socialIcon2"
                     value={footerData.socialIcon2}
@@ -1556,16 +1546,16 @@ const Templetemercado = () => {
                     <option value="twitter">Twitter</option>
                     <option value="instagram">Instagram</option>
                   </select>
-                </label>{" "}
-                <input
-                  type="color"
-                  className="colorswitch"
-                  value={footerData.logoColor2}
-                  onChange={(e) =>
-                    handleFooterDataChange("logoColor2", e.target.value)
-                  }
-                />
-                <br />
+                  <input
+                    type="color"
+                    className="colorswitch"
+                    value={footerData.logoColor2}
+                    onChange={(e) =>
+                      handleFooterDataChange("logoColor2", e.target.value)
+                    }
+                  />
+                </label>
+
                 <label>
                   Escreva o nome da rede 2:
                   <input
@@ -1577,17 +1567,14 @@ const Templetemercado = () => {
                     }
                   />
                 </label>
-                <label>
-                  Escolha a cor do texto 2:
-                  <input
-                    type="color"
-                    className="colorswitch"
-                    value={footerData.textColor2}
-                    onChange={(e) =>
-                      handleFooterDataChange("textColor2", e.target.value)
-                    }
-                  />
-                </label>
+                <input
+                  type="color"
+                  className="colorswitch"
+                  value={footerData.textColor2}
+                  onChange={(e) =>
+                    handleFooterDataChange("textColor2", e.target.value)
+                  }
+                />
                 <br />
                 {/* // */}
               </div>
@@ -1869,6 +1856,18 @@ const Templetemercado = () => {
                   paddingBottom: headerData.headerHeight === 150 ? "4%" : "0%",
                 }}
               >
+                <div
+                  style={{
+                    transform: "rotate(-90deg)",
+                    width: "fit-content",
+                    position: "absolute",
+                    left: -50,
+                    top: 300,
+                    fontFamily: "roboto",
+                  }}
+                >
+                  <p>Flyergen.netlify.app</p>
+                </div>
                 <div className="cards">
                   {cards.map((card, index) => (
                     <div
@@ -2309,484 +2308,539 @@ const Templetemercado = () => {
 
           <br />
           {/*  */}
-          <div id="back-page">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              alignSelf: "flex-start",
+            }}
+          >
             <div
-              className="page"
-              style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
-              ref={contentRefs[1]}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "80%",
+                padding: "10px",
+                borderRadius: "20px 20px 0px 0px",
+                backgroundColor: "#bfdbfe",
+              }}
             >
-              <div className="cards">
-                {cardsExtension.map((card, index) => (
-                  <div
-                    key={index}
-                    className="card"
-                    onClick={() => openEditModalb(index)}
-                    style={{
-                      border:
-                        selectedCardIndexb === index
-                          ? "3px solid blue" // add a cor
-                          : "0px solid #ccc",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <img src={card.image} alt={`Product ${index}`} />
-                    <p>{card.description}</p>
-                    <div id="bgprice">
-                      <h1 style={{ color: cardcolorData.precocor || "white" }}>
-                        R${card.price}
-                      </h1>
-                    </div>
-                  </div>
-                ))}
-                {editingCardIndexb !== null && (
-                  <div
-                    style={{
-                      position: "fixed",
-                      top: "50%",
-                      left: "30%",
-                      width: "30%",
-                      transform: "translate(-50%, -50%)",
-                      backgroundColor: "#bfdbfe",
-                      padding: "20px",
-                      boxShadow:
-                        "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-                      borderRadius: "20px",
-                      zIndex: 5000,
-                    }}
-                  >
+              <h1>Preview</h1>
+            </div>
+
+            <div id="back-page">
+              <div
+                className="page"
+                style={{ backgroundColor: pageBgColorData }} // Aplica a cor de fundo
+                ref={contentRefs[1]}
+              >
+                <div className="cards">
+                  {cardsExtension.map((card, index) => (
                     <div
+                      key={index}
+                      className="card"
+                      onClick={() => openEditModalb(index)}
                       style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
+                        border:
+                          selectedCardIndexb === index
+                            ? "3px solid blue" // add a cor
+                            : "0px solid #ccc",
+                        cursor: "pointer",
                       }}
                     >
-                      <h3>Editar Card</h3>
-                      <form
-                        style={{
-                          width: "100%",
-                          borderRadius: "20px",
-                        }}
-                      >
-                        <div class="tooltip">
-                          <input
-                            type="file"
-                            name="image"
-                            id="file-upload-imgcard"
-                            onChange={(e) =>
-                              handleCardChangeb(editingCardIndexb, {
-                                target: {
-                                  name: "image",
-                                  value: URL.createObjectURL(e.target.files[0]),
-                                },
-                              })
-                            }
-                          />
-
-                          <span class="tooltiptext">Imagem card</span>
-
-                          <label
-                            htmlFor="file-upload-imgcard"
-                            className="custom-file-upload"
-                          >
-                            <span>+</span> {/* Logo ou ícone */}
-                          </label>
-                          <span class="tooltiptext">Imagem 3</span>
-                        </div>
-                        <br />
-                        <label>
-                          Descrição do Produto:
-                          <input
-                            type="text"
-                            name="description"
-                            value={
-                              cardsExtension[editingCardIndexb].description
-                            }
-                            onChange={(e) =>
-                              handleCardChangeb(editingCardIndexb, e)
-                            }
-                            placeholder="Descrição do Produto"
-                          />
-                        </label>
-                        <label>
-                          Preço:
-                          <input
-                            type="text"
-                            name="price"
-                            value={cardsExtension[editingCardIndexb].price}
-                            onChange={(e) =>
-                              handleCardChangeb(editingCardIndexb, e)
-                            }
-                            placeholder="9,99"
-                          />
-                        </label>
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveCardb(editingCardIndexb)}
+                      <img src={card.image} alt={`Product ${index}`} />
+                      <p>{card.description}</p>
+                      <div id="bgprice">
+                        <h1
+                          style={{ color: cardcolorData.precocor || "white" }}
                         >
-                          Remover
-                        </button>
-                      </form>
-                      <button
-                        onClick={closeEditModalb}
+                          R${card.price}
+                        </h1>
+                      </div>
+                    </div>
+                  ))}
+                  {editingCardIndexb !== null && (
+                    <div
+                      style={{
+                        position: "fixed",
+                        top: "50%",
+                        left: "30%",
+                        width: "30%",
+                        transform: "translate(-50%, -50%)",
+                        backgroundColor: "#bfdbfe",
+                        padding: "20px",
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                        borderRadius: "20px",
+                        zIndex: 5000,
+                      }}
+                    >
+                      <div
                         style={{
-                          backgroundColor: "red",
-                          padding: "5px",
-                          borderRadius: "5px",
-                          color: "white",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
                         }}
                       >
-                        Fechar
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-              <footer
-                style={{
-                  position: "relative",
-                  height: `${footerData.footerHeight}px`, //altura definida pelo usuaruio no input
-                  backgroundColor: footerData.bgColorF, // Aplica a cor de fundo ao "footer"
-                  backgroundImage: footerData.bgImageF,
-                  border: "1px solid black",
-                }}
-                id="f2"
-              >
-                {footerData.logo && (
-                  <Rnd
-                    position={{
-                      x: footerData.positionlogofH,
-                      y: footerData.positionlogofV,
-                    }}
-                    size={{
-                      width: footerData.logoWidth || 100,
-                      height: footerData.logoHeight || "auto",
-                    }}
-                    minWidth={50}
-                    minHeight={50}
-                    bounds="parent"
-                    onDragStop={(e, d) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        positionlogofH: d.x, // Atualiza a posição X no estado
-                        positionlogofV: d.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                    onResizeStop={(e, direction, ref, delta, position) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        logoWidth: ref.style.width, // Atualiza a largura no estado
-                        logoHeight: ref.style.height, // Atualiza a altura no estado
-                        positionlogofH: position.x, // Atualiza a posição X no estado
-                        positionlogofV: position.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                  >
-                    <img src={footerData?.logo || ""} alt="logo-footer" />
-                  </Rnd>
-                )}
-                {footerData.image1f && (
-                  <Rnd
-                    position={{
-                      x: footerData.positionimg1fH,
-                      y: footerData.positionimg1fV,
-                    }}
-                    size={{
-                      width: footerData.widthimg1 || 100,
-                      height: footerData.heightimg1 || "auto",
-                    }}
-                    minWidth={50}
-                    minHeight={50}
-                    bounds="parent"
-                    enableResizing="true"
-                    onDragStop={(e, d) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        positionimg1fH: d.x, // Atualiza a posição X no estado
-                        positionimg1fV: d.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                    onResizeStop={(e, direction, ref, delta, position) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        widthimg1: ref.style.width, // Atualiza a largura no estado
-                        heightimg1: ref.style.height, // Atualiza a altura no estado
-                        positionimg1fH: position.x, // Atualiza a posição X no estado
-                        positionimg1fV: position.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                  >
-                    <img src={footerData.image1f} alt="image-footer-1" />
-                  </Rnd>
-                )}
-                {footerData.image2f && (
-                  <Rnd
-                    position={{
-                      x: footerData.positionimg2fH,
-                      y: footerData.positionimg2fV,
-                    }}
-                    size={{
-                      width: footerData.widthimg2 || 100,
-                      height: footerData.heightimg2 || "auto",
-                    }}
-                    minWidth={50}
-                    minHeight={50}
-                    bounds="parent"
-                    enableResizing="true"
-                    onDragStop={(e, d) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        positionimg2fH: d.x, // Atualiza a posição X no estado
-                        positionimg2fV: d.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                    onResizeStop={(e, direction, ref, delta, position) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        widthimg2: ref.style.width, // Atualiza a largura no estado
-                        heightimg2: ref.style.height, // Atualiza a altura no estado
-                        positionimg2fH: position.x, // Atualiza a posição X no estado
-                        positionimg2fV: position.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                  >
-                    <img src={footerData.image2f} alt="image-footer-2" />
-                  </Rnd>
-                )}
-                {footerData.image3f && (
-                  <Rnd
-                    position={{
-                      x: footerData.positionimg3fH,
-                      y: footerData.positionimg3fV,
-                    }}
-                    size={{
-                      width: footerData.widthimg3 || 100,
-                      height: footerData.heightimg3 || "auto",
-                    }}
-                    minWidth={50}
-                    minHeight={50}
-                    bounds="parent"
-                    enableResizing="true"
-                    onDragStop={(e, d) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        positionimg3fH: d.x, // Atualiza a posição X no estado
-                        positionimg3fV: d.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                    onResizeStop={(e, direction, ref, delta, position) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        widthimg3: ref.style.width, // Atualiza a largura no estado
-                        heightimg3: ref.style.height, // Atualiza a altura no estado
-                        positionimg3fH: position.x, // Atualiza a posição X no estado
-                        positionimg3fV: position.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                  >
-                    <img src={footerData.image3f} alt="image-footer-3" />
-                  </Rnd>
-                )}
-                {footerData.image4f && (
-                  <Rnd
-                    position={{
-                      x: footerData.positionimg4fH,
-                      y: footerData.positionimg4fV,
-                    }}
-                    size={{
-                      width: footerData.widthimg4 || 100,
-                      height: footerData.heightimg4 || "auto",
-                    }}
-                    minWidth={50}
-                    minHeight={50}
-                    bounds="parent"
-                    enableResizing="true"
-                    onDragStop={(e, d) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        positionimg4fH: d.x, // Atualiza a posição X no estado
-                        positionimg4fV: d.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                    onResizeStop={(e, direction, ref, delta, position) => {
-                      setFooterData((prevData) => ({
-                        ...prevData,
-                        widthimg4: ref.style.width, // Atualiza a largura no estado
-                        heightimg4: ref.style.height, // Atualiza a altura no estado
-                        positionimg4fH: position.x, // Atualiza a posição X no estado
-                        positionimg4fV: position.y, // Atualiza a posição Y no estado
-                      }));
-                    }}
-                  >
-                    <img src={footerData.image4f} alt="image-footer-4" />
-                  </Rnd>
-                )}
+                        <h3>Editar Card</h3>
+                        <form
+                          style={{
+                            width: "100%",
+                            borderRadius: "20px",
+                          }}
+                        >
+                          <div class="tooltip">
+                            <input
+                              type="file"
+                              name="image"
+                              id="file-upload-imgcard"
+                              onChange={(e) =>
+                                handleCardChangeb(editingCardIndexb, {
+                                  target: {
+                                    name: "image",
+                                    value: URL.createObjectURL(
+                                      e.target.files[0]
+                                    ),
+                                  },
+                                })
+                              }
+                            />
 
-                {footerData.tel && (
+                            <span class="tooltiptext">Imagem card</span>
+
+                            <label
+                              htmlFor="file-upload-imgcard"
+                              className="custom-file-upload"
+                            >
+                              <span>+</span> {/* Logo ou ícone */}
+                            </label>
+                            <span class="tooltiptext">Imagem 3</span>
+                          </div>
+                          <br />
+                          <label>
+                            Descrição do Produto:
+                            <input
+                              type="text"
+                              name="description"
+                              value={
+                                cardsExtension[editingCardIndexb].description
+                              }
+                              onChange={(e) =>
+                                handleCardChangeb(editingCardIndexb, e)
+                              }
+                              placeholder="Descrição do Produto"
+                            />
+                          </label>
+                          <label>
+                            Preço:
+                            <input
+                              type="text"
+                              name="price"
+                              value={cardsExtension[editingCardIndexb].price}
+                              onChange={(e) =>
+                                handleCardChangeb(editingCardIndexb, e)
+                              }
+                              placeholder="9,99"
+                            />
+                          </label>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveCardb(editingCardIndexb)}
+                          >
+                            Remover
+                          </button>
+                        </form>
+                        <button
+                          onClick={closeEditModalb}
+                          style={{
+                            backgroundColor: "red",
+                            padding: "5px",
+                            borderRadius: "5px",
+                            color: "white",
+                          }}
+                        >
+                          Fechar
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <footer
+                  style={{
+                    position: "relative",
+                    height: `${footerData.footerHeight}px`, //altura definida pelo usuaruio no input
+                    backgroundColor: footerData.bgColorF, // Aplica a cor de fundo ao "footer"
+                    backgroundImage: footerData.bgImageF,
+                    border: "1px solid black",
+                  }}
+                  id="f2"
+                >
+                  {footerData.logo && (
+                    <Rnd
+                      position={{
+                        x: footerData.positionlogofH,
+                        y: footerData.positionlogofV,
+                      }}
+                      size={{
+                        width: footerData.logoWidth || 100,
+                        height: footerData.logoHeight || "auto",
+                      }}
+                      minWidth={50}
+                      minHeight={50}
+                      bounds="parent"
+                      onDragStop={(e, d) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          positionlogofH: d.x, // Atualiza a posição X no estado
+                          positionlogofV: d.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                      onResizeStop={(e, direction, ref, delta, position) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          logoWidth: ref.style.width, // Atualiza a largura no estado
+                          logoHeight: ref.style.height, // Atualiza a altura no estado
+                          positionlogofH: position.x, // Atualiza a posição X no estado
+                          positionlogofV: position.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                    >
+                      <img src={footerData?.logo || ""} alt="logo-footer" />
+                    </Rnd>
+                  )}
+                  {footerData.image1f && (
+                    <Rnd
+                      position={{
+                        x: footerData.positionimg1fH,
+                        y: footerData.positionimg1fV,
+                      }}
+                      size={{
+                        width: footerData.widthimg1 || 100,
+                        height: footerData.heightimg1 || "auto",
+                      }}
+                      minWidth={50}
+                      minHeight={50}
+                      bounds="parent"
+                      enableResizing="true"
+                      onDragStop={(e, d) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          positionimg1fH: d.x, // Atualiza a posição X no estado
+                          positionimg1fV: d.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                      onResizeStop={(e, direction, ref, delta, position) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          widthimg1: ref.style.width, // Atualiza a largura no estado
+                          heightimg1: ref.style.height, // Atualiza a altura no estado
+                          positionimg1fH: position.x, // Atualiza a posição X no estado
+                          positionimg1fV: position.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                    >
+                      <img src={footerData.image1f} alt="image-footer-1" />
+                    </Rnd>
+                  )}
+                  {footerData.image2f && (
+                    <Rnd
+                      position={{
+                        x: footerData.positionimg2fH,
+                        y: footerData.positionimg2fV,
+                      }}
+                      size={{
+                        width: footerData.widthimg2 || 100,
+                        height: footerData.heightimg2 || "auto",
+                      }}
+                      minWidth={50}
+                      minHeight={50}
+                      bounds="parent"
+                      enableResizing="true"
+                      onDragStop={(e, d) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          positionimg2fH: d.x, // Atualiza a posição X no estado
+                          positionimg2fV: d.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                      onResizeStop={(e, direction, ref, delta, position) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          widthimg2: ref.style.width, // Atualiza a largura no estado
+                          heightimg2: ref.style.height, // Atualiza a altura no estado
+                          positionimg2fH: position.x, // Atualiza a posição X no estado
+                          positionimg2fV: position.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                    >
+                      <img src={footerData.image2f} alt="image-footer-2" />
+                    </Rnd>
+                  )}
+                  {footerData.image3f && (
+                    <Rnd
+                      position={{
+                        x: footerData.positionimg3fH,
+                        y: footerData.positionimg3fV,
+                      }}
+                      size={{
+                        width: footerData.widthimg3 || 100,
+                        height: footerData.heightimg3 || "auto",
+                      }}
+                      minWidth={50}
+                      minHeight={50}
+                      bounds="parent"
+                      enableResizing="true"
+                      onDragStop={(e, d) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          positionimg3fH: d.x, // Atualiza a posição X no estado
+                          positionimg3fV: d.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                      onResizeStop={(e, direction, ref, delta, position) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          widthimg3: ref.style.width, // Atualiza a largura no estado
+                          heightimg3: ref.style.height, // Atualiza a altura no estado
+                          positionimg3fH: position.x, // Atualiza a posição X no estado
+                          positionimg3fV: position.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                    >
+                      <img src={footerData.image3f} alt="image-footer-3" />
+                    </Rnd>
+                  )}
+                  {footerData.image4f && (
+                    <Rnd
+                      position={{
+                        x: footerData.positionimg4fH,
+                        y: footerData.positionimg4fV,
+                      }}
+                      size={{
+                        width: footerData.widthimg4 || 100,
+                        height: footerData.heightimg4 || "auto",
+                      }}
+                      minWidth={50}
+                      minHeight={50}
+                      bounds="parent"
+                      enableResizing="true"
+                      onDragStop={(e, d) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          positionimg4fH: d.x, // Atualiza a posição X no estado
+                          positionimg4fV: d.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                      onResizeStop={(e, direction, ref, delta, position) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          widthimg4: ref.style.width, // Atualiza a largura no estado
+                          heightimg4: ref.style.height, // Atualiza a altura no estado
+                          positionimg4fH: position.x, // Atualiza a posição X no estado
+                          positionimg4fV: position.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                    >
+                      <img src={footerData.image4f} alt="image-footer-4" />
+                    </Rnd>
+                  )}
+
+                  {footerData.tel && (
+                    <Rnd
+                      position={{
+                        x: footerData.positiontelfH,
+                        y: footerData.positiontelfV,
+                      }}
+                      size={{ height: "auto" }}
+                      minWidth={160}
+                      maxHeight={25}
+                      bounds="parent"
+                      enableResizing={false}
+                      onDragStop={(e, d) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          positiontelfH: d.x, // Atualiza a posição X no estado
+                          positiontelfV: d.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                      style={{
+                        cursor: "move",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FontAwesomeIcon
+                          icon={getSocialIcon(footerData.logotel)}
+                          id="logotel"
+                          style={{
+                            fontSize: "30px",
+                            marginRight: "10px",
+                            color: footerData.logoTelColor || "green",
+                          }}
+                        />
+                        <p
+                          style={{
+                            position: "relative",
+                            fontFamily: footerData?.telfont || "Arial",
+                            fontSize: footerData?.telfontSize || "16px",
+                            width: "auto",
+                            color: footerData?.telColor || "black",
+                          }}
+                        >
+                          {footerData.tel}
+                        </p>
+                      </div>
+                    </Rnd>
+                  )}
+                  {footerData.right && (
+                    <Rnd
+                      position={{
+                        x: footerData.positionRightH,
+                        y: footerData.positionRightV,
+                      }}
+                      size={{
+                        height: footerData.heightright || "auto",
+                        width: footerData.widthright || "100px",
+                      }}
+                      minWidth={160}
+                      bounds="parent"
+                      enableResizing={true}
+                      onDragStop={(e, d) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          positionRightH: d.x, // Atualiza a posição X no estado
+                          positionRightV: d.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                      onResizeStop={(e, direction, ref, delta, position) => {
+                        setFooterData((prevData) => ({
+                          ...prevData,
+                          widthright: ref.style.width, // Atualiza a largura no estado
+                          heightright: ref.style.height, // Atualiza a altura no estado
+                          positionRightH: position.x, // Atualiza a posição X no estado
+                          positionRightV: position.y, // Atualiza a posição Y no estado
+                        }));
+                      }}
+                      style={{
+                        cursor: "move",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <p
+                          style={{
+                            padding: 5,
+                            borderRadius: 10,
+                            wordBreak: "break-word",
+                            whiteSpace: "normal",
+                            width: "400px", // Define the square width
+                            height: "150px", // Define the square height
+                            overflow: "hidden", // Prevent overflow outside the square
+                            display: "flex",
+                            alignItems: "center", // Center vertically
+                            justifyContent: "center", // Center horizontally
+                            textAlign: "center", // Center text in each line
+                            fontFamily: footerData.rightFont,
+                            fontSize: footerData.rightFontSize,
+                            color: footerData.rightColor,
+                            border: "1px solid black", // Optional: adds a visible border for the square
+                          }}
+                        >
+                          {footerData.right}
+                        </p>
+                      </div>
+                    </Rnd>
+                  )}
+
                   <Rnd
                     position={{
-                      x: footerData.positiontelfH,
-                      y: footerData.positiontelfV,
+                      x: footerData.positionsocial1fH,
+                      y: footerData.positionsocial1fV,
                     }}
                     size={{ height: "auto" }}
-                    minWidth={160}
-                    maxHeight={25}
                     bounds="parent"
                     enableResizing={false}
                     onDragStop={(e, d) => {
                       setFooterData((prevData) => ({
                         ...prevData,
-                        positiontelfH: d.x, // Atualiza a posição X no estado
-                        positiontelfV: d.y, // Atualiza a posição Y no estado
+                        positionsocial1fH: d.x, // Atualiza a posição X no estado
+                        positionsocial1fV: d.y, // Atualiza a posição Y no estado
                       }));
                     }}
-                    style={{
-                      cursor: "move",
-                    }}
+                    style={{ cursor: "move" }}
                   >
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <FontAwesomeIcon
-                        icon={getSocialIcon(footerData.logotel)}
-                        id="logotel"
+                        icon={getSocialIcon(footerData.socialIcon)}
                         style={{
                           fontSize: "30px",
                           marginRight: "10px",
-                          color: footerData.logoTelColor || "green",
+                          color: footerData.logoColor,
                         }}
                       />
                       <p
                         style={{
-                          position: "relative",
-                          fontFamily: footerData?.telfont || "Arial",
-                          fontSize: footerData?.telfontSize || "16px",
-                          width: "auto",
-                          color: footerData?.telColor || "black",
+                          fontSize: "16px",
+                          margin: 0,
+                          color: footerData.textColor,
                         }}
                       >
-                        {footerData.tel}
+                        {footerData.userInput}
                       </p>
                     </div>
                   </Rnd>
-                )}
-                {footerData.right && (
+
                   <Rnd
                     position={{
-                      x: footerData.positionRightH,
-                      y: footerData.positionRightV,
+                      x: footerData.positionsocial2fH,
+                      y: footerData.positionsocial2fV,
                     }}
                     size={{ height: "auto" }}
-                    minWidth={160}
-                    maxHeight={25}
                     bounds="parent"
                     enableResizing={false}
                     onDragStop={(e, d) => {
                       setFooterData((prevData) => ({
                         ...prevData,
-                        positionRightH: d.x, // Atualiza a posição X no estado
-                        positionRightV: d.y, // Atualiza a posição Y no estado
+                        positionsocial2fH: d.x, // Atualiza a posição X no estado
+                        positionsocial2fV: d.y, // Atualiza a posição Y no estado
                       }));
                     }}
-                    style={{
-                      cursor: "move",
-                    }}
+                    style={{ cursor: "move" }}
                   >
                     <div style={{ display: "flex", alignItems: "center" }}>
+                      <FontAwesomeIcon
+                        icon={getSocialIcon(footerData.socialIcon2)}
+                        style={{
+                          fontSize: "30px",
+                          marginRight: "10px",
+                          color: footerData.logoColor2,
+                        }}
+                      />
                       <p
                         style={{
-                          position: "relative",
-                          fontFamily: footerData.rightFont,
-                          fontSize: footerData.rightFontSize,
-                          color: footerData.rightColor,
+                          fontSize: "16px",
+                          margin: 0,
+                          color: footerData.textColor2,
                         }}
                       >
-                        {footerData.right}
+                        {footerData.userInput2}
                       </p>
                     </div>
                   </Rnd>
-                )}
-
-                <Rnd
-                  position={{
-                    x: footerData.positionsocial1fH,
-                    y: footerData.positionsocial1fV,
-                  }}
-                  size={{ height: "auto" }}
-                  bounds="parent"
-                  enableResizing={false}
-                  onDragStop={(e, d) => {
-                    setFooterData((prevData) => ({
-                      ...prevData,
-                      positionsocial1fH: d.x, // Atualiza a posição X no estado
-                      positionsocial1fV: d.y, // Atualiza a posição Y no estado
-                    }));
-                  }}
-                  style={{ cursor: "move" }}
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FontAwesomeIcon
-                      icon={getSocialIcon(footerData.socialIcon)}
-                      style={{
-                        fontSize: "30px",
-                        marginRight: "10px",
-                        color: footerData.logoColor,
-                      }}
-                    />
-                    <p
-                      style={{
-                        fontSize: "16px",
-                        margin: 0,
-                        color: footerData.textColor,
-                      }}
-                    >
-                      {footerData.userInput}
-                    </p>
-                  </div>
-                </Rnd>
-
-                <Rnd
-                  position={{
-                    x: footerData.positionsocial2fH,
-                    y: footerData.positionsocial2fV,
-                  }}
-                  size={{ height: "auto" }}
-                  bounds="parent"
-                  enableResizing={false}
-                  onDragStop={(e, d) => {
-                    setFooterData((prevData) => ({
-                      ...prevData,
-                      positionsocial2fH: d.x, // Atualiza a posição X no estado
-                      positionsocial2fV: d.y, // Atualiza a posição Y no estado
-                    }));
-                  }}
-                  style={{ cursor: "move" }}
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FontAwesomeIcon
-                      icon={getSocialIcon(footerData.socialIcon2)}
-                      style={{
-                        fontSize: "30px",
-                        marginRight: "10px",
-                        color: footerData.logoColor2,
-                      }}
-                    />
-                    <p
-                      style={{
-                        fontSize: "16px",
-                        margin: 0,
-                        color: footerData.textColor2,
-                      }}
-                    >
-                      {footerData.userInput2}
-                    </p>
-                  </div>
-                </Rnd>
-              </footer>
+                </footer>
+              </div>
             </div>
           </div>
           {/*  */}
         </div>
       </div>
-
+      {isLoading && (
+        <div className="loader-overlay">
+          <div className="loader"></div>
+        </div>
+      )}
       <Footer />
     </>
   );
