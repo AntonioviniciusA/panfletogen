@@ -574,14 +574,23 @@ const Templetemercado = () => {
     if (cards) {
       setCards(cards);
     }
-    if (footerData) {
-      setFooterData(footerData);
-    }
     if (cardsExtension) {
       setCardsExtension(cardsExtension);
     }
+    if (footerData) {
+      setFooterData(footerData);
+    }
     if (cardcolorData) {
       setCardColorData(cardcolorData);
+    }
+    if (bgtypeheader) {
+      setBgTypeHeader(bgtypeheader);
+    }
+    if (bgtypeFooter) {
+      setBgTypeHeader(bgtypeFooter);
+    }
+    if (pageBgColorData) {
+      setPageBgColorData(pageBgColorData);
     }
   };
   {
