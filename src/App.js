@@ -5,6 +5,7 @@ import "./style.css";
 import "./tailwind.config";
 import Menu from "./Pages/Menu";
 import Templetemercado from "./Pages/Templetemercado";
+import CertificateGenerator from "./Pages/Certificado";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Menu />} />
         <Route path="/mercado-templete" element={<Templetemercado />} />
+        <Route path="/certificado" element={<CertificateGenerator />} />
       </Routes>
     </Router>
   );
