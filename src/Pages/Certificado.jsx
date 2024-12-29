@@ -92,8 +92,26 @@ const CertificateGenerator = () => {
   };
 
   const generateCertificate = () => {
-    const { name, course } = attributes;
-    if (!name || !course) {
+    const {
+      name,
+      course,
+      birthDate,
+      nationality,
+      id,
+      totalHours,
+      startDate,
+      endDate,
+    } = attributes;
+    if (
+      !name ||
+      !course ||
+      !birthDate ||
+      !nationality ||
+      !id ||
+      !totalHours ||
+      !startDate ||
+      !endDate
+    ) {
       alert("Por favor, preencha os campos obrigatórios (Nome e Curso).");
       return;
     }
@@ -101,6 +119,13 @@ const CertificateGenerator = () => {
     const doc = new Document({
       sections: [
         {
+          properties: {
+            page: {
+              size: {
+                orientation: "landscape", // Define a orientação como paisagem
+              },
+            },
+          },
           children: [
             new Paragraph({
               children: [
@@ -151,8 +176,24 @@ const CertificateGenerator = () => {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: `de nacionalidade brasileira, nascido(a) no dia ${attributes.birthDate}, natural de ${attributes.nationality}, documento de identificação nº ${attributes.id}, por haver concluído com aproveitamento o curso de ${attributes.course} com a carga horária total de ${attributes.totalHours}, realizado no período de ${attributes.startDate} a ${attributes.endDate}, e outorga-lhe o presente Certificado.\n\nAtividades de acordo com a Resolução CES/CNE nº 1 de 06/04/2018.Taguatinga - DF, 27 de dezembro de 2022.`,
+                  text: `de nacionalidade brasileira, nascido(a) no dia ${attributes.birthDate}, natural de ${attributes.nationality}, documento de identificação nº ${attributes.id}, por haver concluído com aproveitamento o curso de ${attributes.course} com a carga horária total de ${attributes.totalHours}, realizado no período de ${attributes.startDate} a ${attributes.endDate}, e outorga-lhe o presente Certificado.`,
                   size: 24,
+                }),
+              ],
+              alignment: "center",
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: "\n\n",
+                }),
+              ],
+              alignment: "center",
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: "Atividades de acordo com a Resolução CES/CNE nº 1 de 06/04/2018.Taguatinga - DF, 27 de dezembro de 2022.",
                 }),
               ],
               alignment: "center",
@@ -217,7 +258,7 @@ const CertificateGenerator = () => {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: "     Secretário Geral                                                                                           Diretora Geral",
+                  text: "               Secretário Geral                                                                                                                              Diretora Geral",
                   size: 24,
                 }),
               ],
@@ -225,7 +266,7 @@ const CertificateGenerator = () => {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: `${attributes.secretary}                                                                                  ${attributes.directors} `,
+                  text: `          ${attributes.secretary}                                                                                                                    ${attributes.directors} `,
                   size: 24,
                 }),
               ],
