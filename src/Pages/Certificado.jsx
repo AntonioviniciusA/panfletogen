@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Document, Packer, Paragraph, TextRun } from "docx";
 import { saveAs } from "file-saver";
 import mammoth from "mammoth";
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 const CertificateGenerator = () => {
   const [attributes, setAttributes] = useState({
@@ -30,7 +31,7 @@ const CertificateGenerator = () => {
       course: /CURSO:\s*(.+)/,
       birthDate: /DATA DE NASCIMENTO:\s*(\d{2}\/\d{2}\/\d{4})/,
       nationality: /NATURALIDADE:\s*(.+)/,
-      id: /IDENTIDADE:\s*(.+)/,
+      id: /IDENTIDADE:\s*(.+)\s*(.+)/,
       totalHours: /CARGA HORÁRIA TOTAL:\s*(.+)/,
       startDate: /DATA DO INGRESSO:\s*(.+)/,
       endDate: /DATA DA CONCLUSÃO:\s*(.+)/,
@@ -126,7 +127,30 @@ const CertificateGenerator = () => {
               },
             },
           },
+
           children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: "\n",
+                  bold: true,
+                  size: 60, // Tamanho correspondente a 35px no Word
+                  font: "Lucida Handwriting",
+                }),
+              ],
+              alignment: "center",
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: "\n",
+                  bold: true,
+                  size: 30, // Tamanho correspondente a 35px no Word
+                  font: "Lucida Handwriting",
+                }),
+              ],
+              alignment: "center",
+            }),
             new Paragraph({
               children: [
                 new TextRun({
@@ -140,9 +164,11 @@ const CertificateGenerator = () => {
             }),
             new Paragraph({
               children: [
-                new TextRun(
-                  `A Diretora Geral da Faculdade Cerrado – FACE, no uso de suas atribuições e tendo em vista a conclusão do Curso de Pós-Graduação, confere o Certificado a,\n\n`
-                ),
+                new TextRun({
+                  text: "A Diretora Geral da Faculdade Cerrado – FACE, no uso de suas atribuições e tendo em vista a conclusão do Curso de Pós-Graduação, confere o Certificado a,",
+                  font: "Ariel",
+                  size: 24,
+                }),
               ],
               alignment: "center",
             }),
@@ -150,6 +176,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "\n\n",
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -169,6 +196,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "\n\n",
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -178,6 +206,7 @@ const CertificateGenerator = () => {
                 new TextRun({
                   text: `de nacionalidade brasileira, nascido(a) no dia ${attributes.birthDate}, natural de ${attributes.nationality}, documento de identificação nº ${attributes.id}, por haver concluído com aproveitamento o curso de ${attributes.course} com a carga horária total de ${attributes.totalHours}, realizado no período de ${attributes.startDate} a ${attributes.endDate}, e outorga-lhe o presente Certificado.`,
                   size: 24,
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -186,6 +215,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "\n\n",
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -194,6 +224,8 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "Atividades de acordo com a Resolução CES/CNE nº 1 de 06/04/2018.Taguatinga - DF, 27 de dezembro de 2022.",
+                  font: "Ariel",
+                  size: 24,
                 }),
               ],
               alignment: "center",
@@ -202,6 +234,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "\n\n",
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -211,6 +244,7 @@ const CertificateGenerator = () => {
                 new TextRun({
                   text: "Taguatinga - DF, 27 de dezembro de 2022.",
                   size: 28,
+                  font: "Ariel",
                 }),
               ],
               alignment: "right",
@@ -219,6 +253,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "\n\n",
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -227,6 +262,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "\n\n",
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -235,6 +271,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "\n\n",
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -243,6 +280,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "__________________________________________",
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -251,6 +289,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: "\n\n",
+                  font: "Ariel",
                 }),
               ],
               alignment: "center",
@@ -260,6 +299,7 @@ const CertificateGenerator = () => {
                 new TextRun({
                   text: "               Secretário Geral                                                                                                                              Diretora Geral",
                   size: 24,
+                  font: "Ariel",
                 }),
               ],
             }),
@@ -267,6 +307,7 @@ const CertificateGenerator = () => {
               children: [
                 new TextRun({
                   text: `          ${attributes.secretary}                                                                                                                    ${attributes.directors} `,
+                  font: "Ariel",
                   size: 24,
                 }),
               ],
