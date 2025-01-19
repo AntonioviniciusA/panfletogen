@@ -4,5 +4,11 @@
     "name": "Mercado templente",
     "image": "img-c/mercado-template.jpg",
     "link": "/mercado-templete"
+  },
+  {
+    "id": "81890",
+    "name": "Stories promocional",
+    "image": "",
+    "link": "/post"
   }
 ]
