@@ -10,11 +10,11 @@ import setadireita from "../img/Seta para a direita.png";
 const Menu = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-  useEffect(() => {
-    fetch("https://flyergen.netlify.app/templetes.json")
-      .then((Response) => Response.json())
-      .then(setData);
-  });
+  // useEffect(() => {
+  //   fetch("https://flyergen.netlify.app/templetes.json")
+  //     .then((Response) => Response.json())
+  //     .then(setData);
+  // });
 
   const carousel = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
@@ -85,8 +85,7 @@ const Menu = () => {
         </div>
         <a
           href="#carousel"
-          className="bg-color2 text-white kanit-regular  px-4 py-1 m-2 rounded-full"
-        >
+          className="bg-color2 text-white kanit-regular  px-4 py-1 m-2 rounded-full">
           GERADOR
         </a>
       </div>
@@ -94,8 +93,7 @@ const Menu = () => {
         <div className="xl:w-2/4">
           <h3
             className="kadwa-bold color2 xl:text-right xl:text-4xl md:flex md:flex-col md:text-center md:m-1 md:my-4
-          text-center"
-          >
+          text-center">
             ECONOMIZE TEMPO E SIMPLIFIQUE <br />
             SEU TRABALHO USANDO NOSSA <br />
             FERRAMENTA E GERE AGORA MESMO FLYER/PANFLETOS
@@ -107,8 +105,7 @@ const Menu = () => {
       </div>
       <div
         id="carousel"
-        className="bg-color2 h-fit w-full flex flex-col items-center rounded-2xl justify-center gap-4"
-      >
+        className="bg-color2 h-fit w-full flex flex-col items-center rounded-2xl justify-center gap-4">
         <div>
           <h2 className="bg-color1 text-white text-xl px-4 py-1 m-2 rounded-full">
             Escolha um modelo
@@ -117,15 +114,13 @@ const Menu = () => {
         <div className="container-carousel bg-color1opct40 xl:flex xl:w-full xl:justify-center w-full h-fit flex flex-col items-center">
           <button
             className="left-28 w-8 h-8 absolute "
-            onClick={handleLeftClick}
-          >
+            onClick={handleLeftClick}>
             <img src={setaesquerda} alt="" />
           </button>
           <div
             className="carousel overflow-x-auto scroll-smooth flex w-3/4 h-fit
              "
-            ref={carousel}
-          >
+            ref={carousel}>
             {data.map((item) => {
               const { id, name, image, link } = item;
               const pageForm = () => {
@@ -136,8 +131,7 @@ const Menu = () => {
                   className="item bg-color1 p-2 pb-0 sm:w-10/12  flex flex-col sm:justify-center w-3/4  lg:w-1/4 h-fit rounded-lg gap-3
                    m-10 flex-none
                 "
-                  key={id}
-                >
+                  key={id}>
                   <div className="image m-3">
                     <img src={image} alt={name} />
                   </div>
@@ -146,8 +140,7 @@ const Menu = () => {
                     <p className="name">{name}</p>
                     <button
                       className="bg-color1 rounded-full button p-3"
-                      onClick={pageForm}
-                    >
+                      onClick={pageForm}>
                       Abrir modelo
                     </button>
                   </div>
@@ -178,8 +171,7 @@ const Menu = () => {
               borderRadius: "50%",
               backgroundColor: currentPage === index ? "blue" : "gray",
               cursor: "pointer",
-            }}
-          ></span>
+            }}></span>
         ))}
       </div>
       <div className="w-full xl:flex-row flex items-center xl:h-fit h-fit xl:justify-around flex-col gap-2 my-8">

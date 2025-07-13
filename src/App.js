@@ -8,6 +8,7 @@ import Templetemercado from "./Pages/Templetemercado";
 import CertificateGenerator from "./Pages/Certificado";
 import InstagramPostGenerator from "./Pages/InstagramPostGenerator";
 import Teste from "./Pages/Teste";
+import ImageConvention from "./Pages/ImageConvention";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/certificado" element={<CertificateGenerator />} />
         <Route path="/post" element={<InstagramPostGenerator />} />
         <Route path="/teste" element={<Teste />} />
+        <Route path="/image-converter" element={<ImageConvention />} />
       </Routes>
     </Router>
   );
