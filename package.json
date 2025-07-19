@@ -15,6 +15,7 @@
     "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
+    "lucide-react": "^0.525.0",
     "mammoth": "^1.8.0",
     "my-react-app": "file:",
     "netlify-identity-widget": "^1.9.2",
