@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "@fontsource/lobster": "^5.1.0",
     "@fontsource/open-sans": "^5.1.0",
     "@fontsource/roboto": "^5.1.0",
@@ -34,6 +36,7 @@
     "recharts": "^2.12.7",
     "styled-components": "^6.1.14",
     "tailwindcss": "^3.4.8",
+    "wavesurfer.js": "^7.10.1",
     "xlsx": "^0.18.5"
   },
   "scripts": {

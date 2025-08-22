@@ -7,7 +7,7 @@ import Menu from "./Pages/Menu";
 import Templetemercado from "./Pages/Templetemercado";
 import CertificateGenerator from "./Pages/Certificado";
 import InstagramPostGenerator from "./Pages/InstagramPostGenerator";
-import Teste from "./Pages/Teste";
+import EditAudio from "./Pages/EditAudio";
 import ImageConvention from "./Pages/ImageConvention";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/mercado-templete" element={<Templetemercado />} />
         <Route path="/certificado" element={<CertificateGenerator />} />
         <Route path="/post" element={<InstagramPostGenerator />} />
-        <Route path="/teste" element={<Teste />} />
+        <Route path="/edit-audio" element={<EditAudio />} />
         <Route path="/image-converter" element={<ImageConvention />} />
       </Routes>
     </Router>
