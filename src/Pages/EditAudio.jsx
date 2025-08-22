@@ -91,7 +91,7 @@ export default function AudioEditor() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="text-center pt-8 mb-8">
         <h1 className="text-4xl font-bold text-blue-900 mb-2">
-          Editor de Áudio da laninha
+          Editor de Áudio
         </h1>
         <p className="text-blue-700 text-lg">sla oq por aq vei</p>
       </div>
